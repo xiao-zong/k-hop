@@ -1,0 +1,356 @@
+%JAP or Advances in Applied Probability
+%Combinatorics, Probability and Computing
+%Theory of Probability and its application
+
+
+% Motivation/Introduction to k-hop: device-to-device and/or station-to-device communications in cellular networks, 
+
+
+\documentclass[12pt]{article}
+
+\usepackage{amsfonts}
+%\usepackage{newtxmath}
+\usepackage{bm}
+\usepackage{enumerate} 
+\usepackage{amssymb,amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{accents} 
+
+\usepackage{dsfont}
+
+\usepackage{stackengine}
+
+\usepackage{accents} 
+
+\let\Horig\H
+
+\usepackage{tikz}
+\usetikzlibrary{automata,topaths}
+\usetikzlibrary{shapes}
+\usetikzlibrary{plotmarks}
+ 
+% \usepackage{wasysym} 
+\usepackage{float} 
+
+\usepackage{color} 
+\definecolor{lightblue}{rgb}{0,0.2,0.5}
+\usepackage[colorlinks=true, urlcolor=lightblue,linkcolor=lightblue, citecolor=lightblue]{hyperref}
+
+\DeclareMathAlphabet{\eufrak}{U}{}{}{} 
+\SetMathAlphabet\eufrak{normal}{U}{euf}{m}{n}
+\SetMathAlphabet\eufrak{bold}{U}{euf}{b}{n}
+
+
+% \usepackage{eucal}
+
+% \usepackage{epsfig,latexsym}
+
+% \usepackage{graphicx,amsmath,amssymb,latexsym,psfrag}
+
+% \usepackage[polish]{babel}
+
+% \usepackage{graphics,graphicx,amsmath}
+
+\oddsidemargin=0cm \textwidth=16.5cm \textheight=23cm
+\topmargin=-1.5cm
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\IP}{\mathbb{P}}
+%\newcommand{\bone}{\bone}
+\newcommand{\bone}{{\bf 1}}
+% \newcommand{\E}{\mathrm{E}}
+
+\newcommand{\supp}{\mathrm{supp}}
+
+%% \renewcommand{\le}{\leqslant}
+%% \renewcommand{\leq}{\leqslant}
+
+%% \renewcommand{\ge}{\geqslant}
+%% \renewcommand{\geq}{\geqslant}
+
+\newcommand{\conv}{\mathrm{conv}}
+\newcommand{\card}{\mathrm{card}}
+\newcommand{\grad}{\mathrm{grad}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\bbf}{{\mathbf{f}}}
+\newcommand{\bT}{\mathbb{T}}
+\newcommand{\TP}{\widetilde{P}}
+\newcommand{\tgi}{t\rightarrow \infty}
+\newcommand{\ngi}{n\rightarrow \infty}
+\newcommand{\algi}{\alpha \rightarrow \infty}
+\newcommand{\xgi}{x\rightarrow \infty}
+\newcommand{\oJ}{\overline{J}}
+\newcommand{\og}{\overline{\gamma}}
+\newcommand{\oL}{\overline{\Lambda}}
+\newcommand{\EPSI}{\varepsilon}
+
+\newcommand{\disc}{\mathrm{disc}}
+\newcommand{\bZ}{\bold{Z}}
+\newcommand{\bz}{\bold{z}}
+\newcommand{\dtv}{{d_{\rm TV}}}
+\newcommand{\dk}{{d_{\rm K}}}
+\newcommand{\dw}{{d_{\rm W}}}
+
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{assumption}[prop]{Assumption}
+\newtheorem{lemma}[prop]{Lemma}
+\newtheorem{definition}[prop]{Definition}
+\newtheorem{corollary}[prop]{Corollary}
+\newtheorem{thm}[prop]{Theorem}
+\newtheorem{remark}[prop]{Remark}
+\newtheorem{example}[prop]{Example}
+
+% To define \widebar
+\makeatletter
+\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+\newcommand*\widebar[1]{%
+  \begingroup
+  \def\mathaccent##1##2{%
+    \rel@kern{0.8}%
+    \overline{\rel@kern{-0.8}\macc@nucleus\rel@kern{0.2}}%
+    \rel@kern{-0.2}%
+  }%
+  \macc@depth\@ne
+  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+  \macc@set@skewchar\relax
+  \let\mathaccentV\macc@nested@a
+  \macc@nested@a\relax111{#1}%
+  \endgroup
+}
+\makeatother
+
+\makeatletter
+\DeclareRobustCommand\widecheck[1]{{\mathpalette\@widecheck{#1}}}
+\def\@widecheck#1#2{%
+    \setbox\z@\hbox{\m@th$#1#2$}%
+    \setbox\tw@\hbox{\m@th$#1%
+       \widehat{%
+          \vrule\@width\z@\@height\ht\z@
+          \vrule\@height\z@\@width\wd\z@}$}%
+    \dp\tw@-\ht\z@
+    \@tempdima\ht\z@ \advance\@tempdima2\ht\tw@ \divide\@tempdima\thr@@
+    \setbox\tw@\hbox{%
+       \raise\@tempdima\hbox{\scalebox{1}[-1]{\lower\@tempdima\box
+\tw@}}}%
+    {\ooalign{\box\tw@ \cr \box\z@}}}
+\makeatother
+
+%\def\bone{\vmathbb{1}}
+\def\bp{\noindent{\it Proof.}\ }
+\def\ep{\hfill $\Box$}
+\newcommand{\bt}{\mathbf{t}}
+\def\({\left(}
+\def\){\right)}
+% \theoremstyle{definition}
+% \newtheorem{definition}{Definicja}[section]
+\newcommand{\cov}{\mathrm{Cov}}
+\def\[{\left[}
+\def\]{\right]}
+\def\real{{\mathord{\mathbb R}}}
+\def\N{{\mathord{\mathbb N}}}
+\def\Dom{\mathrm{Dom}}
+\def\Var{\mathrm{Var}}
+% \newcommand{\p}{\mathbb{P}}
+\newcommand{\pr}{\mathbb{P}}
+\def\P{\mathbb{P}}
+% \newcommand{\R}{\mathbb{R}}
+%\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+% \newcommand{\C}{\mathbb{C}}
+% \newcommand{\E}{\mathbb{E}}
+
+\newenvironment{Proof}{\removelastskip\par\medskip
+\noindent{\em Proof.} \rm}{\penalty-20\null\hfill$\square$\par\medbreak}
+
+\newenvironment{Proofx}{\removelastskip\par\medskip
+\noindent{\em Proof.} \rm}{\par}
+
+\newenvironment{Proofy}{\removelastskip\par\medskip
+\noindent{\em Proof} \rm}{\penalty-20\null\hfill$\square$\par\medbreak}
+
+\allowdisplaybreaks
+
+\numberwithin{equation}{section}
+
+% \usepackage{refcheck}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% for drawing pictures by tikz
+
+\usepackage{graphicx}
+\usepackage{flushend,cuted}
+\usepackage{bm}
+\usepackage{tabularx}
+%\usepackage{color}
+\usepackage{indentfirst}
+\usepackage{amssymb}
+\usepackage{xparse}
+\usepackage{tikz}
+\usepackage{mdwlist}
+\usepackage{tkz-graph}
+
+\GraphInit[vstyle = Shade]
+\usetikzlibrary[intersections,
+positioning,
+petri,
+backgrounds,
+fit,
+decorations.pathmorphing,
+arrows,
+arrows.meta,
+bending,
+calc,
+intersections,
+through,
+backgrounds,
+shapes.geometric,
+quotes,
+matrix,
+trees,
+shapes.symbols,
+graphs,
+math,
+patterns,
+external,
+scopes,
+matrix,
+lindenmayersystems,
+shapes.callouts,
+shapes.misc,
+angles,
+shapes.arrows,
+shadings]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetikzlibrary{matrix,calc}
+
+\newcommand{\convexpath}[2]{
+[   
+    create hullnodes/.code={
+        \global\edef\namelist{#1}
+        \foreach [count=\counter] \nodename in \namelist {
+            \global\edef\numberofnodes{\counter}
+            \node at (\nodename) [draw=none,name=hullnode\counter] {};
+        }
+        \node at (hullnode\numberofnodes) [name=hullnode0,draw=none] {};
+        \pgfmathtruncatemacro\lastnumber{\numberofnodes+1}
+        \node at (hullnode1) [name=hullnode\lastnumber,draw=none] {};
+    },
+    create hullnodes
+]
+($(hullnode1)!#2!-90:(hullnode0)$)
+\foreach [
+    evaluate=\currentnode as \previousnode using \currentnode-1,
+    evaluate=\currentnode as \nextnode using \currentnode+1
+    ] \currentnode in {1,...,\numberofnodes} {
+-- ($(hullnode\currentnode)!#2!-90:(hullnode\previousnode)$)
+  let \p1 = ($(hullnode\currentnode)!#2!-90:(hullnode\previousnode) - (hullnode\currentnode)$),
+    \n1 = {atan2(\y1,\x1)},
+    \p2 = ($(hullnode\currentnode)!#2!90:(hullnode\nextnode) - (hullnode\currentnode)$),
+    \n2 = {atan2(\y2,\x2)},
+    \n{delta} = {-Mod(\n1-\n2,360)}
+  in 
+    {arc [start angle=\n1, delta angle=\n{delta}, radius=#2]}
+}
+-- cycle
+}
+
+\tikzset{hide labels/.style={every label/.append style={text opacity=0}}}
+
+\begin{document}
+\title{
+\huge
+Formulization of $k$-hop count in 1d disk model
+} 
+
+%\author{
+  %Qingwei Liu\footnote{\href{mailto:qingwei.liu@unumelb.edu.au}{qingwei.liu@unimelb.edu.au}}
+  %\qquad
+      %Nicolas Privault\footnote{
+%\href{mailto:nprivault@ntu.edu.sg}{nprivault@ntu.edu.sg}
+%}
+  %\\
+%\small
+%Division of Mathematical Sciences
+%\\
+%\small
+%School of Physical and Mathematical Sciences
+%\\
+%\small
+%Nanyang Technological University
+%\\
+%\small
+%21 Nanyang Link, Singapore 637371
+%}
+
+\maketitle
+%\section*{First approach: sum of indicators}
+For $r>0$, $k\ge2$, let $J_\ell:=[(\ell-1)r,\ell r]$ denote some intervals with equal length, $\ell=1,\dots,k$, called {\em cell}s.
+For each $\ell=1,\dots,k-1$, there exists a sequence of i.i.d. random variables $\{X^{(\ell)}_i\}_{i=1}^{m_\ell}$ with a common distribution $\mu_\ell$ such that $\mu_{\ell}(J_\ell)=1$.
+\footnote{\textcolor{red}{It is very likely that we need assume $\mu_{\ell}$ to be non-atomic.}}
+Denote 
+$$\mathcal{P}:=\cup_{\ell=1}^k\left\{X^{(\ell)}_{1},\dots,X^{(\ell)}_{m_\ell}\right\}\cup\{0,y\},$$ 
+with $y:=kr-\tau$ for some $\tau\in(0,r)$.
+
+
+In this article, we consider a random graph (also a random connection model) constructed as follows.
+For any two distinct points $u,w\in\mathcal{P}$, if $|u-w|\le r$, then they are connected by a random edge with probability $p\in(0,1)$ independently, denoted by $u\leftrightarrow w$.
+Let the resulting random graph be denoted by $\mathbb{G}_p(\mathcal{P})$.
+
+We consider the count $W_y$ of $k$-hop connecting $0$ to $y$, that is a path of order $k+1$, in the random connection model $\mathbb{G}_p(\mathcal{P})$.
+More formally, we can write it as 
+\begin{equation}
+	W_y=\sum_{\alpha_1\in[m_1],\dots,\alpha_{k-1}\in[m_{k-1}]}\bone(0\leftrightarrow X_{\alpha_1}^{(1)})\left(\prod_{\ell=1}^{k-2}\bone(X_{\alpha_\ell}^{(\ell)}\leftrightarrow X_{\alpha_{\ell+1}}^{(\ell+1)})\right)\bone(X_{\alpha_{k-1}}^{(k-1)}\leftrightarrow y).\label{def-khop1}
+\end{equation}
+
+%\section*{Second approach: functional form}
+Alternatively, we can also represent $\sigma_k$ in a functional form. 
+Let $h:\R_+\times\R_+\to[0,1]$ be a connection function defined as 
+\begin{equation}
+	h(u,w)=p\bone(|u-w|\le r).
+\end{equation}
+Denote $M:=m_1+m_2+\cdots+m_{k-1}+1$, and 
+$$
+L_\ell:=m_1+m_2+\cdots+m_{\ell},
+$$
+for $\ell=1,\dots,k-1$.
+% the total number of random points. 
+Let $\mathcal{Y}:=\{Y_{i,j}\}_{0\le i,j\le M}$ be a group of i.i.d. random variables uniformly distributed on $[0,1]$, independ of $\cup_{\ell=1}^k\left\{X^{(\ell)}_{1},\dots,X^{(\ell)}_{m_\ell}\right\}$.
+\begin{align}\label{def-khop2}
+	W_y&=\sum_{\alpha_1\in[m_1],\dots,\alpha_{k-1}\in[m_{k-1}]}f_y(X_{\alpha_1}^{(1)},\dots,X_{\alpha_{k-1}}^{(k-1)},\mathcal{Y}),
+\end{align}
+where
+\begin{align}
+	&f_y(x_{\alpha_1}^{(1)},\dots,x_{\alpha_{k-1}}^{(k-1)},\{u_{i,j}\}_{0\le i,j\le M})\nonumber\\
+	&:=\bone\left(u_{0,\alpha_1}\le h(0,x_{\alpha_1}^{(1)})\right)\times\bone\left(u_{\alpha_1,L_1+\alpha_2}\le h(x_{\alpha_1}^{(1)},x_{\alpha_2}^{(2)})\right)\times\cdots\nonumber\\
+	&\ \ \ \times\bone\left(u_{L_{k-3}+\alpha_{k-2},L_{k-2}+\alpha_{k-1}}\le h(x_{\alpha_{k-2}}^{(k-2)},x_{\alpha_{k-1}}^{(k-1)})\right)\times\bone\left(u_{L_{k-2}+\alpha_{k-1},M}\le h(x_{\alpha_{k-1}}^{(k-1)},y)\right).
+\end{align}
+
+For any $x^{(\ell)}\in J_{\ell}$, $\ell=1,\dots,k-1$, 
+a key observation is that with $y=kr-\tau$, %to ensure 
+\begin{equation*}
+	|x^{(1)}|\vee|x^{(2)}-x^{(1)}|\vee\cdots\vee|x^{(k-1)}-x^{(k-2)}|\vee|y-x^{(k-1)}|\le r,
+\end{equation*}
+is equivalent to
+\begin{equation}\label{obs1}
+	0\le r-x^{(1)} \le 2r-x^{(2)}\le \cdots \le (k-1)r-x^{(k-1)}\le \tau.
+\end{equation}
+Combining \eqref{obs1} with \eqref{def-khop1} and \eqref{def-khop2}, we can rewrite $W_y$ as
+\begin{equation}
+	%W_y=
+	\sum_{\alpha_1,\dots,\alpha_{k-1}}\bone\left(r-X^{(1)}_{\alpha_1}\le 2r- X^{(2)}_{\alpha_2}\le\cdots\le (k-1)r-X^{(k-1)}_{\alpha_{k-1}}\le\tau\right)Y_{0,\alpha_1}Y_{\alpha_1,L_1+\alpha_2}\cdots Y_{L_{k-2}+\alpha_{k-1},M}.
+\end{equation}
+In this form, it is clear that when $\mu_1=\mu_2=\cdots=\mu_{k-1}=\mu$, we can understand $W_y$ as a generalised $U$-statistics.
+
+
+\begin{remark}
+	To ensure a normal approximation, we only need to let some $m_\ell\to\infty$, not necessarily $m_1=\cdots=m_{k-1}=m$ and $m\to\infty$. 
+\end{remark}
+\begin{remark}
+  To ensure a Poisson approximation, there is no need to force $\E(W)$ converges to a constant $\mu$. 
+  Poisson approximation by Stein-Chen method does not require $\E(W)$ be a constant. In fact, $\E(W)$ can be large.
+\end{remark}
+\end{document}
