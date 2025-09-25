@@ -1,4 +1,5 @@
 # Possible journals to submit
+Nicolas mentioned that there would be a special issue of RSA, which we might submit to.
 1. JAP or Advance in Applied Probability
 2. Combinatorics, Probability and Computing
 3. Journal of Complexity?
