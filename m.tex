@@ -1,0 +1,590 @@
+%JAP or Advances in Applied Probability
+%Combinatorics, Probability and Computing
+%RSA special issue
+
+% Motivation/Introduction to k-hop: device-to-device and/or station-to-device communications in cellular networks, 
+
+
+\documentclass[12pt]{article}
+
+\usepackage{amsfonts}
+%\usepackage{newtxmath}
+\usepackage{bm}
+\usepackage{enumerate} 
+\usepackage{amssymb,amsmath}
+\usepackage{mathrsfs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{accents} 
+
+\usepackage{dsfont}
+
+\usepackage{stackengine}
+
+\usepackage{accents} 
+
+\let\Horig\H
+
+\usepackage{tikz}
+\usetikzlibrary{automata,topaths}
+\usetikzlibrary{shapes}
+\usetikzlibrary{plotmarks}
+ 
+% \usepackage{wasysym} 
+\usepackage{float} 
+
+\usepackage{color} 
+\definecolor{lightblue}{rgb}{0,0.2,0.5}
+\usepackage[colorlinks=true, urlcolor=lightblue,linkcolor=lightblue, citecolor=lightblue]{hyperref}
+
+\DeclareMathAlphabet{\eufrak}{U}{}{}{} 
+\SetMathAlphabet\eufrak{normal}{U}{euf}{m}{n}
+\SetMathAlphabet\eufrak{bold}{U}{euf}{b}{n}
+
+
+% \usepackage{eucal}
+
+% \usepackage{epsfig,latexsym}
+
+% \usepackage{graphicx,amsmath,amssymb,latexsym,psfrag}
+
+% \usepackage[polish]{babel}
+
+% \usepackage{graphics,graphicx,amsmath}
+
+\oddsidemargin=0cm \textwidth=16.5cm \textheight=23cm
+\topmargin=-1.5cm
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\IP}{\mathbb{P}}
+%\newcommand{\bone}{\bone}
+\newcommand{\bone}{{\bf 1}}
+% \newcommand{\E}{\mathrm{E}}
+
+\DeclareMathOperator{\var}{\mathrm{Var}}
+\newcommand{\ci}{{\cal I}}
+\newcommand{\law}{\mathscr{L}}
+\newcommand{\supp}{\mathrm{supp}}
+
+\newcommand{\Pn}{{\rm Pn}}
+%% \renewcommand{\le}{\leqslant}
+%% \renewcommand{\leq}{\leqslant}
+
+%% \renewcommand{\ge}{\geqslant}
+%% \renewcommand{\geq}{\geqslant}
+
+\newcommand{\conv}{\mathrm{conv}}
+\newcommand{\card}{\mathrm{card}}
+\newcommand{\grad}{\mathrm{grad}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\bbf}{{\mathbf{f}}}
+\newcommand{\bT}{\mathbb{T}}
+\newcommand{\TP}{\widetilde{P}}
+\newcommand{\tgi}{t\rightarrow \infty}
+\newcommand{\ngi}{n\rightarrow \infty}
+\newcommand{\algi}{\alpha \rightarrow \infty}
+\newcommand{\xgi}{x\rightarrow \infty}
+\newcommand{\oJ}{\overline{J}}
+\newcommand{\og}{\overline{\gamma}}
+\newcommand{\oL}{\overline{\Lambda}}
+\newcommand{\EPSI}{\varepsilon}
+
+\newcommand{\disc}{\mathrm{disc}}
+\newcommand{\bZ}{\bold{Z}}
+\newcommand{\bz}{\bold{z}}
+\newcommand{\dtv}{{d_{\rm TV}}}
+\newcommand{\dk}{{d_{\rm K}}}
+\newcommand{\dw}{{d_{\rm W}}}
+
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{assumption}[prop]{Assumption}
+\newtheorem{lemma}[prop]{Lemma}
+\newtheorem{definition}[prop]{Definition}
+\newtheorem{corollary}[prop]{Corollary}
+\newtheorem{thm}[prop]{Theorem}
+\newtheorem{remark}[prop]{Remark}
+\newtheorem{example}[prop]{Example}
+
+% To define \widebar
+\makeatletter
+\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+\newcommand*\widebar[1]{%
+  \begingroup
+  \def\mathaccent##1##2{%
+    \rel@kern{0.8}%
+    \overline{\rel@kern{-0.8}\macc@nucleus\rel@kern{0.2}}%
+    \rel@kern{-0.2}%
+  }%
+  \macc@depth\@ne
+  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+  \macc@set@skewchar\relax
+  \let\mathaccentV\macc@nested@a
+  \macc@nested@a\relax111{#1}%
+  \endgroup
+}
+\makeatother
+
+\makeatletter
+\DeclareRobustCommand\widecheck[1]{{\mathpalette\@widecheck{#1}}}
+\def\@widecheck#1#2{%
+    \setbox\z@\hbox{\m@th$#1#2$}%
+    \setbox\tw@\hbox{\m@th$#1%
+       \widehat{%
+          \vrule\@width\z@\@height\ht\z@
+          \vrule\@height\z@\@width\wd\z@}$}%
+    \dp\tw@-\ht\z@
+    \@tempdima\ht\z@ \advance\@tempdima2\ht\tw@ \divide\@tempdima\thr@@
+    \setbox\tw@\hbox{%
+       \raise\@tempdima\hbox{\scalebox{1}[-1]{\lower\@tempdima\box
+\tw@}}}%
+    {\ooalign{\box\tw@ \cr \box\z@}}}
+\makeatother
+
+%\def\bone{\vmathbb{1}}
+\def\bp{\noindent{\it Proof.}\ }
+\def\ep{\hfill $\Box$}
+\newcommand{\bt}{\mathbf{t}}
+\def\({\left(}
+\def\){\right)}
+% \theoremstyle{definition}
+% \newtheorem{definition}{Definicja}[section]
+\newcommand{\cov}{\mathrm{Cov}}
+\def\[{\left[}
+\def\]{\right]}
+\def\real{{\mathord{\mathbb R}}}
+\def\N{{\mathord{\mathbb N}}}
+\def\Dom{\mathrm{Dom}}
+\def\Var{\mathrm{Var}}
+% \newcommand{\p}{\mathbb{P}}
+\newcommand{\pr}{\mathbb{P}}
+\def\P{\mathbb{P}}
+% \newcommand{\R}{\mathbb{R}}
+%\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+% \newcommand{\C}{\mathbb{C}}
+% \newcommand{\E}{\mathbb{E}}
+
+\newenvironment{Proof}{\removelastskip\par\medskip
+\noindent{\em Proof.} \rm}{\penalty-20\null\hfill$\square$\par\medbreak}
+
+\newenvironment{Proofx}{\removelastskip\par\medskip
+\noindent{\em Proof.} \rm}{\par}
+
+\newenvironment{Proofy}{\removelastskip\par\medskip
+\noindent{\em Proof} \rm}{\penalty-20\null\hfill$\square$\par\medbreak}
+
+\allowdisplaybreaks
+
+\numberwithin{equation}{section}
+
+% \usepackage{refcheck}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% for drawing pictures by tikz
+
+\usepackage{graphicx}
+\usepackage{flushend,cuted}
+\usepackage{bm}
+\usepackage{tabularx}
+%\usepackage{color}
+\usepackage{indentfirst}
+\usepackage{amssymb}
+\usepackage{xparse}
+\usepackage{tikz}
+\usepackage{mdwlist}
+\usepackage{tkz-graph}
+
+\GraphInit[vstyle = Shade]
+\usetikzlibrary[intersections,
+positioning,
+petri,
+backgrounds,
+fit,
+decorations.pathmorphing,
+arrows,
+arrows.meta,
+bending,
+calc,
+intersections,
+through,
+backgrounds,
+shapes.geometric,
+quotes,
+matrix,
+trees,
+shapes.symbols,
+graphs,
+math,
+patterns,
+external,
+scopes,
+matrix,
+lindenmayersystems,
+shapes.callouts,
+shapes.misc,
+angles,
+shapes.arrows,
+shadings]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetikzlibrary{matrix,calc}
+
+\newcommand{\convexpath}[2]{
+[   
+    create hullnodes/.code={
+        \global\edef\namelist{#1}
+        \foreach [count=\counter] \nodename in \namelist {
+            \global\edef\numberofnodes{\counter}
+            \node at (\nodename) [draw=none,name=hullnode\counter] {};
+        }
+        \node at (hullnode\numberofnodes) [name=hullnode0,draw=none] {};
+        \pgfmathtruncatemacro\lastnumber{\numberofnodes+1}
+        \node at (hullnode1) [name=hullnode\lastnumber,draw=none] {};
+    },
+    create hullnodes
+]
+($(hullnode1)!#2!-90:(hullnode0)$)
+\foreach [
+    evaluate=\currentnode as \previousnode using \currentnode-1,
+    evaluate=\currentnode as \nextnode using \currentnode+1
+    ] \currentnode in {1,...,\numberofnodes} {
+-- ($(hullnode\currentnode)!#2!-90:(hullnode\previousnode)$)
+  let \p1 = ($(hullnode\currentnode)!#2!-90:(hullnode\previousnode) - (hullnode\currentnode)$),
+    \n1 = {atan2(\y1,\x1)},
+    \p2 = ($(hullnode\currentnode)!#2!90:(hullnode\nextnode) - (hullnode\currentnode)$),
+    \n2 = {atan2(\y2,\x2)},
+    \n{delta} = {-Mod(\n1-\n2,360)}
+  in 
+    {arc [start angle=\n1, delta angle=\n{delta}, radius=#2]}
+}
+-- cycle
+}
+
+\tikzset{hide labels/.style={every label/.append style={text opacity=0}}}
+
+\begin{document}
+\title{
+\huge
+Distributional approximation of $k$-hop count in 1d disk model
+} 
+
+\author{
+  Qingwei Liu\footnote{
+School of Mathematics and Statistics, 
+The University of Melbourne, 
+Parkville, VIC 3010, Australia. 
+Email: \href{mailto:qingwei.liu@unumelb.edu.au}{qingwei.liu@unimelb.edu.au}}
+  \qquad
+      Nicolas Privault\footnote{
+Division of Mathematical Sciences, 
+School of Physical and Mathematical Sciences, 
+Nanyang Technological University, 
+21 Nanyang Link, Singapore 637371. 
+Email: \href{mailto:nprivault@ntu.edu.sg}{nprivault@ntu.edu.sg}, 
+}
+}
+\maketitle
+\section{Formulization of $k$-hop count in 1d disk model}
+For $r>0$, $k\ge2$, let $J_\ell:=[(\ell-1)r,\ell r]$ denote some intervals with equal length, $\ell=1,\dots,k$, referred as {\em cells}.
+For each $\ell=1,\dots,k-1$, let $\mu_\ell$ be a non-atomic probability measure on $J_\ell$.
+For each $\ell=1,\dots,k-1$, let $\{X^{(\ell)}_i\}_{i=1}^{m_\ell}$, $m_\ell\ge1$, be a sequence of i.i.d. random variables with a common distribution $\mu_\ell$, and be independent of all others.
+Denote 
+$$\mathcal{P}:=\cup_{\ell=1}^{k-1}\left\{X^{(\ell)}_{1},\dots,X^{(\ell)}_{m_\ell}\right\}\cup\{0,y\},$$ 
+with $y:=kr-\tau$ for some $\tau\in(0,r)$.
+
+
+In this article, we consider a random graph (also a random connection model) constructed as follows.
+For any two distinct points $u,w\in\mathcal{P}$, if $|u-w|\le r$, then they are connected by a random edge with probability $p\in(0,1)$ independently, denoted by $u\leftrightarrow w$.
+Let the resulting random graph be denoted by $\mathbb{G}_p(\mathcal{P})$.
+
+We consider the count $W_y$ of $k$-hop connecting $0$ to $y$, that is a path of order $k+1$, in the random connection model $\mathbb{G}_p(\mathcal{P})$.
+More formally, we can write it as 
+\begin{equation}
+	W_y:=\sum_{\alpha\in[m_1]\times\cdots\times[m_{k-1}]}\bone(0\leftrightarrow X_{\alpha(1)}^{(1)})\left(\prod_{\ell=1}^{k-2}\bone\left(X_{\alpha(\ell)}^{(\ell)}\leftrightarrow X_{\alpha(\ell+1)}^{(\ell+1)}\right)\right)\bone(X_{\alpha(k-1)}^{(k-1)}\leftrightarrow y).\label{def-khop1}
+\end{equation}
+Whenever the context is clear, we suppress the subscript and denote $W_y$ simply by $W$.
+
+\subsection*{RCM and generalized $U$-statistics (functional approach)}
+Alternatively, we can also represent $W_y$ in a functional form. 
+Let $h:\R_+\times\R_+\to[0,1]$ be a connection function defined as 
+\begin{equation}
+	h(u,w)=p\bone(|u-w|\le r).
+\end{equation}
+Denote $M:=m_1+m_2+\cdots+m_{k-1}+1$, and $L_0:=0$,  
+$$
+L_\ell:=m_1+m_2+\cdots+m_{\ell},
+$$
+for $\ell=1,\dots,k-1$.
+% the total number of random points. 
+Let $\mathcal{U}:=\{U_{i,j}\}_{0\le i,j\le M}$ be a group of i.i.d. random variables uniformly distributed on $[0,1]$, independ of $\cup_{\ell=1}^{k-1}\left\{X^{(\ell)}_{1},\dots,X^{(\ell)}_{m_\ell}\right\}$.
+Hence, we can represent the $k$-hop count as
+\begin{align}\label{def-khop2}
+	W_y&=\sum_{\alpha\in[m_1]\times\cdots\times[m_{k-1}]}f_y(X_{\alpha(1)}^{(1)},\dots,X_{\alpha(k-1)}^{(k-1)},\mathcal{U}),
+\end{align}
+where
+\begin{align}
+	&f_y(x_{\alpha(1)}^{(1)},\dots,x_{\alpha(k-1)}^{(k-1)},\{u_{i,j}\}_{0\le i,j\le M})\nonumber\\
+	&:=\bone\left(u_{0,\alpha(1)}\le h(0,x_{\alpha(1)}^{(1)})\right)\times\bone\left(u_{\alpha(1),L_1+\alpha(2)}\le h(x_{\alpha(1)}^{(1)},x_{\alpha(2)}^{(2)})\right)\times\cdots\\
+	&\ \ \ \times\bone\left(u_{L_{k-3}+\alpha(k-2),L_{k-2}+\alpha(k-1)}\le h(x_{\alpha(k-2)}^{(k-2)},x_{\alpha(k-1)}^{(k-1)})\right)\times\bone\left(u_{L_{k-2}+\alpha(k-1),M}\le h(x_{\alpha(k-1)}^{(k-1)},y)\right).\nonumber
+\end{align}
+In this form, it is clear that when $\mu_1=\mu_2=\cdots=\mu_{k-1}=\mu$, we can understand $W_y$ as a generalised $U$-statistics, see \cite{LiuPrivault25b}.
+\subsection*{The second approach}
+For any $x^{(\ell)}\in J_{\ell}$, $\ell=1,\dots,k-1$, 
+a key observation is that with $y=kr-\tau$, %to ensure 
+\begin{equation*}
+	|x^{(1)}|\vee|x^{(2)}-x^{(1)}|\vee\cdots\vee|x^{(k-1)}-x^{(k-2)}|\vee|y-x^{(k-1)}|\le r,
+\end{equation*}
+is equivalent to
+\begin{equation}\label{obs1}
+	0\le r-x^{(1)} \le 2r-x^{(2)}\le \cdots \le (k-1)r-x^{(k-1)}\le \tau.
+\end{equation}
+For ease of notation, we denote $d:=k-1$, and also take 
+\begin{equation}
+	Z_{\alpha(\ell)}^{(\ell)}:=X_{\alpha(\ell)}^{(\ell)}-r\ell+\tau,
+\end{equation}
+for all $\alpha(\ell)\in[m_{\ell}]$ and $\ell=1,\dots,d.$
+%Let $\mathcal{Y}=\{Y_{i,j}\}_{0\le i,j\le M}$ denote a group of i.i.d. Bernoulli random variables with success probability $p$, independent of the collection $\{X^{(\ell)}_{\alpha(\ell)}:\alpha(\ell)\in[m_\ell], \ell\in[d]\}$. 
+
+Combining \eqref{obs1} with \eqref{def-khop1} and \eqref{def-khop2}, we can rewrite $W$ as
+\begin{equation}
+\label{obs2}
+W=\sum_{\alpha\in[m_1]\times\cdots\times[m_d]}I_{\alpha},
+\end{equation}
+with 
+\begin{align}
+	I_{\alpha}&:=\bone(0\leftrightarrow X_{\alpha(1)}^{(1)})\left(\prod_{\ell=1}^{d-1}\bone\left(X_{\alpha(\ell)}^{(\ell)}\leftrightarrow X_{\alpha(\ell+1)}^{(\ell+1)}\right)\right)\bone(X_{\alpha(d)}^{(d)}\leftrightarrow y)\label{khop-copy1}\\
+		  &=\bone\left(\tau\ge Z_{\alpha(1)}^{(1)}\ge Z^{(2)}_{\alpha(2)}\ge\cdots\ge Z^{(d)}_{\alpha(d)}\ge0\right)Y_{0,\alpha(1)}Y_{\alpha(1),L_1+\alpha(2)}\cdots Y_{L_{d-1}+\alpha(d),M},\label{khop-copy2}
+\end{align}
+and $\{Y_{i,j}\}_{0\le i,j\le M}$ is a group of i.i.d. Bernoulli random variable with success probability $p$, given by $Y_{i,j}:=\bone(U_{i,j}\le p)$.
+Because $X$'s and $U$'s are independent, we obtain that 
+\begin{equation}\label{k-hopmean}
+	\E(W_y)=m_1m_2\cdots m_d p^{d+1}\int_{r-\tau}^{r}\mu_1(\mathrm{d}x_1)\int_{2r-\tau}^{x_1+r}\mu_2(\mathrm{d}x_2)\cdots\int_{dr-\tau}^{x_{d-1}+r}\mu_{d}(\mathrm{d}x_d).
+\end{equation}
+\textcolor{red}{To make our results meaningful, we need assume that 
+\begin{equation}
+\int_{r-\tau}^{r}\mu_1(\mathrm{d}x_1)\int_{2r-\tau}^{x_1+r}\mu_2(\mathrm{d}x_2)\cdots\int_{dr-\tau}^{x_{d-1}+r}\mu_{d}(\mathrm{d}x_d)>0.
+\end{equation}
+}
+
+
+\begin{remark}
+	To ensure a normal approximation, we only need to let some $m_\ell\to\infty$, or equivalently $M\to\infty$, not necessarily $m_1=\cdots=m_{k-1}=m$ and $m\to\infty$. 
+\end{remark}
+\begin{remark}
+  To ensure a Poisson approximation, there is no need to force $\E(W)$ converges to a constant $\mu$. 
+  Poisson approximation by Stein-Chen method does not require $\E(W)$ be a constant. In fact, $\E(W)$ can be large.
+\end{remark}
+
+
+
+\section{Preliminaries}
+To study the Poisson approximation of the $k$-hop count $W$, we employ the well-established Stein-Chen method. 
+In particular, we first investigate the conditional distribution of $W$ given $I_\alpha=1$, denoted by $\law(W|I_\alpha=1)$, for arbitrary 
+$\alpha\in[m_1]\times\cdots\times[m_d]$.
+
+To this end, we first recall some background on size-bias coupling from \cite{LiuXia20}.
+
+\subsection*{Size bias}
+Size biasing has attracted considerable attention for many decades
+(see \cite{BHJ}, \cite{Ross11}, \cite{AGK19} and the references therein).
+In the case of sums of Bernoulli random variables, the size-biased
+distribution admits a particularly simple form. More precisely, let
+$\{X_i : i \in \ci\}$ be a family of Bernoulli random variables with
+$\IP(X_i = 1) = p_i$, and define $W = \sum_{i \in \ci} X_i$. Then the
+size-biased version of $W$ is
+\begin{equation}\label{sizebiasing}
+   W^s = \sum_{j \ne B} X_j^{(B)} + 1,
+\end{equation}
+where
+$$
+   \law\!\left(\{X_j^{(i)} : j \in \ci\}\right)
+   = \law\!\left(\{X_j : j \in \ci\} \,\middle|\, X_i = 1\right),
+$$
+and where $B$ is a random index, independent of
+$\{\{X_j^{(i)} : j \in \ci\} : i \in \ci\}$, such that
+$$\IP(B = i) = p_i / \E W,$$
+for all $i \in \ci$. 
+
+\begin{definition}[\cite{BHJ}]
+The family $\{X_i : i \in \ci\}$ is said to be
+\emph{negatively related} (resp. \emph{positively related}) if one can
+construct $\{\{X_j^{(i)} : j \in \ci\} : i \in \ci\}$ such that
+$X_j^{(i)} \le X_j$ (resp. $X_j^{(i)} \ge X_j$) for all $j \ne i$.
+\end{definition}
+When $\{X_i\}$ are negatively related, we obtain
+\begin{equation}\label{monotonecoupling1}
+   \E\lvert W + 1 - W^s\rvert
+   = \E(W + 1 - W^s)
+   = \mu^{-1}(\mu - \sigma^2),
+\end{equation}
+where $\mu = \E W$ and $\sigma^2 = \var(W)$.
+
+On the other hand, if $\{X_i\}$ are positively related, then
+\begin{align}\label{monotonecoupling2}
+   \E \lvert W + 1 - W^s\rvert
+   &= \E \left\lvert\sum_{j \ne B} (X_j^{(B)} - X_j) - X_B\right\rvert \nonumber\\
+   &\le \E \left\{\sum_{j \ne B} (X_j^{(B)} - X_j) + X_B\right\} \nonumber\\
+   &= \E(W^s - W - 1) + 2\mu^{-1} \sum_{i \in \ci} p_i^2 \nonumber\\
+   &= \mu^{-1}(\sigma^2 - \mu) + 2\mu^{-1} \sum_{i \in \ci} p_i^2.
+\end{align}
+
+
+\subsection*{Stein-Chen method}
+\cite{Chen75} develops Stein's method for deriving bounds on the distance between a distribution of interest and the Poisson distribution under various probability metrics. The method is based on the key observation that a non-negative random variable $Y \sim \Pn(\lambda)$ if and only if 
+$$\E[\lambda f(Y+1)-Yf(Y)]=0,$$
+for all bounded functions $f:\Z_+\to\R$. 
+This characterization yields the following Stein identity for Poisson approximation: for any $j\ge0$, 
+\begin{equation}\label{steinidP}
+  \lambda f(j+1)-jf(j)=h(j)-\Pn(\lambda)\{h\},
+\end{equation}
+where $\Pn(\lambda)\{h\}:=\E h(Y)$ with $Y\sim \Pn(\lambda)$.
+
+For integer-valued random variables $X$ and $Y$, the total variation distance between $\law(X)$ and $\law(Y)$ is given by 
+\begin{equation*}
+  \dtv(\law(X),\law(Y)):=\sup_{A\subseteq\Z}|\IP(X\in A)-\IP(Y\in A)|,
+\end{equation*}
+with $\Z:=\{0,\pm1,\pm2,\dots\}$ standing for the integer set.
+\section{Poisson approximation}
+\begin{prop}
+	\label{coupling-1}
+The Bernoulli random variables $\{I_\alpha\}_{\alpha\in\ci}$, with $\ci:=[m_1]\times\cdots\times[m_d]$,  
+ in \eqref{khop-copy1} is positively related. 
+\end{prop}
+\begin{Proof}
+To see this point, we can consider the following size-bias coupling of 
+ $\{I_\alpha\}_{\alpha\in\ci}$. For each $\alpha\in\ci$, we construct the following Bernoulli random variables $\{I_\beta^{(\alpha)}\}_{\beta\in\ci,\beta\ne\alpha}$.
+
+\begin{enumerate}
+	\item 
+For $\beta\in\ci$ such that $\beta(\ell)\ne\alpha(\ell)$ for all $\ell=1,\dots,d,$ we take
+\begin{equation}
+	I_\beta^{(\alpha)}:=
+	I_{\beta}%=\bone\left(\tau\ge Z_{\beta(1)}^{(1)}\ge Z^{(2)}_{\beta(2)}\ge\cdots\ge Z^{(d)}_{\beta(d)}\ge0\right)Y_{0,\beta(1)}Y_{\beta(1),L_1+\beta(2)}\cdots Y_{L_{d-1}+\beta(d),M};
+	=\bone(0\leftrightarrow X_{\beta(1)}^{(1)})\left(\prod_{\ell=1}^{d-1}\bone\left(X_{\beta(\ell)}^{(\ell)}\leftrightarrow X_{\beta(\ell+1)}^{(\ell+1)}\right)\right)\bone(X_{\beta(d)}^{(d)}\leftrightarrow y).
+\end{equation}
+
+\item For $\beta\in\ci$ with some $A\subsetneq [d]$ such that $\beta(i)=\alpha(i)$ iff $i\in A$, we define 
+\begin{equation}
+	I_{\beta}^{(\alpha)}:=
+	\tilde{Y}_{0,\beta(1)}\tilde{Y}_{\beta(1),\beta(2)}\cdots\tilde{Y}_{\beta(d-1),\beta(d)} \tilde{Y}_{\beta(d),M},
+\end{equation}
+where 
+\begin{equation*}
+	\tilde{Y}_{0,\beta(1)}:=
+	\begin{cases}1,\ \ \ &\mbox{if}\ \ 1\in A;\\
+		\bone(0\leftrightarrow X_{\beta(1)}^{(1)}),\ \ \ \ &\mbox{if}\ \ 1\notin A,
+	\end{cases}
+\end{equation*}
+\begin{equation*}
+	\tilde{Y}_{\beta(\ell),\beta(\ell+1)}:=\begin{cases}
+		1,\ \ \ &\mbox{if}~~~~\ell\in A\ \ \mbox{and}\ \ \ell+1\in A;\\
+		\bone\left(X_{\beta(\ell)}^{(\ell)}\leftrightarrow X_{\beta(\ell+1)}^{(\ell+1)}\right),\ \ \ &\mbox{else},
+	\end{cases}
+\end{equation*}
+for $\ell=1,\dots,d-1$,
+and
+\begin{equation*}
+	\tilde{Y}_{\beta(d),M}:=
+	\begin{cases}1,\ \ \ &\mbox{if}\ \ d\in A;\\
+		\bone\left(X_{\beta(d)}^{(d)}\leftrightarrow y\right),\ \ \ \ &\mbox{if}\ \ d\notin A.
+	\end{cases}
+\end{equation*}
+\end{enumerate}
+It is easy to verify that $\law(I_{\beta}^{(\alpha)})=\law\left(I_\beta\big|I_\alpha=1\right)$. From the construction, it is straightforward that $I_{\beta}^{(\alpha)}\ge I_\beta$, for all $\beta\ne\alpha$, and $\alpha\in\ci$.
+\end{Proof} 
+
+For $\alpha\in\ci$, we denote $\underline{\alpha}:=\{\alpha(1),\dots,\alpha(d)\}$.
+For $\alpha\in\ci$ fixed, define 
+\begin{equation}
+	\nu(i):=|\{\beta\in\ci:|\underline{\beta}\cap\underline{\alpha}|=i\}|,~~~i=0,1,\dots,d.
+\end{equation}
+It follows that 
+\begin{align}\label{count-parti}
+	\nu(i)&= \begin{cases}(m_1-1)\times(m_2-1)\times\cdots\times(m_d-1),\ \ \ &\mbox{when}~~i=0;\\
+		(m_1-1)(m_2-1)\cdots (m_d-1)\sum_{i=1}^d\frac1{m_i-1},\ \ \ &\mbox{when}~~i=1;\\
+		(m_1-1)(m_2-1)\cdots (m_d-1)\sum_{1\le i\ne j\le d}\frac1{(m_i-1)(m_j-1)}, \ \ \ &\mbox{when}~~i=2;\\
+		\ \ \ \ \ \vdots\\
+		\sum_{i=1}^d(m_i-1),\ \ \ &\mbox{when}~~i=d-1;\\
+		1,\ \ \ &\mbox{when}~~i=d.
+	\end{cases}
+\end{align}
+
+\begin{thm}
+	Let $W=\sum_{\alpha\in\ci}I_\alpha$ be the $k$-hop count defined in \eqref{def-khop1}, with $I_\alpha$ given in \eqref{khop-copy1} and $\lambda=\E(W)>0$. Then we have
+\begin{align}
+	\dtv(W,\Pn(\lambda))&\le \sum_{i=1}^{d-1}\nu(i)p^{d+1-i}+\tilde{p},\label{po-error1}
+\end{align}
+where $\nu(i)$ is given in \eqref{count-parti}.
+\end{thm}
+\begin{Proof}
+	By Stein-Chen method, we have 
+\begin{align}
+	\dtv(\law(W),\Pn(\lambda))&= \sup_{A\subseteq \Z}|\IP(W\in A)-\Pn(\lambda)\{A\}|\nonumber\\
+				  &\le\sup_{A\subseteq \Z}|\E[\lambda f_A(W+1)-Wf_A(W)]|\label{steinest01}
+\end{align}
+where $f_A$ is the unique solution for $h(\cdot)=\bone(\cdot\in A)$ in \eqref{steinidP} with $f_A(0)=0$. Recall from \cite[Lemma~4.4]{Ross11}, for any $A\subseteq \Z$,
+\begin{equation}\label{steinconst}
+	\|f_A\|\le\min\{1,\lambda^{-1/2}\},~~~~\|\Delta f_A\|\le\frac{1-e^{-\lambda}}{\lambda}\le\lambda^{-1},
+\end{equation}
+where $\Delta f_A(j):=f_A(j+1)-f_A(j)$.
+	From Proposition~\ref{coupling-1}, together with estimates in \eqref{monotonecoupling2}, we have
+\begin{align}
+\left|\E[\lambda f_A(W+1)-Wf_A(W)]\right|&= \left|\lambda\E[f_A(W+1)-f_A(W^s)]\right|\nonumber\\
+				    &\le\lambda \|\Delta f_A\|\ \E|W+1-W^s|\nonumber\\
+				    &\le\lambda^{-1}(\sigma^2 - \lambda) + 2\lambda^{-1} \sum_{\alpha \in \ci} (\IP(I_\alpha=1))^2\nonumber\\
+				    &=\lambda^{-1}(\sigma^2 - \lambda)+2\tilde{p},\label{err01}
+\end{align}
+where $\sigma:=\Var(W)$ and 
+\begin{equation}
+\tilde{p}:=\IP(I_\alpha=1)=p^{d+1}\int_{r-\tau}^{r}\mu_1(\mathrm{d}x_1)\int_{2r-\tau}^{x_1+r}\mu_2(\mathrm{d}x_2)\cdots\int_{dr-\tau}^{x_{d-1}+r}\mu_{d}(\mathrm{d}x_d).
+\end{equation}
+Moreover, we have 
+\begin{align}
+	\sigma^2-\lambda&=\sum_{\alpha\in\ci}\sum_{\beta\in\ci}\cov(I_\alpha,I_\beta)-\sum_{\alpha\in\ci}\IP(I_\alpha=1)\nonumber\\
+			&=\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)+\sum_{\alpha\in\ci}\cov(I_\alpha,I_\alpha)-\sum_{\alpha\in\ci}\IP(I_\alpha=1)\nonumber\\
+			&=\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\sum_{\alpha\in\ci}(\IP(I_\alpha=1))^2\nonumber\\
+			&=\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}. \label{err02}
+\end{align}
+For any $\alpha\ne\beta\in\ci$, if $\beta(i)\ne\alpha(i)$ for all $i=1,\dots,d$, then $I_\alpha$, $I_\beta$ are independent. For $\alpha\ne\beta\in\ci$ with $\beta(i)=\alpha(i)$ for some $i=1,\dots,d$, we have 
+\begin{align}
+	\cov(I_\alpha,I_\beta)&=\E[I_\alpha I_\beta]-\tilde{p}^2\nonumber\\
+			      &=\tilde{p}\E[I_\beta^{(\alpha)}]-\tilde{p}^2\label{err03}.
+\end{align}
+Let $\alpha\in\ci$ be fixed, for $\beta\ne\alpha$ with $|\underline{\beta}\cap\underline{\alpha}|=i$, $i=1,\dots,d-1$, we have 
+\begin{equation}
+	\E[I_{\beta}^{(\alpha)}]\le p^{d+1-i}.\label{err04}
+\end{equation}
+Collecting \eqref{count-parti}, 
+\eqref{err03}, \eqref{err04} we have
+\begin{align}
+  &\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}\nonumber\\
+  &=\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}\nonumber\\
+  &\le\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\left(\tilde{p}p^{d+1-i}-\tilde{p}^2\right)-\lambda\tilde{p}\nonumber\\
+  &\le\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\tilde{p}p^{d+1-i}-\lambda\tilde{p}\nonumber\\
+  &=\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\nu(i)\tilde{p}p^{d+1-i}-\lambda\tilde{p}\nonumber\\
+  &=\lambda\sum_{i=1}^{d-1}\nu(i)p^{d+1-i}-\lambda\tilde{p}.\label{err05}
+\end{align}
+Combining 
+\eqref{err01}, \eqref{err02} and \eqref{err05}, it shows that
+\begin{align}
+	\left|\E[\lambda f_A(W+1)-Wf_A(W)]\right|&\le\sum_{i=1}^{d-1}\nu(i)p^{d+1-i}+\tilde{p}
+\end{align}
+Combining with \eqref{steinest01}, the proof is complete. 
+\end{Proof}
+
+\begin{remark}
+	When $m_1=m_2=\cdots=m_d=m$, and $m\to\infty$, then we have $\nu(i)\asymp m^{d-i}$. Suppose $m^dp^{d+1}\to c\in(0,\infty)$, the error bound in \eqref{po-error1} is of order 
+	$$\sum_{i=1}^{d-1}m^{d-i}p^{d+1-i}+p^{d+1}\asymp \sum_{i=1}^{d-1}m^{d-i}(m^{-\frac{d}{d+1}})^{d+1-i}\asymp m^{-1/(d+1)}.$$
+\end{remark}
+
+
+
+
+\bibliography{ref} 
+\bibliographystyle{alpha}
+%\begin{thebibliography}{9}
+  
+%\end{thebibliography}
+\end{document}
