@@ -1,4 +1,7 @@
 %
+% ALEA ?
+% ALEA ?
+%
 % On page 28 line -7, 2 \leq i \leq j \leq k ? 
 % On page 28 line -7, 2 \leq i \leq j \leq k ? 
 %
@@ -244,7 +247,7 @@
 \newtheorem{assumption}{Assumption}[section]
  
  \def\Dom{{\mathrm{{\rm Dom \! \ }}}}
- \def\IP{{\mathord{\mathbb P}}}
+% \def\IP{{\mathord{\mathbb P}}}
  \def\trace{{\mathrm{{\rm trace}}}}
  \def\Ent{{\mathrm{{\rm Ent}}}}
  \def\var{{\mathrm{{\rm var}}}}
@@ -337,13 +340,14 @@
 
 \author{
   Qingwei Liu\footnote{
-School of Mathematics and Statistics, The University of Melbourne, Parkville, VIC 3010, Australia.
+School of Mathematics and Statistics, The University of Melbourne, Parkville, VIC 3010, Australia. 
 Email: \href{mailto:qingwei.liu@unimelb.edu.au}{qingwei.liu@unimelb.edu.au}}
   % Department of Statistics and Data Science, National University of Singapore, 6 Science Drive 2, Singapore 117546,
 % Email: \href{mailto:liu\_qw@nus.edu.sg}{liu\_qw@nus.edu.sg}}
 %  Email: \href{mailto:xiaozong30@gmail.com}{xiaozong30@gmail.com}}
   \qquad
-      Nicolas Privault\footnote{Division of Mathematical Sciences, School of Physical and Mathematical Sciences, Nanyang Technological University, 21 Nanyang Link, Singapore 637371, Email: \href{mailto:nprivault@ntu.edu.sg}{nprivault@ntu.edu.sg}
+  Nicolas Privault\footnote{%Division of Mathematical Sciences,
+School of Physical and Mathematical Sciences, Nanyang Technological University, 21 Nanyang Link, Singapore 637371. Email: \href{mailto:nprivault@ntu.edu.sg}{nprivault@ntu.edu.sg}
 }
 }
       %\author{ } 
@@ -401,7 +405,7 @@ Email: \href{mailto:qingwei.liu@unimelb.edu.au}{qingwei.liu@unimelb.edu.au}}
   We derive moment identities and cumulant bounds for
   the count of $k$-hops in a one-dimensional binomial
   random-connection model with unit disk connection function.
-  Normal approximation results with quantitative rate
+  Normal and Poisson approximation results with quantitative rate
   estimates are then obtained for $k$-hop counts.
 \end{abstract} 
  
@@ -495,12 +499,12 @@ table {
 % \noindent
  Here, the nodes are distributed on $[0,kr]$, $k\geq 1$, according to a
  binomial point process 
- $\eta$ with $m_i \geq 0$ points on every
- cell $[(i-1)r, ir]$, $i=1,\ldots , k$, $k\geq 1$. 
+ $\eta$ with $m_i \geq 0$ points on every 
+ cell $[(i-1)r, ir]$, $i=1,\ldots , k-1$, $k\geq 2$. 
  In addition, two nodes located $s,t\in [0,kr]$ are said to be
  connected - with probability $p\in [0,1]$ - if and only if $|t-s|\leq r$,
  and for $k \geq 1$, a $k$-hop is
- a path connecting two fixed points $x,y\in [0,kr]$
+ a path connecting two fixed points $s,t\in [0,kr]$
  via \underline{$d:=k-1$} nodes. 
 
  \medskip
@@ -512,9 +516,8 @@ table {
  In this context, 
 the distribution of $k$-hop counts has been
 expressed by a combinatorial approach in \cite{giles-privault}. 
- We will consider the statistics and asymptotic behavior of
- $k$-hop connectivity as the number of binomial
- points tends to infinity.
+ We will consider the asymptotic behavior of the count statistics
+ $\sigma_k (t)$ as the number of binomial points tends to infinity.
 % When $k=1$ we have $\sigma_1(t) =1$, $t\in [0,r]$. 
  % where for later convenience of notation we model $\sigma_k$ as a function of the remaining distance $kr-\tau$ from $t$ to $kr$.
  For this, we will use the cumulant method, see 
@@ -530,8 +533,9 @@ expressed by a combinatorial approach in \cite{giles-privault}.
  and weighted random-connection models 
  in \cite{schulte-thaele}, \cite{heerten}, 
  and to normal approximation for subgraph counts
- in the multidimensional random-connection model 
- in \cite{LiuPrivault}. 
+ in the multidimensional random-connection model, 
+ see \cite{LiuPrivault}, and \cite{LiuPrivault24}
+ in the presence of endpoints.  
 % We will also use the Stein method, see 
 % \cite{reitzner}, 
 % \cite{eichelsbacher},
@@ -552,60 +556,103 @@ expressed by a combinatorial approach in \cite{giles-privault}.
 
 \medskip
 
- Denoting by 
- $\kappa_{k,n}^{( m )} (\underbrace{kr-t;\ldots ; kr-t}_{n~\mbox{\scriptsize times}})$
- the cumulant of order $n\geq 2$ of 
- $\sigma_k( t )$, for $t\in [rd, rk)$
- and $m_1=\cdots = m_d = m$, we obtain the bound   
-$$ 
- \frac{ 
- \kappa_{k,n}^{( m )} (kr-t;\ldots ; kr-t)}{ \big(\kappa_{k,2}^{( m )}(kr-t;kr-t) \big)^{n/2}}
- \leq 
- (n!)^{d+1} O ( m^{1-n/2} )
-, \qquad n \geq 2. 
-$$
- Next, denoting by $\P_m$ the distribution of the 1D unit disk model 
+ Taking $m_1=m_2=\cdots=m_d=m \geq 1$ and 
+ denoting by $\kappa_n\left(\widebar{\sigma}_k (t)\right)$
+ the cumulant of order $n\geq 2$ of the normalized $k$-hop count
+ $$ 
+   \widebar{\sigma}_k (t):= \frac{\sigma_k (t)-\E_m [ \sigma_k (t)]}{\sqrt{\Var_m [ \sigma_k (t) ]}}, 
+  $$ 
+% when every cell contains $m$ nodes
+ with connection probability $p_m$,
+ in Corollary~\ref{cjkfl} 
+  we obtain the bound 
+  \begin{eqnarray*}
+    \kappa_n\left(\widebar{\sigma}_k (t)\right)\leq \begin{cases}
+      \displaystyle
+      \frac{n!^{d+1}}{(C m p_m)^{n/2-1}}~~~~~~~{when}~~~p_m \gg m^{-(d-1)/d},
+      \medskip
+      \\
+      \displaystyle
+      \frac{n!^{d+1}}{\big(C m^d p_m^{d+1}\big)^{n/2-1}}~~~~{when}~~~p_m\ll m^{-1},
+    \end{cases}
+\end{eqnarray*}
+ $n\ge3$, where $C$ is a constant independent of $m \geq 1$.
+
+  \medskip
+
+  Next, denoting by $\P_m$ the distribution of the 1D unit disk model 
  with same number $m$ of points per cell, by the cumulant method
- this implies the Komogorov distance bound \eqref{fjkf}
-for the convergence of the normalized $k$-hop count 
-$$
-\widebar{\sigma}_k (t):= \frac{\sigma_k (t)- \E_m [\sigma_k(t)]}{\sqrt{\Var_m [ \sigma_k(t)]}}
-$$
-to the normal distribution ${\cal N}$ 
-as $m$ tends to infinity.
- In Corollary~\ref{thm4.2-1}, 
- assume that $m^{-(d-1)/d}\ll p_m$, 
- we obtain the Kolmogorov bound 
+ in Corollary~\ref{thm4.2-1} we obtain 
+ the bound \eqref{fjkf}
+ for the convergence of the normalized $k$-hop count 
+$\widebar{\sigma}_k (t)$ 
+to the standard normal distribution % ${\cal N}$ 
+as $m$ tends to infinity,
+using the Kolmogorov distance. % s $d_W(X,Y)$ and
+% $$ d_W (X,Y): =\sup_{h\in\mathrm{Lip}(1)} |\mathrm{E}[h(X)]-\mathrm{E}[h(Y)]|, $$ where $\mathrm{Lip}(1)$ denotes the class of real-valued Lipschitz functions with Lipschitz constant less than or equal to $1$, and
+% $$d_K(X,Y) : = \sup_{x\in \real} | \P_m ( X \leq x ) - \P_m ( Y \leq x ) | $$  between the distributions of two random variables $X$, $Y$. 
+In Theorem~\ref{poi-thm} we also provide a Poisson approximation of the $k$-hop count via the Stein-Chen method.
+
+\medskip
+ 
+ We will use the following standard notation for the asymptotic behavior of the relative order of magnitude of two functions $f(x)$ and $g(x)>0$ as $x$ tends to infinity.
+Given two functions $f(x)$ and $g(x)>0$, 
+ we write 
+\begin{itemize}
+\item $f(x)=O(g(x))$, or $f(x) \lesssim g(x)$, if $\limsup_{x\to\infty} f(x) / g(x) <\infty$,
+\item $f(x)=\Omega(g(x))$, or $f(x) \gtrsim g(x)$, if $\liminf_{x\to\infty} f(x) / g(x)>0$,
+\item $f(x)\asymp g(x)$ if $f(x)=O(g(x))$ and $f(x)=\Omega(g(x))$, % if $f(\lambda )=\Theta(g(\lambda ))$;
+\item $f(x)\sim g(x)$ if $\lim_{x \to \infty} f(x)/g(x) = 1$, 
+\item $f(x)\ll g(x)$, or $g(x)\gg f(x)$, if $f(x)\geq 0$ and $f(x)/g(x)\to 0$.
+\end{itemize}
+ with the convention $0/0=0$. 
+ We also denote by $\Phi$ the cumulative distribution function of the
+ standard normal distribution, and 
+ let $d\geq 2$ and $t\in [(k-1)r,kr]$. 
+\begin{enumerate}[i)]
+\item 
+  Dense regime.
+
+  If $p_m \gg m^{-1+1/d}$,
+    then we have $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$,
+    see Corollary~\ref{graphcontain}-$a)$,
+    and the Kolmogorov bound 
     \begin{equation}
    \nonumber % \label{fjkf}
-      \sup_{x\in\real}\left|
-      \IP\left(
-      \widebar{\sigma}_k (kr-\tau) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{(m p_m)^{1/(2+4d)}},
+   \sup_{x\in\real }|\P_m (\widebar{\sigma}_k (t)\leq x)-\Phi(x)|
+ \leq \frac{C_d}{(m p_m)^{1/(2+4d)}},
     \end{equation}
     for $m$ large enough, 
     where $C_d>0$ depends only on
-    $d \geq 2$.
-    If $p_m\ll m^{-1}$
-    then  
-    we have $\lim_{m\to\infty}\IP_m\left(\sigma_k(t)=0\right)=0$ Corollary~\ref{graphcontain} 
-    by the second moment method.
+    $d \geq 2$, see 
+    Corollary~\ref{thm4.2-1}.
+  \item
+    Thermodynamic regime.
 
-    % In Proposition~\ref{fsklf34} we also obtain the Berry-Esseen bound
-% $$\sup_{x\in \real} | \P_m ( \widebar{\sigma}_k (t) \leq x ) - \P({\cal N} \leq x ) | \leq \frac{C(k,r)}{\sqrt{m}} $$ using the Stein method, together with a bound of same order for the Wasserstein distance.
-
- \medskip
- In Theorem~\ref{poi-thm}, we provide a Poisson approximation of the $k$-hop count via Stein-Chen method. In particular, when $m^dp_m^{d+1}\to c\in(0,\infty)$, in Corollary~\ref{c2} 
- we show that the error bound for the Poisson approximation is of the order  
+    If $p_m \asymp m^{-1+1/d}$, 
+    then as $m$ tends to infinity we have
 \begin{align}
-  \dtv(W,\Pn(\lambda))&
-  \asymp m^{-1/(d+1)}.
+  \dtv(\sigma_k (t),\Pn(\lambda))&
+  \asymp \frac{1}{m^{1/(d+1)}},
 \nonumber % \label{po-error1}
 \end{align}
-as $m_1=m_2=\cdots=m_d=m$ tends to infinity.
+where $\dtv$ denotes the total variation distance,
+see Corollary~\ref{c2} and \eqref{dtv}.
+\item
+  Sparse regime.
 
-\medskip 
+  If $p_m\ll m^{-1}$, we have the convergence in probability 
+  $$
+  \lim_{m\to\infty}\P_m (\sigma_k (t) =0)=1,
+  $$
+ see Corollary~\ref{graphcontain}-$b)$. 
+\end{enumerate}
+    % In Proposition~\ref{fsklf34} we also obtain the Berry-Esseen bound
+% $$\sup_{x\in \real} | \P_m ( \widebar{\sigma}_k (t) \leq x ) - \P_m ({\cal N} \leq x ) | \leq \frac{C(k,r)}{\sqrt{m}} $$ using the Stein method, together with a bound of same order for the Wasserstein distance.
+% In Theorem~\ref{poi-thm}, we provide a Poisson approximation of the $k$-hop count via Stein-Chen method. In particular, when $m^dp_m^{d+1}\to c\in(0,\infty)$, in Corollary~\ref{c2} we show that the error bound for the Poisson approximation is of the order  
+%\begin{align} \dtv(W,\Pn(\lambda))&  \asymp m^{-1/(d+1)}.\nonumber % \label{po-error1}\end{align}as $m_1=m_2=\cdots=m_d=m$ tends to infinity.
+% \medskip 
 The paper is organized as follows. Section~\ref{sec3} formulates the $k$-hop count as a generalized $U$-statistic. Section~\ref{sec-prel} introduces the necessary diagrammatic and set-partition preliminaries, while Section~\ref{sec4} presents moment expressions as summations over non-crossing partitions. Moment and cumulant bounds are derived in Section~\ref{sec6}, leading to a normal approximation for the normalized $k$-hop counts with Berry--Esseen rates via the Stein and cumulant methods in Section~\ref{sec8}. Finally, Section~\ref{sec-pol} establishes a Poisson approximation using the Stein--Chen method.
-
 
 \section{Binomial model and $k$-hop counts} 
 % \label{sec4}
@@ -615,31 +662,37 @@ The paper is organized as follows. Section~\ref{sec3} formulates the $k$-hop cou
 \noindent
 For $r>0$, $k\ge2$, let $J_\ell:=[(\ell-1)r,\ell r]$ denote some intervals with equal length, $\ell=1,\dots,k$, referred as {\em cells}.
 For each $\ell=1,\dots,d$, let $\tilde{\mu}_\ell$ be a non-atomic probability measure concentrated on $J_\ell$.
-For each $\ell=1,\dots,d$, let $\{X^{(\ell)}_i\}_{i=1}^{m_\ell}$, $m_\ell\ge1$, be a sequence of i.i.d. random variables with a common distribution $\tilde{\mu}_\ell$, and be independent of all others.
+For each $\ell=1,\dots,d$,
+let $\{X^{(\ell)}_i\}_{i=1}^{m_\ell}$, $m_\ell\ge1$,
+be a sequence of i.i.d. random variables with a common distribution $\tilde{\mu}_\ell$, and independent of all others.
 Denote 
-$$\mathcal{P}:=\cup_{\ell=1}^{d}\left\{X^{(\ell)}_{1},\dots,X^{(\ell)}_{m_\ell}\right\}\cup\{0,y\},$$ 
-with $y:=kr-\tau$ for some $\tau\in(0,r)$.
+$$\mathcal{P}:=
+\{0,t\}
+\bigcup
+\bigcup_{\ell=1}^{d}\left\{X^{(\ell)}_{1},\dots,X^{(\ell)}_{m_\ell}\right\},
+$$ 
+ with $t\in ((k-1)r,kr)$. %  for some $\tau\in(0,r)$.
 
 In this article, we consider a random graph, also referred as a random connection model, constructed as follows.
 For any two distinct points $u,w\in\mathcal{P}$, if $|u-w|\le r$, then they are connected by a random edge with probability $p\in[0,1]$ independently, denoted by $u\leftrightarrow w$.
 Let the resulting random graph be denoted by $\mathbb{G}_p(\mathcal{P})$.
 
-We focus on the count of $k$-hop, that is a path of order $k+1$, connecting $0$ to $kr-\tau$ in the random connection model $\mathbb{G}_p(\mathcal{P})$.
+We focus on the count of $k$-hop, that is a path of order $k+1$, connecting $0$ to $t$ in the random connection model $\mathbb{G}_p(\mathcal{P})$.
 More formally, we can write it as 
 \begin{equation}
-	\sigma_k (kr-\tau):=\sum_{\beta\in[m_1]\times\cdots\times[m_{d}]}\bone(0\leftrightarrow X_{\beta(1)}^{(1)})\left(\prod_{\ell=1}^{k-2}\bone\left(X_{\beta(\ell)}^{(\ell)}\leftrightarrow X_{\beta(\ell+1)}^{(\ell+1)}\right)\right)\bone(X_{\beta(d)}^{(d)}\leftrightarrow y),\label{def-khop1}
+  \nonumber 
+	\sigma_k (t):=\sum_{\beta\in[m_1]\times\cdots\times[m_{d}]}\bone(0\leftrightarrow X_{\beta(1)}^{(1)})\left(\prod_{\ell=1}^{k-2}\bone\left(X_{\beta(\ell)}^{(\ell)}\leftrightarrow X_{\beta(\ell+1)}^{(\ell+1)}\right)\right)\bone(X_{\beta(d)}^{(d)}\leftrightarrow t),\label{def-khop1}
 \end{equation}
 with $[n]:=\{1,2,\dots,n\}$.
-
  
- As noted in e.g. \cite{giles-privault}, when $\tau \in [0,r]$,
-any node contributing to a $k$-hop path linking $0$ to $kr-\tau$
+ As noted in e.g. \cite{giles-privault}, when $t\in [(k-1)r,kr]$,
+any node contributing to a $k$-hop path linking $0$ to $t$
 must belong to one of the $d$ lenses pictured in pink in Figure~\ref{fklds},
 and defined as the intervals
 $$
 L_i := [ir-\tau,ir] = [0,\tau] + ir - \tau, \qquad i=1,\ldots , d, 
 $$ 
- of identical length $\tau$.
+ of identical length $\tau : = kr - t$.
 
  \medskip
  
@@ -653,16 +706,16 @@ $$
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.94\linewidth]{kops_new-crop}
-\caption{Graph of seven $5$-hop paths linking $x=0$ to $y=4.5$ with $r=1$ and $d=4$.} 
+\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
 \label{fklds} 
 \end{figure}
 
-% see Figure~\ref{fklds} for an example with $k=5$, $x=0$, $y=4.5$, and $r=1$.
+% see Figure~\ref{fklds} for an example with $k=5$, $x=0$, $t=4.5$, and $r=1$.
 
 \vskip-0.4cm
 
 \noindent
- Conversely, any $k$-hop path linking $0$ to $kr-\tau$
+ Conversely, any $k$-hop path linking $0$ to $t$
  should have exactly one 
  node in each cell $[(i-1)r,ir]$, $i=1,\ldots , d$.
  Therefore, it must be realized using a sequence 
@@ -670,55 +723,55 @@ $$
  $$
  x_{i+1} \leq x_i + r, \qquad i = 0,1,\dots, d,
  $$
- where $x_0=0$ and $x_k=kr-\tau$.  
+ where $x_0=0$ and $x_k=t$.  
 % \subsubsection*{One-dimensional random geometric graphs} 
 % \label{s2}
 Therefore, it can be mapped to a
- sequence $(y_1,\ldots , y_d) \in [0,\tau]^d$
+ sequence $(y_1,\ldots , y_d) \in [0,kr-t]^d$
  by the relation 
  $$
- y_i:=x_i - (ir-\tau), \qquad i =1,\ldots , d, 
+ y_i:=x_i + ((k-i)r-t), \qquad i =1,\ldots , d, 
  $$ 
  with $ y_1 \ge \cdots \ge y_d$. 
 
- Hence, for $\tau \in [0,r]$, the count $\sigma_k (kr-\tau)$ in \eqref{def-khop1} of $k$-hop 
- connecting $0$ to $kr-\tau$ can be rewritten as a generalized $U$-statistics of order $d$
+ Hence, for $t\in [(k-1)r,kr]$, the count $\sigma_k (t)$ in \eqref{def-khop1} of $k$-hop 
+ connecting $0$ to $t$ can be rewritten as a generalized $U$-statistics of order $d$
 \begin{equation}
 \label{ustat} 
- \sigma_k (kr-\tau) = \sum_{\beta \in [m_1] \times \cdots \times [m_d]} 
+ \sigma_k (t) = \sum_{\beta \in [m_1] \times \cdots \times [m_d]} 
  Y^{(0)}_{\beta (1)}Y^{(1)}_{\beta (1),\beta (2)}\cdots Y^{(d-1)}_{\beta (d-1),\beta (d)}
  Y^{(d)}_{\beta (d)}
- {\bf1}_{\big\{\textcolor{red}{U^{(d)}_{\beta (d)} \leq \cdots \leq U^{(1)}_{\beta (1)} \leq \tau }\big\}},
+ {\bf1}_{\big\{U^{(d)}_{\beta (d)} \leq \cdots \leq U^{(1)}_{\beta (1)} \leq kr-t \big\}},
 \end{equation}
 where
- $\left\{
+$$
+\left\{
  Y^{(0)}_{\beta (1)}
  ,
  Y^{(1)}_{\beta (1),\beta (2)},
  \ldots ,
  Y^{(d-1)}_{\beta (d-1),\beta (d)}, 
  Y^{(d)}_{\beta (d)}:~\beta(i)\in[m_i], i=1,\dots,d\right\}
- $
- is a family of independent % $\{0,1\}$-valued
- Bernoulli random variables with same parameter $p\in [0,1]$ with 
  $$
- U^{(\ell)}_{i}:=X^{(\ell)}_{i}-(\ell r-\tau),
+ is a family of independent % $\{0,1\}$-valued
+ Bernoulli random variables with same parameter $p\in [0,1]$, where 
+ $$
+ U^{(\ell)}_{i}:=X^{(\ell)}_{i}-(t - (k-\ell) r ),
  $$
 for $i=1,\dots,m_\ell$ and $\ell=1,\dots,d$. 
-
-For ease of notation, from now on, we write the distribution of $U^{(\ell)}_i$ as 
-$\mu_{\ell}:=\tilde{\mu}_\ell*\delta_{-(\ell r-\tau)},
-$ for $i=1,\dots,m_\ell$ and $\ell=1,\dots,d$.
+ From now on, we denote by $\mu_{\ell}:=\tilde{\mu}_\ell * \delta_{-( t - (k-\ell )r )}$, 
+ the distribution of $U^{(\ell)}_i$ on $[0,r]$,
+ for $i=1,\dots,m_\ell$ and $\ell=1,\dots,d$.
 
  \medskip
-  
-Note that for $k=2$, $p=1$ and $\tau = r$, we have $\sigma_2 (r) =m_1$ almost surely.
+ 
+ Note that for $k=2$, $p=1$ and $t=k-1$, we have $\sigma_2 (r) =m_1$ almost surely.
 
 \section{Set partitions and diagrams}\label{sec-prel}
 \noindent
 % We recall the following notation, see for example \cite{peccatitaqqu,LiuPrivault}.
-In what follows, we let $[n]:=\{1,2,\dots,n\}$ for $n\geq 1$,
- and let $\Pi(b)$ denote the collection of set partitions of
+ In what follows, we % let $[n]:=\{1,2,\dots,n\}$ for $n\geq 1$, and
+ let $\Pi(b)$ denote the collection of set partitions of
 any finite set $b$.
  Given two set partitions $\rho_1, \rho_2\in\Pi(b)$, we say that $\rho_1$ is
 coarser than $\rho_2$
@@ -731,15 +784,15 @@ denote by $\rho_1\wedge\rho_2$ the coarsest partition
 which is finer than both of $\rho_1$ and $\rho_2$. We also let $\widehat{1}:=\{b\}$ 
 denote the single-block coarsest partition of $b$,
  whereas $\widehat{0}$ stands for the partition made of singletons. 
- Given $k\geq 2$ and $j\geq 1$,
- we let $\pi:=\{\pi_1,\dots,\pi_j\}$ % \in\Pi([j]\times[d])$
+ Given $k\geq 2$ and $n\geq 1$,
+ we let $\pi:=\{\pi_1,\dots,\pi_n\}$ % \in\Pi([n]\times[d])$
  denote the partition
- of $[j]\times[d]$ defined as 
+ of $[n]\times[d]$ defined as 
  $$\pi_i:=\{(i,\ell):1\leq \ell\leq d\},
- \quad i =1,\dots , j.
+ \quad i =1,\dots , n.
  $$
- For $j,k \geq 1$ we also let $\pi_\eta := (\pi_i)_{i\in\eta}\in\Pi(\eta \times [d])$ denote the partition made of $|\eta|$ blocks of size $d$.
- A partition $\rho\in\Pi([j]\times[d])$ is said to be {\it connected} if $\rho\vee\pi=\widehat{1}$, see Figure~\ref{fig:diagram0-1}.  
+ For $k,n \geq 1$ we also let $\pi_\eta := (\pi_i)_{i\in\eta}\in\Pi(\eta \times [d])$ denote the partition made of $|\eta|$ blocks of size $d$.
+ A partition $\rho\in\Pi([n]\times[d])$ is said to be {\it connected} if $\rho\vee\pi=\widehat{1}$, see Figure~\ref{fig:diagram0-1}.  
 
  % \vspace{-0.3cm}
 
@@ -858,10 +911,12 @@ denote the single-block coarsest partition of $b$,
   the set of all connected and non-crossing partitions of $[n]\times [d]$, for $n,k\geq 1$. 
  In what follows, every non-crossing partition $\rho$ of
  $[n]\times [d]$ will be decomposed as 
- $$
+ \begin{equation}
+   \label{fjklds143} 
  \rho = \bigcup_{i=1}^d \rho_i
- $$
- where $\rho_i$ is a partition of $\{(i,j)\}_{j=1,\ldots , n}$, 
+\end{equation} 
+ where $\rho_i$ is a partition of $\{(\ell ,i)\}_{\ell =1,\ldots , n}$
+ for $i=1,\ldots , d$, 
 % As above, we let $\lambda_l(s):=\lambda ( s)$, $l=1,\ldots , d$. 
  see Figure~\ref{fig:diagram0-1-2}.  
 % \vspace{-0.3cm}
@@ -961,7 +1016,7 @@ denote the single-block coarsest partition of $b$,
       (0.2,0.2)  rectangle (4.8,5.8);
 \end{pgfonlayer}
 \end{tikzpicture}}
-\caption{Examples of partition diagrams with $n=5$ and $r=4$.}
+\caption{Examples of partition diagrams with $n=5$ and $d=4$.}
 \label{fig:diagram0-1-2}
 \end{figure}
  
@@ -1069,7 +1124,7 @@ in Figure~\ref{fig:diagram1}
     \{(2,2),(4,2)\},
     \\
     &
-    \{(2,5)\},
+    \{(5,2)\},
     \{(1,3)\}, 
     \{(2,3),(3,3),(4,3),(5,3)\},
     \{(1,4),(2,4)(3,4)\}, 
@@ -1182,7 +1237,7 @@ in Figure~\ref{fig:diagram1}
       (0.2,0.2)  rectangle (4.8,5.8);
 \end{pgfonlayer}
 \end{tikzpicture}}
-  \caption{Example for the mapping $\sqcap$ with $n=5$ and $k=4$.}
+  \caption{Example for the mapping $\sqcap$ with $n=5$ and $d=4$.}
   \label{fig:diagram1}
   \end{figure}
   
@@ -1194,7 +1249,7 @@ In \cite{LiuPrivault}, a graphical diagrammatic framework was developed for repr
 % \label{defgraph-1}
   {\cite{LiuPri23b}}
 %  Let $G$ be a connected graph of order $r+m$ satisfying Assumption~\ref{a0}, and 
-  Let $\rho=\{b_1,\dots,b_{|\rho |} \} \in \Pi([n]\times[d])$, $n \geq 1$, be
+  Let $\rho=\{b_1,\dots,b_{|\rho |} \} \in \Pi([n]\times[d])$, $n \geq 1$, be 
   a partition of $[n]\times[d]$. Denote $G$ a path of order $k+1$. 
     We let $\widehat{\rho}$ denote the connected multigraph
   built on $[2]\cup([n]\times[d])$, which is constructed as follows.  
@@ -1296,51 +1351,61 @@ We can further denote the vertex set of the graph $\rho_G$ as $V(\rho_G):=\left[
       (0.2,0.2)  rectangle (6.8,3.8);
   \end{pgfonlayer}
 \end{tikzpicture}}%
-\subcaptionbox{Graph $\rho_G$ after merging edges and vertices.}[.5\textwidth]{
+\subcaptionbox{Graph $\rho_G$ after merging edges. % and vertices.
+}[.5\textwidth]{
 \begin{tikzpicture}% [scale=0.8] 
-  \draw[step=1cm, very thin, gray!40] (0,0) grid (7,4);
-  \draw[black, thick] (0,0) rectangle (7,4);
-  \filldraw [red] (1,2) circle (2pt);
-  \filldraw [red] (6,2) circle (2pt);
-  \filldraw [black] (2,2) circle (2pt);
-  \filldraw [black] (3,1.5) circle (2pt);
-  \filldraw [black] (3,3) circle (2pt);
-  \filldraw [black] (5,1) circle (2pt);
-%  \filldraw [black] (5,2) circle (2pt);
-  \filldraw [black] (4,2) circle (2pt);
-  \filldraw [black] (5,2.5) circle (2pt);
-  \filldraw [black] (4,3) circle (2pt);
-  \filldraw [black] (4,1) circle (2pt);
-%  \filldraw [black] (4,1) circle (2pt);
-  \draw[thick,blue] (1,2) -- (2,2); 
-  \draw[thick,blue] (3,1.5) -- (4,2);
-  \draw[thick,blue] (3,3) -- (4,3);
-  \draw[thick,blue] (4,3) -- (5,2.5);
-  \draw[thick,blue] (2,2) -- (3,3);
-  \draw[thick,blue] (2,2) -- (3,1.5);
-  \draw[thick,blue] (5,2.5) -- (4,2);
-%  \draw[thick,blue] (4,2) -- (4,1);
-% \draw[thick,blue] (2,2) .. controls (3,1.5) .. (4,2);
-  \draw[thick,blue] (3,1.5) -- (4,1);
-  \draw[thick,blue] (4,1) -- (5,1);
-  \draw[thick,blue] (5,2.5) -- (6,2);
-%  \draw[thick,blue] (4,2) -- (5,2);
-%  \draw[thick,blue] (5,2) -- (6,2);
-  \draw[thick,blue] (5,1) -- (6,2);
+\draw[step=1cm, very thin, gray!40] (0,0) grid (7,4);
+\draw[black, thick] (0,0) rectangle (7,4);
+\filldraw [red] (1,2) circle (2pt);
+\filldraw [red] (6,2) circle (2pt);
+\foreach \i in {2,3}
+{
+\filldraw [black] (2,\i) circle (2pt);
+\filldraw [black] (3,\i) circle (2pt);
+\filldraw [black] (4,\i) circle (2pt);
+\filldraw [black] (5,\i) circle (2pt);
+}
 
-  \node[anchor=east,font=\footnotesize] at (1,2) {9};
-  \node[anchor=west,font=\footnotesize] at (6,2) {10};
-  \node[anchor=south,font=\footnotesize] at (3,3) {2};
-  \node[anchor=south,font=\footnotesize] at (4,3) {3};
-  \node[anchor=north,font=\footnotesize] at (3,1.5) {5};
-  \node[anchor=south,font=\footnotesize] at (5,2.5) {4};
-  \node[anchor=south,font=\footnotesize] at (2,2) {1};
-  \node[anchor=south,font=\footnotesize] at (4,2) {6};
-  %\node[anchor=north,font=\small] at (3,1) {7};
-  \node[anchor=north,font=\footnotesize] at (5,1) {8};
-  \node[anchor=north,font=\footnotesize] at (4,1) {7};
+\filldraw [black] (2,1) circle (2pt);
+\filldraw [black] (3,1) circle (2pt);
+\filldraw [black] (4,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
 
-  \begin{pgfonlayer}{background}
+\draw[thick, blue] (1,2) -- (2,2);
+\draw[thick, blue] (2,1) -- (3,1.5);
+\draw[thick, blue] (3,1) -- (4,1);
+\draw[thick, blue] (4,1) -- (5,1);
+
+\draw[thick, blue] (2,3) -- (3,3);
+\draw[thick, blue] (3,3) -- (4,3);
+\draw[thick, blue] (4,3) -- (5,3);
+\draw[thick, blue] (5,2.5) -- (6,2);
+
+\draw[thick, blue] (3,2) -- (4,2);
+\draw[thick, blue] (4,2) -- (5,2);
+
+\draw[thick, blue] (5,1) -- (6,2);
+
+\node[anchor=north,font=\scriptsize] at (2,1) {(3,1)};
+\node[anchor=north,font=\scriptsize] at (3,1) {(3,2)};
+\node[anchor=north,font=\scriptsize] at (4,1) {(3,3)};
+\node[anchor=north,font=\scriptsize] at (5,1) {(3,4)};
+\node[anchor=south,font=\scriptsize] at (2,3) {(1,1)};
+\node[anchor=south,font=\scriptsize] at (3,3) {(1,2)};
+\node[anchor=south,font=\scriptsize] at (4,3) {(1,3)};
+\node[anchor=south,font=\scriptsize] at (5,3) {(1,4)};
+\node[anchor=south,font=\scriptsize] at (2,1.4) {(2,1)};
+\node[anchor=south,font=\scriptsize] at (3,1.4) {(2,2)};
+\node[anchor=south,font=\scriptsize] at (4,1.4) {(2,3)};
+\node[anchor=south,font=\scriptsize] at (5,1.4) {(2,4)};
+
+\node[anchor=east,font=\small] at (1,2) {$1$};
+\node[anchor=west,font=\small] at (6,2) {$2$};
+\draw[very thick] (3,1) -- (3,2);
+\draw[very thick] (5,2) -- (5,3);
+\draw[very thick] (2,3) -- (2,1);
+
+\begin{pgfonlayer}{background}
     \filldraw [line width=4mm,black!3]
       (0.2,0.2)  rectangle (6.8,3.8);
   \end{pgfonlayer}
@@ -1357,7 +1422,7 @@ We can further denote the vertex set of the graph $\rho_G$ as $V(\rho_G):=\left[
 % \subsubsection*{Moments and cumulants of subgraph counts} 
 
 \noindent 
- We also have the following lemma, which is analog to
+ Lemma~\ref{fkla12} is analog to
  Lemma~2.8 in \cite{LiuPrivault}
  or Proposition 6.1 in \cite{schulte-thaele}
  for non-crossing partitions. 
@@ -1410,24 +1475,12 @@ Any % connected
  a unique way from any partition in $\mathcal{M}(n,d)$, $n\geq 1$,
  which yields \eqref{coeff-10}. 
 \end{Proof} 
-\noindent
-   Finally, we will use the following standard notation for the asymptotic behavior of the relative order of magnitude of two functions $f(x)$ and $g(x)>0$ as $x$ tends to infinity.
-Given two functions $f(x)$ and $g(x)>0$, 
- we write 
-\begin{itemize}
-\item $f(x)=O(g(x))$, or $f(x) \lesssim g(x)$, if $\limsup_{x\to\infty} f(x) / g(x) <\infty$,
-\item $f(x)=\Omega(g(x))$, or $f(x) \gtrsim g(x)$, if $\liminf_{x\to\infty} f(x) / g(x)>0$,
-\item $f(x)\asymp g(x)$ if $f(x)=O(g(x))$ and $f(x)=\Omega(g(x))$, % if $f(\lambda )=\Theta(g(\lambda ))$;
-\item $f(x)\sim g(x)$ if $\lim_{x \to \infty} f(x)/g(x) = 1$, 
-\item $f(x)\ll g(x)$, or $g(x)\gg f(x)$, if $f(x)\geq 0$ and $f(x)/g(x)\to 0$.
-\end{itemize}
- with the convention $0/0=0$. 
 \section{Joint moments of $k$-hop counts} 
 \label{sec4}
 Proposition~\ref{p1} provides a combinatorial expression for the joint 
- moments of $(\sigma_k(kr-\tau_1),\ldots ,\sigma_k(kr-\tau_n))$ for any 
- $\tau_1 , \ldots , \tau_n \in [0,r]$, 
- using sums over partitions of $\{1,\ldots , n\}$. 
+ moments of $(\sigma_k(t_1),\ldots ,\sigma_k(t_n))$ for any 
+ $t_1 , \ldots , t_n \in [(k-1)r,kr]$, 
+ using sums over non-crossing partitions of $[n]\times [d]$. % \{1,\ldots , n\}$. 
 % Letting $\rho_{K_k}$ denote the contraction graph of the complete graph $K_k$ on $k$ vertices,
  For any set partition
  $\rho =\{b_1,\dots,b_{|\rho |}\}\in\Pi([n]\times[d])$
@@ -1451,61 +1504,64 @@ f\big(x^{(i)}_1,\dots,x^{(i)}_d \big),
  provide an identity for the joint moments of $k$-hop counts. 
 \begin{prop}
 \label{p1}
- Let $n \geq 1$. For any $\tau_1,\ldots , \tau_n \in [0,r]$,
+  Let $d\geq 1$. 
+  For any $n \geq 1$ and $t_1,\ldots , t_n \in [(k-1)r,kr]$,
  we have 
 \begin{align} 
 \label{djkls12}
-& \E  [ \sigma_k(kr-\tau_1) \cdots  \sigma_k(kr-\tau_n)  ] 
+& \E  [ \sigma_k(t_1) \cdots  \sigma_k(t_n)  ] 
 \\
 \nonumber
 & = \sum_{
 % \substack{\rho\in {\rm NC} ([n]\times[d])\\\rho\wedge\pi=\widehat{0}}
  \rho\in {\rm NC} ([n]\times[d])
 }
-p^{c(\rho )}
+p^{e(\rho_G)}
 \left(
  \prod_{i=1}^d \frac{m_i!}{(m_i - |\rho_i| )!}
  \right)
  \int_{
     [0,r]^{|\rho|}
   }\left(\bigotimes_{i=1}^n
- u_{\tau_i} \right)_{\! \! \! \rho}
+ u_{t_i} \right)_{\! \! \! \rho}
  ( x_1, \ldots , x_{|\rho|} ) 
- \mu_{\bar{\rho}_1} ( d x_1 ) 
- \cdots
- \mu_{\bar{\rho}_{|\rho|}} ( d x_{|\rho|} ) 
+ \mu_{\bar{b}_1} ( d x_1 ) 
+ \cdots 
+ \mu_{\bar{b}_{|\rho|}} ( d x_{|\rho|} ) 
 % \mu^{\otimes |\rho|} ( \mathrm{d}\mathbf{x} )
 , 
 \end{align} 
-where
-$$
-c(\rho ) : = |\rho_1|+|\rho_d|+\sum_{i=1}^{d-1} \min ( |\rho_i|,|\rho_{i+1}|), 
- $$
-  and 
- $u_\tau : [0,r]^d \mapsto \{0,1\}$ is the indicator function
+ where
+ any
+ $\rho\in {\rm NC} ([n]\times[d])$
+ is written as 
+ $\rho=\{b_1,\dots,b_{|\rho |} \}$ and 
+% $$c(\rho ) : = |b_1|+|b_d|+\sum_{i=1}^{d-1} \min ( |b_i|,|b_{i+1}|), $$ 
+ $u_t : [0,r]^d \mapsto \{0,1\}$ is the indicator function
  of $d$ variables given by 
- \begin{equation}
-   \label{jklf12} 
- u_\tau (x_1 , \ldots , x_d)
+\begin{equation}
+\label{jklf12} 
+ u_t (x_1 , \ldots , x_d)
  =
- {\bf1}_{\{x_1 \leq \cdots \leq x_d \leq \tau \}}
+ {\bf1}_{\{x_1 \leq \cdots \leq x_d \leq kr-t \}}
 % \prod_{p=1}^d {\bf 1}_{\{m_1+\cdots +m_{p-1} < i_p \leq m_1+\cdots + m_p\}}
- ,
- \quad
- x_1,\ldots , x_d \in [0,r], 
+,
+ \quad x_1,\ldots , x_d \in [0,r], 
 \end{equation} 
- and 
- $\bar{\rho}_i$ denotes the index $j\in \{1,\ldots , d \}$ of the unique block
- $\eta_j = ((i,j))_{i=1,\ldots , n}$ containing $\rho_i$, $i=1,\ldots , |\rho|$. 
+ and $\bar{b}_i$
+ denotes the index $k\in \{1,\ldots ,d\}$
+ of the partition $\rho_k$ containing $b_i$,
+ see \eqref{fjklds143}. 
+% denotes the index $j\in \{1,\ldots , d \}$ of the unique block $\eta_j = ((i,j))_{i=1,\ldots , n}$ containing $\rho_i$, $i=1,\ldots , |\rho|$. 
 % where $\zeta^j_i$ denotes the block of $\pi^j$ that contains the index $i\in \{1,\ldots , n\}$,  and $dz^j_{\pi^j} := (dz^j_i )_{ i \in \pi^j}$, $j=1,\ldots , k-1$. 
 \end{prop}
 \begin{Proof}
- For any $\tau_1,\ldots , \tau_n \in [0,r]$,
+ For any $t_1,\ldots , t_n \in [0,r]$,
  as in the proof of Theorem~3.2 in \cite{LiuPrivault25}, 
  we have 
 \begin{align*} 
 \nonumber 
-& \E  [ \sigma_k(kr-\tau_1) \cdots  \sigma_k(kr-\tau_n)  ] 
+& \E  [ \sigma_k(t_1) \cdots  \sigma_k(t_n)  ] 
 \\
  & = \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
   \atop
@@ -1515,7 +1571,7 @@ c(\rho ) : = |\rho_1|+|\rho_d|+\sum_{i=1}^{d-1} \min ( |\rho_i|,|\rho_{i+1}|),
  \prod_{i=1}^n
  \Big(
   Y^{(0)}_{\alpha_i(1)}Y^{(1)}_{\alpha_i(1),\alpha_i(2)}\cdots Y^{(d-1)}_{\alpha_i(d-1),\alpha_i(d)} Y^{(d)}_{\alpha_i(d)}
- u_{\tau_i} \big(U^{(1)}_{\alpha_i(1)} , \ldots , U^{(d)}_{\alpha_i(d)}\big) \Big) 
+ u_{t_i} \big(U^{(1)}_{\alpha_i(1)} , \ldots , U^{(d)}_{\alpha_i(d)}\big) \Big) 
  \right]
  \\
  & = 
@@ -1529,7 +1585,7 @@ c(\rho ) : = |\rho_1|+|\rho_d|+\sum_{i=1}^{d-1} \min ( |\rho_i|,|\rho_{i+1}|),
  \prod_{i=1}^n
  \Big(
   Y^{(0)}_{\alpha_i(1)}Y^{(1)}_{\alpha_i(1),\alpha_i(2)}\cdots Y^{(d-1)}_{\alpha_i(d-1),\alpha_i(d)} Y^{(d)}_{\alpha_i(d)}
- u_{\tau_i} \big(U^{(1)}_{\alpha_i(1)} , \ldots , U^{(d)}_{\alpha_i(d)}\big) \Big) 
+ u_{t_i} \big(U^{(1)}_{\alpha_i(1)} , \ldots , U^{(d)}_{\alpha_i(d)}\big) \Big) 
  \right]
  \\
  & = 
@@ -1543,14 +1599,14 @@ c(\rho ) : = |\rho_1|+|\rho_d|+\sum_{i=1}^{d-1} \min ( |\rho_i|,|\rho_{i+1}|),
  \prod_{i=1}^n
  \Big(
   Y^{(0)}_{\alpha_i(1)}Y^{(1)}_{\alpha_i(1),\alpha_i(2)}\cdots Y^{(d-1)}_{\alpha_i(d-1),\alpha_i(d)} Y^{(d)}_{\alpha_i(d)}
- u_{\tau_i} \big(U^{(1)}_{\alpha_i(1)} , \ldots , U^{(d)}_{\alpha_i(d)}\big) \Big) 
+ u_{t_i} \big(U^{(1)}_{\alpha_i(1)} , \ldots , U^{(d)}_{\alpha_i(d)}\big) \Big) 
  \right]
        \\
     &       = \sum_{\substack{\rho\in{\rm NC}([n]\times [d])\\\rho\wedge\pi=\widehat{0}}}
  p^{e(\rho_G)}
     \sum_{\alpha_1\in [n]^k,\ldots,\alpha_n\in[n]^k
     \atop \sqcap (\alpha ) = \rho }
-    \int_{[0,r]^{|\rho|}} \left(\bigotimes_{i=1}^n u_{\tau_i} \right)_{\! \! \! \rho}
+    \int_{[0,r]^{|\rho|}} \left(\bigotimes_{i=1}^n u_{t_i} \right)_{\! \! \! \rho}
       ( x_1, \ldots , x_{|\rho|} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
  \cdots
@@ -1561,7 +1617,7 @@ c(\rho ) : = |\rho_1|+|\rho_d|+\sum_{i=1}^{d-1} \min ( |\rho_i|,|\rho_{i+1}|),
 C_{m_1,\ldots , m_d} (\rho)
  p^{e(\rho_G)}
 \int_{
-   [0,r]^{|\rho|}}\left(\bigotimes_{i=1}^n u_{\tau_i} \right)_{\! \! \! \rho}
+   [0,r]^{|\rho|}}\left(\bigotimes_{i=1}^n u_{t_i} \right)_{\! \! \! \rho}
   ( x_1, \ldots , x_{|\rho|} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
  \cdots
@@ -1580,26 +1636,31 @@ $$
  such that $\sqcap (\alpha )=\rho$,
  $n,k\geq 1$, with $\rho$ non-crossing. 
 \end{Proof}
- In particular, in the case of $2$-hops with $d=1$, we have 
-\begin{align} 
-\nonumber % \label{djkls12}
-& \E  [ \sigma_2(2r-\tau_1) \cdots  \sigma_2(2r-\tau_n)  ] 
-\\
-\nonumber
-& \quad = \sum_{\rho\in \Pi ([n] )} 
+ In particular, in the case of $2$-hops with $d=1$,
+ we have 
+$$ 
+ \E  [ \sigma_2(t_1) \cdots  \sigma_2(t_n)  ] 
+  = \sum_{\rho\in \Pi ([n] )} 
  \frac{p^{2 | \rho |}m_1!}{(m_1 - |\rho| )!}
  \int_{
     [0,r]^{|\rho|}
   }\left(\bigotimes_{i=1}^n
- u_{\tau_i} \right)_{\! \! \! \rho}
+ u_{t_i} \right)_{\! \! \! \rho}
  ( x_1, \ldots , x_{|\rho|} ) 
- \mu_{\bar{\rho}_1} ( d x_1 ) 
+ \mu_1 ( d x_1 ) 
  \cdots
- \mu_{\bar{\rho}_{|\rho|}} ( d x_{|\rho|} ) 
+ \mu_1 ( d x_{|\rho|} ) 
 % \mu^{\otimes |\rho|} ( \mathrm{d}\mathbf{x} )
-, 
-\end{align} 
-
+. 
+$$ 
+If in addition $\mu_1$ is the uniform measure on $[0,r]$,
+then 
+$\sigma_2(t)$ has a binomial distribution with parameters $m_1$
+and
+\begin{equation}
+  \label{d=1}
+p^2\frac{2r-t}{r}, \qquad  t\in [r,2r]. 
+\end{equation}
 \subsubsection*{First moment}
 When $n=1$, there is only one non-crossing partition
 $\rho \in \Pi ( [1]\times [d])$, which is given as 
@@ -1609,38 +1670,58 @@ can be represented as in Figure~\ref{f2-1} for $d=8$.
 % \vskip-0.2cm
 
 \begin{figure}[H]
-  \begin{center}
-  \begin{tikzpicture}[every node/.style={draw}] 
-\centering
-\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};
-\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};
-\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};
-\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};
-\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};
-\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};
-\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};
-\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};
+\centering 
+  \begin{tikzpicture}% [scale=0.8] 
+\draw[step=1cm, very thin, gray!40] (0,0) grid (11,2);
+\draw[black, thick] (0,0) rectangle (11,2);
+\filldraw [red] (1,1) circle (2pt);
+\filldraw [red] (10,1) circle (2pt);
 
-\draw let \p1=(l1), \p2=(l1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l1)!0.5!(l1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l2), \p2=(l2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l2)!0.5!(l2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l3), \p2=(l3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l3)!0.5!(l3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l4), \p2=(l4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l4)!0.5!(l4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l5), \p2=(l5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l5)!0.5!(l5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l6), \p2=(l6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l6)!0.5!(l6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l7), \p2=(l7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l7)!0.5!(l7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l8), \p2=(l8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l8)!0.5!(l8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\filldraw [black] (2,1) circle (2pt);
+\filldraw [black] (3,1) circle (2pt);
+\filldraw [black] (4,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (6,1) circle (2pt);
+\filldraw [black] (7,1) circle (2pt);
+\filldraw [black] (8,1) circle (2pt);
+\filldraw [black] (9,1) circle (2pt);
+\draw[thick, blue] (1,1) -- (2,1);
+\draw[thick, blue] (1,1) -- (2,1);
+\draw[thick, blue] (2,1) -- (3,1);
+\draw[thick, blue] (3,1) -- (4,1);
+\draw[thick, blue] (4,1) -- (5,1);
+\draw[thick, blue] (5,1) -- (6,1);
+\draw[thick, blue] (6,1) -- (7,1);
+\draw[thick, blue] (7,1) -- (8,1);
+\draw[thick, blue] (8,1) -- (9,1);
+\draw[thick, blue] (9,1) -- (10,1);
+
+\node[anchor=north,font=\scriptsize] at (2,1) {(1,1)};
+\node[anchor=north,font=\scriptsize] at (3,1) {(1,2)};
+\node[anchor=north,font=\scriptsize] at (4,1) {(1,3)};
+\node[anchor=north,font=\scriptsize] at (5,1) {(1,4)};
+\node[anchor=north,font=\scriptsize] at (6,1) {(1,5)};
+\node[anchor=north,font=\scriptsize] at (7,1) {(1,6)};
+\node[anchor=north,font=\scriptsize] at (8,1) {(1,7)};
+\node[anchor=north,font=\scriptsize] at (9,1) {(1,8)};
+
+% \draw[very thick] (2,1) -- (2,2);
+% \draw[very thick] (3,1) -- (3,2);
+% \draw[very thick] (4,1) -- (4,2);
+% \draw[very thick] (5,1) -- (5,2);
+% \draw[very thick] (6,1) -- (6,2);
+% \draw[very thick] (7,1) -- (7,2);
+% \draw[very thick] (7,1) -- (7,2);
+% \draw[very thick] (8,1) -- (8,2);
+% \draw[very thick] (9,1) -- (9,2);
+\begin{pgfonlayer}{background}
+    \filldraw [line width=4mm,black!3]
+      (0.2,0.2)  rectangle (10.8,1.8);
+  \end{pgfonlayer}
 \end{tikzpicture}
-\end{center}
-  \vskip-0.2cm
-  \caption{
+%\vskip-0.2cm
+ \caption{
  Single non-crossing partition
 of $[1] \times [d]$ with $d=8$.} 
 \label{f2-1}
@@ -1652,71 +1733,60 @@ of $[1] \times [d]$ with $d=8$.}
  Here, we have
  $C_{m_1,\ldots , m_d}(\rho) = m_1\cdots m_d$,
  and 
- the first moment of the count $\sigma_k$ of $k$-hop paths is
+ the first moment of the count $\sigma_k(t)$ of $k$-hop paths is
  given by
 \begin{align} 
 \nonumber
- \E [ \sigma_k (kr-\tau) ]
+ \E [ \sigma_k (t) ]
  & = 
  \E\left[
  \sum_{\beta \in [m_1] \times \cdots \times [m_d]}
- u_\tau \big(U^{(1)}_{\beta (1)} , \ldots , U^{(d)}_{\beta (d)}\big) 
+ u_t \big(U^{(1)}_{\beta (1)} , \ldots , U^{(d)}_{\beta (d)}\big) 
  \right]
 \\
 \nonumber
  & = 
  \sum_{\beta \in [m_1] \times \cdots \times [m_d]}
  \E\big[
- u_\tau \big(U^{(1)}_{\beta (1)} , \ldots , U^{(d)}_{\beta (d)}\big) 
+ u_t \big(U^{(1)}_{\beta (1)} , \ldots , U^{(d)}_{\beta (d)}\big) 
  \big]
 \\
 \nonumber
  & = 
  p^{d+1}
  m_1\cdots m_d
- \int_0^\tau \int_0^{x_d} \cdots \int_0^{x_2} \mu_1(dx_1)\cdots \mu_d(dx_d). 
+ \int_0^{kr-t} \int_0^{x_d} \cdots \int_0^{x_2} \mu_1(dx_1)\cdots \mu_d(dx_d). 
 \end{align}
 If $\mu_i$ is the uniform measure on $[0,r]$ for all
 $i=1,\ldots , d$, then we have 
 \begin{align} 
 \nonumber
- \E [ \sigma_k (kr-\tau) ]
+ \E [ \sigma_k (t) ]
 & = 
  \frac{p^{d+1}}{r^d}
  m_1\cdots m_d 
- \int_0^\tau \int_0^{x_d} \cdots \int_0^{x_2} dx_1\cdots dx_d
+ \int_0^{kr-t} \int_0^{x_d} \cdots \int_0^{x_2} dx_1\cdots dx_d
 % {\bf1}_{\{i_1<\cdots < i_d\}} \prod_{p=1}^d {\bf 1}_{\{m_1+\cdots +m_{p-1} < i_p \leq m_1+\cdots + m_p\}}
 \\
 \label{fjkdls-0}
 & = 
-p^{d+1} m_1\cdots m_d\frac{(\tau / r)^d}{d!}. 
+p^{d+1} m_1\cdots m_d\frac{((kr-t) / r)^d}{d!}. 
 \end{align} 
- Multiplying \eqref{fjkdls-0}
- by $\displaystyle \prod_{i=1}^d e^{- r \lambda_i}\frac{ ( r \lambda_i)^{m_i}}{m_i!}$ 
- and summing over $m_1,\ldots , m_d = 0$ to infinity, 
- this expression can be Poissonized to recover 
-$$ 
-% \frac{1}{a_k^d}
- p^{d+1} \frac{(\tau /r)^d}{d!}
- \sum_{m_1,\ldots , m_d = 0}^\infty m_1\cdots m_d
-\prod_{i=1}^d e^{- r \lambda_i }\frac{(r \lambda_i)^{m_i}}{m_i!} 
- = p \lambda_1 \cdots \lambda_d \frac{(p\tau )^d}{d!}. 
-$$
  When
 $$
 m_1 = \cdots = m_d = 1, 
 $$
  we have 
 $$ 
-  \E  [ \sigma_k(kr-\tau) ]
+  \E  [ \sigma_k(t) ]
  = 
-  \frac{(p\tau)^d}{r^dd!}, 
+  p \frac{(p(kr-t))^d}{r^dd!}, 
 $$ 
  and 
-$\sigma_k(kr-\tau)$ is a Bernoulli random variable with parameter
+$\sigma_k(t)$ is a Bernoulli random variable with parameter
 $$
- \P\big(U_1^{(1)} \leq \cdots \leq U^{(d)}_1 \leq \tau \big) =
- \frac{(p \tau )^d}{r^dd!}. 
+ \P\big(U_1^{(1)} \leq \cdots \leq U^{(d)}_1 \leq kr-t \big) =
+ p \frac{(p ( kr-t) )^d}{r^dd!}. 
 $$ 
 \subsubsection*{Second moment}
 \noindent
@@ -1725,86 +1795,112 @@ of non-crossing partitions of $[2] \times [d]$
 ranges from $d$ to $2d$, each block has size either one or two,
 as in Figure~\ref{f3-1-1} for $d=8$. 
 
-\vskip-0.2cm
+% \vskip-0.2cm
 
 \begin{figure}[H]
-  \begin{center}
-\hskip-0.3cm
-\begin{tikzpicture}[every node/.style={draw}] 
-\centering
-\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};] {};
+\centering 
+  \begin{tikzpicture}% [scale=0.8] 
+\draw[step=1cm, very thin, gray!40] (0,0) grid (11,3);
+\draw[black, thick] (0,0) rectangle (11,3);
+\filldraw [red] (1,1.5) circle (2pt);
+\filldraw [red] (10,1.5) circle (2pt);
+\foreach \i in {2}
+{
+\filldraw [black] (2,\i) circle (2pt);
+\filldraw [black] (3,\i) circle (2pt);
+\filldraw [black] (4,\i) circle (2pt);
+\filldraw [black] (5,\i) circle (2pt);
+\filldraw [black] (6,\i) circle (2pt);
+\filldraw [black] (7,\i) circle (2pt);
+\filldraw [black] (8,\i) circle (2pt);
+\filldraw [black] (9,\i) circle (2pt);
+}
 
-\node (m1) at (2,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m2) at (4,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m3) at (6,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m4) at (8,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m5) at (10,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m6) at (12,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m7) at (14,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m8) at (16,1) [circle,fill=black,scale=0.5] {};] {};
+\filldraw [black] (2,1) circle (2pt);
+\filldraw [black] (3,1) circle (2pt);
+\filldraw [black] (4,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (6,1) circle (2pt);
+\filldraw [black] (7,1) circle (2pt);
+\filldraw [black] (8,1) circle (2pt);
+\filldraw [black] (9,1) circle (2pt);
+\draw[thick, blue] (1,1.5) -- (2,1);
+\draw[thick, blue] (1,1.5) -- (2,2);
+\draw[thick, blue] (2,2) -- (3,1.5);
+\draw[thick, blue] (2,1) -- (3,1.5);
+\draw[thick, blue] (3,1.5) -- (4,1.5);
+\draw[thick, blue] (4,1.5) -- (5,1);
+\draw[thick, blue] (4,1.5) -- (5,2);
+\draw[thick, blue] (5,2) -- (6,2);
+\draw[thick, blue] (5,1) -- (6,1);
+\draw[thick, blue] (6,2) -- (7,1.5);
+\draw[thick, blue] (6,1) -- (7,1.5);
+\draw[thick, blue] (7,1.5) -- (8,1.5);
+\draw[thick, blue] (8,1.5) -- (9,1.5);
+\draw[thick, blue] (9,1.5) -- (10,1.5);
 
-\draw let \p1=(l1), \p2=(l1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l1)!0.5!(l1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m1), \p2=(m1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m1)!0.5!(m1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l2), \p2=(m2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l2)!0.5!(m2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l3), \p2=(m3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l3)!0.5!(m3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l4), \p2=(l4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l4)!0.5!(l4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m4), \p2=(m4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m4)!0.5!(m4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l5), \p2=(l5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l5)!0.5!(l5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m5), \p2=(m5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m5)!0.5!(m5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l6), \p2=(m6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l6)!0.5!(m6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l7), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-% \draw let \p1=(l8), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}  in ($ (l8)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-% \draw let \p1=(l7), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\node[anchor=north,font=\scriptsize] at (2,1) {(2,1)};
+\node[anchor=north,font=\scriptsize] at (3,1) {(2,2)};
+\node[anchor=north,font=\scriptsize] at (4,1) {(2,3)};
+\node[anchor=north,font=\scriptsize] at (5,1) {(2,4)};
+\node[anchor=north,font=\scriptsize] at (6,1) {(2,5)};
+\node[anchor=north,font=\scriptsize] at (7,1) {(2,6)};
+\node[anchor=north,font=\scriptsize] at (8,1) {(2,7)};
+\node[anchor=north,font=\scriptsize] at (9,1) {(2,8)};
+\node[anchor=south,font=\scriptsize] at (2,2) {(1,1)};
+\node[anchor=south,font=\scriptsize] at (3,2) {(1,2)};
+\node[anchor=south,font=\scriptsize] at (4,2) {(1,3)};
+\node[anchor=south,font=\scriptsize] at (5,2) {(1,4)};
+\node[anchor=south,font=\scriptsize] at (6,2) {(1,5)};
+\node[anchor=south,font=\scriptsize] at (7,2) {(1,6)};
+\node[anchor=south,font=\scriptsize] at (8,2) {(1,7)};
+\node[anchor=south,font=\scriptsize] at (9,2) {(1,8)};
+
+% \node[anchor=east,font=\small] at (1,2) {$1$};
+% \node[anchor=west,font=\small] at (6,2) {$2$};
+\draw[very thick] (3,1) -- (3,2);
+\draw[very thick] (4,1) -- (4,2);
+\draw[very thick] (7,1) -- (7,2);
+\draw[very thick] (7,1) -- (7,2);
+\draw[very thick] (8,1) -- (8,2);
+\draw[very thick] (9,1) -- (9,2);
+\begin{pgfonlayer}{background}
+    \filldraw [line width=4mm,black!3]
+      (0.2,0.2)  rectangle (10.8,2.8);
+  \end{pgfonlayer}
 \end{tikzpicture}
-\end{center}
-  \vskip-0.2cm
-  \caption{
+%\vskip-0.2cm
+\caption{
  Example of a non-crossing partition
 of $2 \times d$ with $d=8$.} 
 \label{f3-1-1}
 \end{figure}
 
-\vskip-0.4cm
+\vspace{-0.4cm}
 
 \begin{corollary} 
 % \label{p1}
- For any $\tau_1,\tau_2 \in [0,r]$,
- we have 
+  Let $d\geq 1$ and 
+  $t_1,t_2 \in [(k-1)r,kr]$. We have 
 \begin{align} 
 \nonumber % \label{djkls12}
-& \E  [ \sigma_k(kr-\tau_1) \sigma_k(kr-\tau_2)  ] 
+& \E  [ \sigma_k(t_1) \sigma_k(t_2)  ] 
 \\
 \nonumber
 & = \sum_{
  \rho\in {\rm NC} ([2]\times[d])
 }
-p^{c(\rho )}
+p^{e(\rho_G)}
 \left(
  \prod_{i=1}^d \frac{m_i!}{(m_i - |\rho_i| )!}
  \right)
  \int_{
     [0,r]^{|\rho|}
  }\left(
- u_{\tau_1}
+ u_{t_1}
  \otimes
- u_{\tau_2}
+ u_{t_2}
  \right)_{\rho}
  ( x_1, \ldots , x_{|\rho|} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
@@ -1814,66 +1910,61 @@ p^{c(\rho )}
 , 
 \end{align} 
 where
-$$
-c(\rho ) : = |\rho_1|+|\rho_d|+\sum_{i=1}^{d-1} \min ( |\rho_i|,|\rho_{i+1}|), 
- $$
- and 
+% $$ c(\rho ) : = |b_1|+|b_d|+\sum_{i=1}^{d-1} \min ( |b_i|,|b_{i+1}|), $$ and 
  $\bar{\rho}_i$ denotes the index $j\in \{1,\ldots , d \}$ of the unique
  vertical block
- $\eta_j = ((1,j),(2,j))$ containing $\rho_i$, $i=1,\ldots , |\rho|$. 
+ $\eta_j = ((1,j),(2,j))$ containing $b_i$, $i=1,\ldots , |\rho|$. 
 \end{corollary} 
 \noindent
  In particular, in the case of $2$-hops with $d=1$, we have 
 \begin{align} 
 \nonumber % \label{fjkdls}
- \E  [ \sigma_2(2r-\tau)^2 ]
+ \E  [ \sigma_2(t)^2 ]
  = 
   p^4 m_1(m_1-1)
-  \left(\frac{\tau}{r} \right)^{2}
+  \left(\frac{kr-t}{r} \right)^{2}
   +
   p^2 m_1
- \frac{\tau}{r} 
+ \frac{kr-t}{r} 
 , 
 \end{align} 
 \noindent
  and % In particular, in the case of $2$-hops with $d=1$, we have 
 \begin{align*} 
 \nonumber % \label{fjkdls}
-\Var_m [ \sigma_2(2r-\tau) ]
+\Var [ \sigma_2(t) ]
  &  = 
 % p^4 m_1(m_1-1) \left(\frac{\tau}{r}\right)^{2} + p^2 m_1 \frac{\tau}{r} - p^4m_1^2 \left(\frac{\tau}{r}\right)^2
 % \\ & = p^2 m_1 \frac{\tau}{r} - p^4 m_1 \left(\frac{\tau}{r} \right)^{2}
 % \\ & = 
    m_1p^2
-   \frac{\tau}{r} 
+   \frac{kr-t}{r} 
     \left( 1  -
-  p^2 \frac{\tau}{r} \right)
+  p^2 \frac{kr-t}{r} \right)
   . 
 \end{align*} 
 \noindent 
  In Proposition~\ref{djklfs2}, we compute the 
- second moment of the count $\sigma_k(kr-\tau)$ of $k$-hop paths.  
+ second moment of the count $\sigma_k(t)$ of $k$-hop paths.  
 % Alternatively, this result can be proved as a consequence of Corollary~\ref{c1} and the It\^o isometry for multiple Poisson stochastic integrals. 
- Higher cumulants and moments of $\sigma_k(kr-\tau)$ may also 
- be computed by this method, 
- using % Corollary~\ref{c1} above and
- Corollary~7.4.1 of
- \cite{peccatitaqqu}. 
+ Higher cumulants and moments of $\sigma_k(t)$ may also 
+ be computed by this method, using % Corollary~\ref{c1} above and
+ Corollary~7.4.1 of \cite{peccatitaqqu}. 
 \begin{prop} 
 \label{djklfs2}
-Assume that $p=1$ and $\mu_i$ is the uniform measure on $[0,r]$ for all
-$i=1,\ldots , d$.
- Then, for $k\geq 3$,
- the second moment of the count $\sigma_k(kr-\tau)$ of $k$-hop paths is given by
+Let $d\geq 1$ and $t\in [(k-1)r,kr]$,
+assume that $p=1$ and that $\mu_i$ is the uniform measure on $[0,r]$,
+ $i=1,\ldots , d$.
+ The second moment of the count $\sigma_k(t)$ of $k$-hop paths is given by
 \begin{align} 
 \nonumber % \label{fjkdls}
-  & \E  [ \sigma_k(kr-\tau)^2 ]
+  & \E  [ \sigma_k(t)^2 ]
   \\
   \nonumber
   & =
   m_1(m_1-1)\cdots m_d(m_d-1)
   \sum_{l=0}^d
-  \frac{(\tau / r)^{2d-l}}{(2d-l)!}
+  \frac{((kr-t) / r)^{2d-l}}{(2d-l)!}
   \sum_{
     j_0 + \cdots + j_l = d-l \atop j_0,\ldots , j_l\geq 0}
  \prod_{q=1}^l 
@@ -1894,9 +1985,9 @@ $i_1, \ldots , i_l$. We have
  \int_{
     [0,r]^{|\rho|}
  }\left(
- u_{\tau_1}
+ u_{t_1}
  \otimes
- u_{\tau_2}
+ u_{t_2}
  \right)_{ \rho}
  ( x_1, \ldots , x_{|\rho|} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
@@ -1906,7 +1997,7 @@ $i_1, \ldots , i_l$. We have
   & \quad
    = 
  \frac{1}{r^{2d-l}}
-  \int_0^\tau
+  \int_0^{kr-t}
 \int_0^{z_{i_l}}
 \cdots
 \int_0^{z_{i_2}}
@@ -1917,7 +2008,7 @@ dz_{i_1}\cdots dz_{i_l}
 \nonumber
 & 
  \quad =
-\frac{(\tau / r)^{2d-l}}{((i_1-1)!)^2}
+\frac{((kr-t) / r)^{2d-l}}{((i_1-1)!)^2}
     \prod_{j=1}^l
 \int_0^1
 \frac{ (1-y)^{2(i_{j+1}-i_j-1)}
@@ -1928,7 +2019,7 @@ dy
 \nonumber
 & 
 \quad =
-\frac{(\tau / r)^{2d-l}}{((i_1-1)!)^2}
+\frac{((kr-t) / r)^{2d-l}}{((i_1-1)!)^2}
 \prod_{j=1}^l
 \frac{B(2i_j-j,
 2(i_{j+1}-i_j)-1)
@@ -1937,7 +2028,7 @@ dy
 \nonumber
 & 
 \quad =
-\frac{(\tau / r)^{2d-l}}{((i_1-1)!)^2}
+\frac{((kr-t) / r)^{2d-l}}{((i_1-1)!)^2}
   \prod_{j=1}^l
 \frac{
 (2i_j-j-1)!
@@ -1949,7 +2040,7 @@ dy
 \nonumber
 & 
 \quad =
-\frac{(\tau /r)^{2d-l}}{(2d-l)!}
+\frac{((kr-t) /r)^{2d-l}}{(2d-l)!}
 \prod_{j=0}^l
 \frac{
 (2(i_{j+1}-i_j-1))!}
@@ -1957,7 +2048,7 @@ dy
      ((i_{j+1}-i_j-1)!)^2}
      ,
  \end{align*} 
-where we take $z_0=0$ and $z_k=\tau$,
+where we take $z_0=0$ and $z_k=kr-t$,
  $$
  B(x,y) = \int_0^1 t^{x-1}(1-t)^{y-1} dt,
  \qquad  x, y>0,
@@ -1971,13 +2062,13 @@ C_{m_1,\ldots , m_d} (\rho) = \frac{m_1(m_1-1)\cdots m_d (m_d-1)}{(m_{k_1}-1) \c
 $$
  by Proposition~\ref{p1} we have 
 \begin{align*} 
-& \E  [ \sigma_k(kr-\tau)^2 ]
+& \E  [ \sigma_k(t)^2 ]
 % = \sum_{l=0}^d \sum_{\alpha_1(1) \in [m_1], \ldots , \alpha_1(d)\in [m_d] \atop \{i_1,\ldots , i_l \} \subset \{ \alpha_1(1), \ldots , \alpha_1(d) \} } \frac{(p \tau /r)^{2d-l}}{(2d-l)!} \prod_{j=0}^l \frac{ (2(i_{j+1}-i_j-1))!} { ((i_{j+1}-i_j-1)!)^2}
 \\
  & =  
  m_1(m_1-1)\cdots m_d(m_d-1)
   \sum_{l=0}^d
-  \frac{\tau^{2d-l}}{r^{2d-l}(2d-l)!}
+  \frac{(kr-t)^{2d-l}}{r^{2d-l}(2d-l)!}
   \sum_{
     j_0 + \cdots + j_l = d-l \atop j_0,\ldots , j_l\geq 0}
  \prod_{q=1}^l 
@@ -1989,10 +2080,10 @@ $$
 \end{Proof}
  \noindent 
   From Proposition~\ref{djklfs2}, the
- variance of the count $\sigma_k$ of $k$-hop paths is given by 
+ variance of the count $\sigma_k(t)$ of $k$-hop paths is given by 
 \begin{align} 
 \nonumber % \label{dfjkvar}
-  \Var [ \sigma_k ]
+  \Var [ \sigma_k(t) ]
  & =
   - \frac{m_1^2\cdots m_d^2}{d!^2}
   \\
@@ -2028,24 +2119,26 @@ $$
  we obtain the following variance result.
 \begin{corollary} 
 \label{djklfs2-2}
-Assume that $p=1$ and $\mu_i$ is the uniform measure on $[0,r]$ for all
-$i=1,\ldots , d$, and $m_1 = \cdots = m_d = m$. 
+Let $d\geq 1$ and assume that $p=1$, that $\mu_i$ is the uniform measure on $[0,r]$, 
+$i=1,\ldots , d$, and that $m_1 = \cdots = m_d = m$. 
 % $\lambda_i=\lambda$, and let
 % $a_{k,i} = a_k$, $i=1,\ldots , k-1$. 
- Then, for $\tau \in [0,r]$, the variance 
- of the $k$-hop path count $\sigma_k (kr-\tau)$ is given by
-\begin{equation}
+ Then, for $t \in [(k-1)r,kr]$, the variance 
+ of the $k$-hop path count $\sigma_k (t)$ is given by
+\begin{align} 
 \nonumber % \label{dfjkvar} 
-  \Var [ \sigma_k(kr-\tau) ]
-  =
+  \Var_m [ \sigma_k(t) ]
+ & =
   m^d( (m-1)^d - m^d ) 
-  \frac{(\tau/r)^{2d}}{d!^2}
-  + 
+  \frac{((kr-t)/r)^{2d}}{d!^2}
+  \\
+  \nonumber
+  & \quad + 
   \sum_{l=1}^d
-  \frac{(m\tau)^{2d-l}}{r^{2d-l}}
+  \frac{(m(kr-t))^{2d-l}}{r^{2d-l}}
   \frac{(1-1/m)^{d-l}}{(2d-l)!}
 4^{d-l}\frac{\Gamma (d-l+(l+1)/2)}{(d-l)!\Gamma ((l+1)/2)}, 
-\end{equation} 
+\end{align} 
 where $\Gamma$ denotes the gamma function defined as
 $$
 \Gamma (z) :=
@@ -2056,11 +2149,11 @@ $$
 We have 
 \begin{align} 
 \label{fjkdls}
-  \E  [ \sigma_k(kr-\tau)^2 ]
+  \E_m  [ \sigma_k(t)^2 ]
  & = 
   m^d(m-1)^d 
   \sum_{l=0}^d
-  \frac{\tau^{2d-l}}{r^{2d-l}(2d-l)!}
+  \frac{(kr-t)^{2d-l}}{r^{2d-l}(2d-l)!}
   \sum_{
     j_0 + \cdots + j_l = d-l \atop j_0,\ldots , j_l\geq 0}
  \frac{1}{(m-1)^l} 
@@ -2070,7 +2163,7 @@ We have
        \nonumber 
        & =
   \sum_{l=0}^d
-  \frac{\tau^{2d-l}}{r^{2d-l}}
+  \frac{(kr-t)^{2d-l}}{r^{2d-l}}
   \frac{m^d(m-1)^{d-l}}{(2d-l)!}
   \sum_{
     j_0 + \cdots + j_l = d-l \atop j_0,\ldots , j_l\geq 0}
@@ -2080,7 +2173,7 @@ We have
        \nonumber 
        & =
   \sum_{l=0}^d
-  \frac{\tau^{2d-l}}{r^{2d-l}}
+  \frac{(kr-t)^{2d-l}}{r^{2d-l}}
   \frac{m^d(m-1)^{d-l}}{(2d-l)!}
 4^{d-l}\frac{\Gamma (d-l+(l+1)/2)}{(d-l)!\Gamma ((l+1)/2)}, 
 \end{align} 
@@ -2089,9 +2182,15 @@ We have
 \nonumber 
   \sum_{j_0 + \cdots + j_l = d-l\atop j_0,\ldots , j_l\geq 0}
   \prod_{{q'}=0}^l {2j_{q'}\choose j_{q'}} 
-& = 4^{d-l} \frac{\Gamma ( d-l + (l+1)/2)}{(d-l)!\Gamma ((l+1)/2)}, 
-\end{align} 
- see Corollary~4.3 in \cite{privaultkhops}. 
+  & = 4^{d-l} \frac{\Gamma ( d-l + (l+1)/2)}{(d-l)!\Gamma ((l+1)/2)},
+  \qquad 0 \leq l \leq d, 
+\end{align}
+ and the Legendre duplication formula
+\begin{equation}
+\label{legendre} 
+4^d \frac{\Gamma ( d + 1/2)}{d!\Gamma (1/2)}=\frac{\Gamma (2d)}{\Gamma (d)} = \frac{(2d)!}{d!}
+\end{equation} 
+ for $l=0$, see Corollary~4.3 in \cite{privaultkhops}. 
 \end{Proof}
 % For $f$ and $g$ two nonvanishing functions on $\real_+$ we write $f(\lambda ) \approx g(\lambda )$ if $\lim_{\lambda \to \infty} f(\lambda ) / g(\lambda ) = 1$. 
 % \begin{prop}
@@ -2110,18 +2209,33 @@ We have
 % \end{prop} 
 % \noindent
 %  Assuming that $m_i(n)=\alpha_i n$, $i=1,\ldots , d$, $n\geq 1$, the leading term in the variance is obtained for $l=1$ as 
-% $$ m^{2d-1} \frac{ \alpha_1^2\cdots \alpha_d^2}{(2d-1)!} \sum_{i=1}^d \frac{ (2(i-1))!} {\alpha_i ((i-1)!)^2} \frac{ (2(d-i))!} { ((d-i)!)^2} = O( m^{2d-1} ),$$
+% $$ m^{2d-1} \frac{ \alpha_1^2\cdots \alpha_d^2}{(2d-1)!} \sum_{i=1}^d \frac{ (2(i-1))!} {\alpha_i ((i-1)!)^2} \frac{ (2(d-i))!} { ((d-i)!)^2} = O(m^{2d-1} ),$$
 % hence we can apply the CLT Theorem~2 in \cite{Janson1988}. 
 % \color{lightblue}
 \subsubsection*{Poissonization}
-Multiplying \eqref{djkls12}
+ Multiplying \eqref{fjkdls-0}
+ by $\displaystyle \prod_{i=1}^d e^{- r \lambda_i}\frac{ ( r \lambda_i)^{m_i}}{m_i!}$ 
+ and summing over $m_1,\ldots , m_d = 0$ to infinity, 
+ this expression can be Poissonized to recover the first
+ moment 
+$$ 
+% \frac{1}{a_k^d}
+ p^{d+1} \frac{((kr-t) /r)^d}{d!}
+ \sum_{m_1,\ldots , m_d = 0}^\infty m_1\cdots m_d
+\prod_{i=1}^d e^{- r \lambda_i }\frac{(r \lambda_i)^{m_i}}{m_i!} 
+ = p \lambda_1 \cdots \lambda_d \frac{(p(kr-t) )^d}{d!} 
+$$
+ of the $k$-hop count in the
+ Poisson random-connection model,
+ see (4.2) in \cite{privaultkhops}. 
+ Similarly, multiplying \eqref{djkls12}
 by $\displaystyle \prod_{i=1}^d e^{-\lambda_i}\frac{\lambda_i^{m_i}}{m_i!}$
 and summing over $m_1,\ldots , m_d = 0$ to infinity, 
 Proposition~\ref{p1} 
 can be Poissonized to recover the moment 
 \begin{align} 
 \nonumber % \label{djkls12}
-& \E  [ \sigma_k(kr-\tau_1) \cdots  \sigma_k(kr-\tau_n)  ] 
+& \E  [ \sigma_k(t_1) \cdots  \sigma_k(t_n)  ] 
 \\
 \nonumber
 & =
@@ -2138,7 +2252,7 @@ p^{|\rho|}
  \int_{
     [0,r]^{|\rho|}
   }\left(\bigotimes_{i=1}^n
- u_{\tau_i} \right)_{\! \! \! \rho}
+ u_{t_i} \right)_{\! \! \! \rho}
    ( x_1, \ldots , x_{|\rho|} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
  \cdots
@@ -2153,7 +2267,7 @@ p^{|\rho|}
  \int_{
     [0,r]^{|\rho|}
   }\left(\bigotimes_{i=1}^n
-  u_{\tau_i} \right)_{\! \! \! \rho}    ( x_1, \ldots , x_{|\rho|} ) 
+  u_{t_i} \right)_{\! \! \! \rho}    ( x_1, \ldots , x_{|\rho|} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
  \cdots
  \mu_{\bar{\rho}_{|\rho|}} ( d x_{|\rho|} ) 
@@ -2163,15 +2277,15 @@ p^{|\rho|}
  random geometric graph with intensities
  $\lambda_1 \mu_1, \ldots \lambda_d \mu_d$,
  see Proposition~4.1 in \cite{privaultkhops}. 
- Similarly, multiplying \eqref{fjkdls}
+ More generally, multiplying \eqref{fjkdls}
 by $\displaystyle \prod_{i=1}^d e^{-\lambda_i}\frac{\lambda_i^{m_i}}{m_i!}$
 and summing over $m_1,\ldots , m_d = 0$ to infinity, 
 the expression
-\eqref{fjkdls} of $\E  [ \sigma_k^2 ]$ 
+\eqref{fjkdls} of $\E  [ \sigma_k(t)^2 ]$ 
 can be Poissonized to recover 
 \begin{align*} 
 \nonumber % \label{fjkdls}
- & \E  [ \sigma_k^2 ]
+ & \E  [ \sigma_k(t)^2 ]
 \\
  & =
   \sum_{l=0}^d
@@ -2211,36 +2325,39 @@ can be Poissonized to recover
 \section{Cumulant bounds} 
 \label{sec6}
 % \scriptsize
- In the sequel, given
- $\{ \pi_1,\ldots , \pi_l \}$ a partition of $\{1,\ldots , n\}$
- and $\tau_1,\ldots , \tau_l \in [0,r]$ we denote by
- $$
- \kappa_{k,n}^{( m )} ( \widebar{\tau}_{\pi_1} ; \ldots ; \widebar{\tau}_{\pi_l} ) : = 
-% with $|\pi| := ( |\pi_1|,\ldots , |\pi_l| )$ 
- \kappa_n \big( ( \sigma_k(kr - \tau_1) )^{|\pi_1|}, \ldots , ( \sigma_k(kr - \tau_l) )^{|\pi_l|}\big)
- $$ 
- the joint cumulant
- of $\big( ( \sigma_k(kr - \tau_1) )^{|\pi_1|}, \ldots , ( \sigma_k(kr - \tau_l) )^{|\pi_l|}\big)$, and we let 
- $\kappa_n( \sigma_k(kr - \tau ) )$ 
- % $\kappa_{k,n}^{( m )} ( \tau_1 ; \ldots ; \tau_n )$ 
-% := \kappa_{k,n}^{( m )} ( \tau_1,\{1\};\ldots ; \tau_n, \{n\}) $$
+ In what follows, given  
+ $t_1,\ldots , t_n \in [(k-1)r,kr]$, we denote by
+$$
+ \kappa_n ( \sigma_k(t_1), \ldots , \sigma_k(t_n) )
+$$ 
+ the joint cumulant 
+ of $( \sigma_k(t_1) , \ldots , \sigma_k(t_n))$, and we let 
+ $\kappa_n( \sigma_k(t ) )$ 
+% $\kappa_{k,n}^{(m)} ( \tau_1 ; \ldots ; \tau_n )$ 
+% := \kappa_{k,n}^{(m)} ( \tau_1,\{1\};\ldots ; \tau_n, \{n\}) $$
  denote the cumulant of order $n\geq 1$ of
- $\sigma_k(kr - \tau )$. 
+ $\sigma_k(t )$.
+ We also assume that
+ $$
+ m_1=\cdots = m_d = m \geq 1
+ $$ 
+ throughout this section.
  % joint cumulant $\kappa_n ( \sigma_k(kr - \tau_1) , \ldots , \sigma_k(kr - \tau_n ) )$. 
  \begin{theorem}
     \label{jkldd12} 
 %  Let $f:[0,r]^d \to\real$ be a measurable function, with $d\geq 2$.
-  For $m\geq 1$, 
-  the $n$-$th$ cumulant of the $k$-hop count $\sigma_k(kr - \tau )$ 
+    Let $d\geq 2$ and $t\in [(k-1)r,kr]$.
+    For $m\geq 1$, 
+  the $n$-$th$ cumulant of the $k$-hop count $\sigma_k(t )$ 
   satisfies the bound   
   \begin{equation}
     \label{fjkldf}
-    | \kappa_n( \sigma_k(kr - \tau ) )|\leq
+    | \kappa_n( \sigma_k(t ) )|\leq
     n^{n-1}
     % n!^d  
   % |{\rm CNC}([n]\times [d])|
     \sum_{q=d}^{1+(d-1)n}
-    |\mathcal{C}(n,d,q)| m^q p^{\zeta (n,d,q)} 
+    |\mathcal{C}(n,d,q)| m^q p_m^{\zeta (n,d,q)} 
 , \qquad n\geq 1, 
 \end{equation}
   where $\mathcal{C}(n,d,q)$ represents the collection of
@@ -2265,28 +2382,28 @@ can be Poissonized to recover
   \end{equation*}
   then the joint cumulant
   $\kappa(
-  u_{\tau_1} (\mathbf{U}_{\alpha_1})
+  u_{t_1} (\mathbf{U}_{\alpha_1})
   ,
   \ldots
   ,
-  u_{\tau_n} (\mathbf{U}_{\alpha_n})
+  u_{t_n} (\mathbf{U}_{\alpha_n})
   )$
   vanishes.
   Hence, we have 
   \begin{align}
     \nonumber
     \kappa_n(
-    \sigma_k(kr-\tau_1), \ldots , \sigma_k(kr-\tau_n) 
+    \sigma_k(t_1), \ldots , \sigma_k(t_n) 
     )&= \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
   \atop
  1 \leq i \leq n
     }
       \kappa(
-    u_{\tau_1} (\mathbf{U}_{\alpha_1})
+    u_{t_1} (\mathbf{U}_{\alpha_1})
   ,
   \ldots
   ,
-  u_{\tau_n} (\mathbf{U}_{\alpha_n})
+  u_{t_n} (\mathbf{U}_{\alpha_n})
 )
     \\
     \nonumber
@@ -2298,11 +2415,11 @@ can be Poissonized to recover
       }
       }
       \kappa(
-        u_{\tau_1} (\mathbf{U}_{\alpha_1})
+        u_{t_1} (\mathbf{U}_{\alpha_1})
   ,
   \ldots
   ,
-  u_{\tau_n} (\mathbf{U}_{\alpha_n})
+  u_{t_n} (\mathbf{U}_{\alpha_n})
 )
     \\
     \label{fjkldf1} 
@@ -2313,11 +2430,11 @@ can be Poissonized to recover
         1 \leq i \leq n, \ \sqcap (\alpha )=\rho
       }
       }
-      \kappa(        u_{\tau_1} (\mathbf{U}_{\alpha_1})
+      \kappa(        u_{t_1} (\mathbf{U}_{\alpha_1})
   ,
   \ldots
   ,
-  u_{\tau_n} (\mathbf{U}_{\alpha_n})
+  u_{t_n} (\mathbf{U}_{\alpha_n})
   ). \qquad 
 \end{align} 
  By the cumulant-moment relation \eqref{jklsda1},
@@ -2330,45 +2447,45 @@ can be Poissonized to recover
 \begin{align}
   \nonumber
   \big|\kappa \big(
-  u_{\tau_1} (\mathbf{U}_{\alpha_1})
+  u_{t_1} (\mathbf{U}_{\alpha_1})
   ,
   \ldots
   ,
-  u_{\tau_n} (\mathbf{U}_{\alpha_n})
+  u_{t_n} (\mathbf{U}_{\alpha_n})
 \big)\big|
 &\leq
 \sum_{l=1}^n \sum_{\{b_1,\dots,b_l\}\in\Pi([n])}(l-1)!
 \prod_{i=1}^l\left|
   \E\left[\prod_{\ell\in b_i}
-    u_{\tau_\ell} (\mathbf{U}_{\alpha_\ell})
+    u_{t_\ell} (\mathbf{U}_{\alpha_\ell})
   \right]
 \right|
 \\
 \nonumber  &\leq
-p^{e(\rho_G)}
+p_m^{e(\rho_G)}
 \sum_{l=1}^n \sum_{\{b_1,\dots,b_l\}\in\Pi([n])}(l-1)!
  % \Vert f\Vert_\infty^n
 \\
   \nonumber
   &= % \Vert f\Vert_\infty^n
-p^{e(\rho_G )}
+p_m^{e(\rho_G )}
   \sum_{l=1}^n (l-1)!S(n,l)
   \\
   \nonumber
   &\leq % \Vert f\Vert_\infty^j
-  \frac{p^{e(\rho_G )}
+  \frac{p_m^{e(\rho_G )}
 }{n} \sum_{l=1}^n
   \frac{n!}{(n-l)!}
   S(n,l) 
 \\
 \nonumber % \label{uppbou1}
 &= % \Vert f\Vert_\infty^n
-n^{n-1}p^{e(\rho_G )}, 
+n^{n-1}p_m^{e(\rho_G )}, 
 \end{align}
  where $S(n,l)$ is the Stirling number of the second kind. 
  Therefore, from \eqref{fjkldf1} we obtain 
 \begin{align*}
-  \kappa_n(\sigma_k(kr-\tau ))
+  \kappa_n(\sigma_k(t ))
     &= \sum_{\rho\in{\rm CNC}([n]\times [d])}
     \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
   \atop
@@ -2376,11 +2493,11 @@ n^{n-1}p^{e(\rho_G )},
         1 \leq i \leq n, \ \sqcap (\alpha )=\rho
       }
       }
-      \kappa(        u_{\tau_1} (\mathbf{U}_{\alpha_1})
+      \kappa(        u_{t_1} (\mathbf{U}_{\alpha_1})
   ,
   \ldots
   ,
-  u_{\tau_n} (\mathbf{U}_{\alpha_n})
+  u_{t_n} (\mathbf{U}_{\alpha_n})
   )
 \\ 
 &=
@@ -2399,14 +2516,14 @@ n^{n-1}
     &\leq
     n^{n-1}
     \sum_{q=d}^{1+(d-1)n}
-    m^q p^{\zeta (n,d,q)}
+    m^q p_m^{\zeta (n,d,q)}
     \sum_{\substack{\rho\in{\rm CNC}([n]\times [d])\\|\rho|=q}} 1 
     \\ 
     & \leq 
     n^{n-1}
     \sum_{q=d}^{1+(d-1)n}
     |\mathcal{C}(n,d,q)|
-    m^q p^{\zeta (n,d,q)}
+    m^q p_m^{\zeta (n,d,q)}
     , 
 % \\ & \leq |m|^{1+(d-1)n} n^{n-1}|{\rm CNC}([n]\times [d])|, 
  \end{align*}
@@ -2415,6 +2532,7 @@ which yields \eqref{fjkldf} from Lemma~\ref{fkla12}-$(a)$. % below.
 \end{Proof}
  We note that 
 \begin{equation}
+  \nonumber 
 	\zeta(n,d,q)=\begin{cases}
 		2q-d+1;\ \ \ &\mbox{when}~d\le q \le d+n-1;\\
 		n+q;\ \ \ &\mbox{when}~d+n\le q \le 1+(d-1)n.
@@ -2423,20 +2541,22 @@ which yields \eqref{fjkldf} from Lemma~\ref{fkla12}-$(a)$. % below.
  As a consequence of Theorem~\ref{jkldd12}, we have the following result. 
 \begin{theorem}
 \label{th7.5-1}
- Assume that $\limsup_{m\to \infty} p_m < 1$.\footnote{\textcolor{red}{Should we remove this condition, here and in the SPA paper?}}
+% Assume that $\limsup_{m\to \infty} p_m < 1$.\footnote{\textcolor{red}{Should we remove this condition, here and in the SPA paper?}}
 % with $v(G)=k$ vertices,
+Let $d\geq 2$ and $t\in [(k-1)r,kr]$.
 \begin{enumerate}[a)]
 \item If
- $p_m\gg m^{-(d-1)/d}$, then for $m\geq 1$ large enough 
+ $p_m\gg m^{-1+1/d}$, then for $m$ large enough 
  we have 
-\begin{equation}\label{upp-1}
-    |\kappa_n(\sigma_k (kr-\tau))|\leq
+ \begin{equation}
+   \label{upp-1}
+    |\kappa_n(\sigma_k (t))|\leq
    n^{n-1}n!^d m^{1+(d-1)n}p_m^{nd+1}. 
   \end{equation}
-\item If $p_m\ll m^{-1}$, then for $m\geq 1$ large enough we have 
+\item If $p_m\ll m^{-1}$, then for $m$ large enough we have 
     \begin{equation}
       \label{upp-2}
-      |\kappa_n(\sigma_k (kr-\tau))|\leq
+      |\kappa_n(\sigma_k (t))|\leq
       n^{n-1}n!^d 
       m^dp_m^{d+1}. 
   \end{equation}
@@ -2452,22 +2572,22 @@ $(a)$ For $q=d,\ldots , (d-1)n$, we have
   \nonumber
 							    &=
 	\begin{cases}m^{1+(d-1)n-q}p_m^{nd+1-(2q-d+1)},\ \ \ &\mbox{for}~d\le q\le d+n-1;
-          \\[0.5ex]
+          \\[0.6ex]
 		m^{1+(d-1)n-q}p_m^{nd+1-(n+q)},\ \ \ &\mbox{for}~d+n\le q\le (d-1)n,
 	\end{cases}
   \nonumber
         \\
 							    &=
-	\begin{cases}m^{1+(d-1)n-q}p_m^{(n+1)d-2q},\ \ \ &\mbox{for}~d\le q\le d+n-1;\\[0.5ex]
-		m^{1+(d-1)n-q}p_m^{1+(d-1)n-q},\ \ \ &\mbox{for}~d+n\le q\le (d-1)n,
+	\begin{cases}m^{1+(d-1)n-q}p_m^{(n+1)d-2q},\ \ \ \ \ \ \ &\mbox{for}~d\le q\le d+n-1;\\[0.6ex]
+		m^{1+(d-1)n-q}p_m^{1+(d-1)n-q},\ \ \ \ \ \ \ &\mbox{for}~d+n\le q\le (d-1)n,
 	\end{cases}
           \nonumber
 \\
 							    &=
 	\begin{cases}\left(
-          mp_m^{2-\frac{(d-2)(n-1)}{1+(d-1)n-q}}\right)^{1+(d-1)n-q},\ \ \ &\mbox{for}~d\le q\le d+n-1;\\[2ex]
+          mp_m^{2-\frac{(d-2)(n-1)}{1+(d-1)n-q}}\right)^{1+(d-1)n-q}, &\mbox{for}~d\le q\le d+n-1;\\[2ex]
           \nonumber
-		(mp_m)^{1+(d-1)n-q},\ \ \ &\mbox{for}~d+n\le q\le (d-1)n.
+		(mp_m)^{1+(d-1)n-q}, &\mbox{for}~d+n\le q\le (d-1)n.
 	\end{cases}
 \end{align}
  Hence, using the inequalities 
@@ -2491,11 +2611,10 @@ $(a)$ For $q=d,\ldots , (d-1)n$, we have
  q=d,\ldots , (d-1)n, 
 \end{align*}
  and given that $\zeta (n,d,1+(d-1)n) = nd+1$,
- from \eqref{fjkldf} we obtain,
- \textcolor{purple}{for $m\geq 1$ large enough}, 
+ from \eqref{fjkldf} we obtain, for $m$ large enough, 
 \begin{align*}
   \nonumber
-  \vert\kappa_n(\sigma_k (kr-\tau))\vert
+  \vert\kappa_n(\sigma_k (t))\vert
   &\leq n^{n-1}
   \sum_{q=d}^{1+(d-1)n} |\mathcal{C}(n,d,q)|m^q p_m^{\zeta (n,d,q)}
   \\
@@ -2520,21 +2639,21 @@ $(a)$ For $q=d,\ldots , (d-1)n$, we have
   \\
   \nonumber
   &=\begin{cases}m^{-(q-d)}p_m^{-(2q-d+1-d-1)}\ \ \ &\mbox{for}~d+1\le q\le d+n-1;
-  \\[0.5ex]
+  \\[0.6ex]
 		m^{-(q-d)}p_m^{-(n+q-d-1)},\ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n,
   \end{cases}
   \\
   \nonumber
-  &=\begin{cases}m^{-(q-d)}p_m^{-2(q-d)}\ \ \ &\mbox{for}~d+1\le q\le d+n-1;
-  \\[0.5ex]
-		m^{-(q-d)}p_m^{-(q-d)-(n-1)},\ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n,
+  &=\begin{cases}m^{-(q-d)}p_m^{-2(q-d)}\ \ \ \ &\mbox{for}~d+1\le q\le d+n-1;
+  \\[0.6ex]
+		m^{-(q-d)}p_m^{-(q-d)-(n-1)},\ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n,
   \end{cases}
   \\  
   \nonumber
-  &=\begin{cases}\left(mp_m^2\right)^{-(q-d)}\ \ \ &\mbox{for}~d+1\le q\le d+n-1;
-  \\[0.5ex]
+  &=\begin{cases}\left(mp_m^2\right)^{-(q-d)}\ \ \ \ \ &\mbox{for}~d+1\le q\le d+n-1;
+  \\[0.6ex]
   \nonumber
-		\left(mp_m\right)^{-(q-d)}p_m^{-(n-1)},\ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n, 
+		\left(mp_m\right)^{-(q-d)}p_m^{-(n-1)},\ \ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n, 
 						    \end{cases}
 \end{align}
  hence 
@@ -2543,10 +2662,9 @@ m^dp_m^{d+1}\gg m^q p_m^{\zeta(n,d,q)}, \quad
  q=d+1,\ldots , 1+(d-1)n, 
 $$
  and given that $\zeta (n,d,d) = d+1$,
- from \eqref{fjkldf} we obtain, 
- \textcolor{purple}{for $m\geq 1$ large enough}, 
+ from \eqref{fjkldf} we obtain, for $m$ large enough, 
 \begin{align*}
-  \vert\kappa_n(\sigma_k (kr-\tau))\vert &\leq n^{n-1}
+  \vert\kappa_n(\sigma_k (t))\vert &\leq n^{n-1}
   \sum_{q=d}^{1+(d-1)n} |\mathcal{C}(n,d,q)|m^q p_m^{\zeta (n,d,q)}\\
   &\leq n^{n-1} m^dp_m^{d+1} 
   \sum_{q=d}^{1+(d-1)n} |\mathcal{C}(n,d,q)|\\
@@ -2554,49 +2672,50 @@ $$
   &\leq n!^d n^{n-1} m^dp_m^{d+1}.
 \end{align*}
 \end{Proof}
-\textcolor{purple}{By inspection of the proof of
+ By inspection of the proof of
   Theorem~\ref{jkldd12}, see \eqref{fjkldfaa1} and \eqref{fjkldfaa1-2}
    therein,
   we note that its conclusions
   also hold under the following alternative conditions. 
-\begin{theorem}
+\begin{prop}
 % \label{th7.5}
- Assume that $\limsup_{m\to \infty} p_m < 1$.
+% Assume that $\limsup_{m\to \infty} p_m < 1$.
 % with $v(G)=k$ vertices,
-\begin{enumerate}[a)]
+  Let $d\geq 2$ and $t\in [(k-1)r,kr]$.
+  \begin{enumerate}[a)]
 \item If
- $p_m\geq m^{-(d-1)/d}$, $m\geq 1$, then we have 
+ $p_m\geq m^{-1+/d}$, $m\geq 1$, then we have 
   \begin{equation}
     \nonumber % \label{upp-1}
-    |\kappa_n(\sigma_k (kr-\tau))|\leq
+    |\kappa_n(\sigma_k (t))|\leq
     n^{n-1}n!^d m^{1+(d-1)n}p_m^{nd+1},
      \quad m \geq 1. 
   \end{equation}
 \item If $p_m\leq m^{-1}$, $m\geq 1$, then we have 
     \begin{equation}
     \nonumber %   \label{upp-2}
-      |\kappa_n(\sigma_k (kr-\tau))|\leq
+      |\kappa_n(\sigma_k (t))|\leq
       n^{n-1}n!^d 
       m^dp_m^{d+1}, \quad m\geq 1. 
   \end{equation}
 \end{enumerate}
-\end{theorem}} 
- Using the Legendre duplication formula
- $(2k-3)! \Gamma ( 3/2) = 4^{k-2} (k-2)! \Gamma (k-1/2)$, 
+\end{prop} 
+ Using the Legendre duplication formula \eqref{legendre}, 
+% $(2k-3)! \Gamma ( 3/2) = 4^{k-2} (k-2)! \Gamma (k-1/2)$, 
  Corollary~\ref{djklfs2-2} also yields the following asymptotic variance
  expression as $m$ tends to infinity. 
 \begin{prop} 
 % \label{prop7.6}
 % Suppose that $\limsup_{m\to \infty} p_m < 1$. 
- Let $d\geq 2$. 
+ Let $d\geq 2$ and $t\in [(k-1)r,kr]$. 
 \begin{enumerate}[a)]
-\item If $m^{-1} \ll p_m$, we have % the equivalence  
+\item If $p_m \gg m^{-1+1/d}$, we have % the equivalence  
   \begin{equation}
     \label{low-1}
-    \Var_m [\sigma_k (kr-\tau)]
+    \Var_m [\sigma_k (t)]
 % \geq C \frac{m!}{(m+1-2d)!}p_m^{2d}
     \sim 
-    2 p_m^{2d+1} \frac{(2m \tau /r)^{2d-1}}{(2d-1)!}
+    2 p_m^{2d+1} \frac{(2m (kr-t) /r)^{2d-1}}{(2d-1)!}
 . 
   \end{equation}
 % where $C>0$ is a constant independent of $m \geq 2d-1$.
@@ -2605,10 +2724,10 @@ $$
   we have % the equivalence
   \begin{equation}
     \label{low-2}
-    \Var_m [ \sigma_k (kr-\tau) ]
+    \Var_m [ \sigma_k (t) ]
         \sim
    p_m^{d+1} m^d
-  \frac{(\tau /r)^d}{d!}
+  \frac{((kr-t) /r)^d}{d!}
 . 
   \end{equation}
 % where $C>0$ is a constant  independent of $m \geq 2d-1$. 
@@ -2619,7 +2738,7 @@ $$
 We have 
 \begin{align} 
 \nonumber % \label{djkls12-2}
-& \E  [ ( \sigma_k(kr-\tau ) )^2 ] 
+& \E_m  [ ( \sigma_k(t) )^2 ] 
 \\
 \nonumber
 & = \sum_{\substack{\rho\in {\rm NC} ([2]\times[d])\\\rho\wedge\pi=\widehat{0}}}
@@ -2630,82 +2749,104 @@ p_m^{|\rho|}
  \int_{
     [0,r]^{|\rho|}
   }\left(\bigotimes_{i=1}^2
- u_{\tau} \right)_{\! \! \! \rho}
+ u_t \right)_{\! \! \! \rho}
  ( x_1, \ldots , x_{|\rho|} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
  \cdots
  \mu_{\bar{\rho}_{|\rho|}} ( d x_{|\rho|} ) 
 , 
 \end{align} 
-where $u_\tau ( x_1, \ldots , x_k )$ is
+where $u_t ( x_1, \ldots , x_k )$ is
 defined in \eqref{jklf12} and 
  $\bar{\rho}_i$ denotes the index $j\in \{1,\ldots , d \}$ of the unique block
- $\eta_j = ((i,j))_{i=1, 2}$ containing $\rho_i$, $i=1,\ldots , |\rho|$. 
+ $\eta_j = ((i,j))_{i=1, 2}$ containing $b_i$, $i=1,\ldots , |\rho|$. 
 
- If $m^{-1} \ll p_m$, the dominant term
- in $\E  [ ( \sigma_k(kr-\tau ) )^2 ]$ 
+ If $p_m \gg m^{-1+1/d}$, the dominant term
+ in $\E_m  [ ( \sigma_k(t) )^2 ]$ 
  is obtained for the maximal $2d$-block partition 
-
+ of Figure~\ref{f3-1-2-20} 
 % \vskip-0.2cm
 
 \begin{figure}[H]
-  \begin{center}
-\hskip-0.3cm
-\begin{tikzpicture}[every node/.style={draw}] 
-\centering
-\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};] {};
+\centering 
+  \begin{tikzpicture}% [scale=0.8] 
+\draw[step=1cm, very thin, gray!40] (0,0) grid (11,3);
+\draw[black, thick] (0,0) rectangle (11,3);
+\filldraw [red] (1,1.5) circle (2pt);
+\filldraw [red] (10,1.5) circle (2pt);
+\foreach \i in {2}
+{
+\filldraw [black] (2,\i) circle (2pt);
+\filldraw [black] (3,\i) circle (2pt);
+\filldraw [black] (4,\i) circle (2pt);
+\filldraw [black] (5,\i) circle (2pt);
+\filldraw [black] (6,\i) circle (2pt);
+\filldraw [black] (7,\i) circle (2pt);
+\filldraw [black] (8,\i) circle (2pt);
+\filldraw [black] (9,\i) circle (2pt);
+}
 
-\node (m1) at (2,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m2) at (4,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m3) at (6,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m4) at (8,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m5) at (10,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m6) at (12,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m7) at (14,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m8) at (16,1) [circle,fill=black,scale=0.5] {};] {};
+\filldraw [black] (2,1) circle (2pt);
+\filldraw [black] (3,1) circle (2pt);
+\filldraw [black] (4,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (6,1) circle (2pt);
+\filldraw [black] (7,1) circle (2pt);
+\filldraw [black] (8,1) circle (2pt);
+\filldraw [black] (9,1) circle (2pt);
+\draw[thick, blue] (1,1.5) -- (2,1);
+\draw[thick, blue] (1,1.5) -- (2,2);
+\draw[thick, blue] (2,2) -- (3,2);
+\draw[thick, blue] (2,1) -- (3,1);
+\draw[thick, blue] (3,1) -- (4,1);
+\draw[thick, blue] (3,2) -- (4,2);
+\draw[thick, blue] (4,1) -- (5,1);
+\draw[thick, blue] (4,2) -- (5,2);
+\draw[thick, blue] (5,2) -- (6,2);
+\draw[thick, blue] (5,1) -- (6,1);
+\draw[thick, blue] (6,2) -- (7,2);
+\draw[thick, blue] (6,1) -- (7,1);
+\draw[thick, blue] (7,1) -- (8,1);
+\draw[thick, blue] (7,2) -- (8,2);
+\draw[thick, blue] (8,1) -- (9,1);
+\draw[thick, blue] (8,2) -- (9,2);
+\draw[thick, blue] (9,1) -- (10,1.5);
+\draw[thick, blue] (9,2) -- (10,1.5);
 
-\draw let \p1=(l1), \p2=(l1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l1)!0.5!(l1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m1), \p2=(m1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m1)!0.5!(m1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l2), \p2=(l2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l2)!0.5!(l2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m2), \p2=(m2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m2)!0.5!(m2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l3), \p2=(l3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l3)!0.5!(l3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m3), \p2=(m3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m3)!0.5!(m3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l4), \p2=(l4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l4)!0.5!(l4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m4), \p2=(m4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m4)!0.5!(m4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l5), \p2=(l5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l5)!0.5!(l5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m5), \p2=(m5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m5)!0.5!(m5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l6), \p2=(l6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l6)!0.5!(l6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m6), \p2=(m6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m6)!0.5!(m6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-  \draw let \p1=(l7), \p2=(l7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(l7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-  \draw let \p1=(m7), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (m7)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l8), \p2=(l8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l8)!0.5!(l8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (m8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\node[anchor=north,font=\scriptsize] at (2,1) {(2,1)};
+\node[anchor=north,font=\scriptsize] at (3,1) {(2,2)};
+\node[anchor=north,font=\scriptsize] at (4,1) {(2,3)};
+\node[anchor=north,font=\scriptsize] at (5,1) {(2,4)};
+\node[anchor=north,font=\scriptsize] at (6,1) {(2,5)};
+\node[anchor=north,font=\scriptsize] at (7,1) {(2,6)};
+\node[anchor=north,font=\scriptsize] at (8,1) {(2,7)};
+\node[anchor=north,font=\scriptsize] at (9,1) {(2,8)};
+\node[anchor=south,font=\scriptsize] at (2,2) {(1,1)};
+\node[anchor=south,font=\scriptsize] at (3,2) {(1,2)};
+\node[anchor=south,font=\scriptsize] at (4,2) {(1,3)};
+\node[anchor=south,font=\scriptsize] at (5,2) {(1,4)};
+\node[anchor=south,font=\scriptsize] at (6,2) {(1,5)};
+\node[anchor=south,font=\scriptsize] at (7,2) {(1,6)};
+\node[anchor=south,font=\scriptsize] at (8,2) {(1,7)};
+\node[anchor=south,font=\scriptsize] at (9,2) {(1,8)};
+
+% \draw[very thick] (3,1) -- (3,2);
+% \draw[very thick] (4,1) -- (4,2);
+% \draw[very thick] (7,1) -- (7,2);
+% \draw[very thick] (7,1) -- (7,2);
+% \draw[very thick] (8,1) -- (8,2);
+% \draw[very thick] (9,1) -- (9,2);
+\begin{pgfonlayer}{background}
+    \filldraw [line width=4mm,black!3]
+      (0.2,0.2)  rectangle (10.8,2.8);
+  \end{pgfonlayer}
 \end{tikzpicture}
-\end{center}
-  \vskip-0.2cm
+%\vskip-0.2cm
   \caption{
  Non-crossing partition
  of $2 \times d$ with $d=8$.} 
-% \label{f3-1-2}
+\label{f3-1-2-20}
 \end{figure}
 
 \vskip-0.4cm
@@ -2719,8 +2860,8 @@ p_m^{2d+2} m^d \sum_{l=0}^d {d \choose l} (-1)^l m^{d-l}
 $$ 
  which is compensated by the term 
 $$ 
- ( \E [ \sigma_k (kr-\tau) ] )^2 = 
-p_m^{2d+2} m^{2d} \frac{(\tau / r)^{2d}}{(d!)^2} 
+ ( \E_m [ \sigma_k (t) ] )^2 = 
+p_m^{2d+2} m^{2d} \frac{((kr-t) / r)^{2d}}{(d!)^2} 
 $$
 obtained from \eqref{fjkdls-0} as
 $$
@@ -2729,67 +2870,90 @@ p_m^{2d+2} (m(m-1))^d
 =
 p_m^{2d+2} \sum_{l=1}^d {d \choose l} (-1)^l m^{2d-l}, 
 $$ 
- hence the dominant term in $\Var_m [ \sigma_k (kr-\tau) ]$ is
- given by the partition 
+ hence the dominant term in $\Var_m [ \sigma_k (t) ]$ is
+ given by the partition of Figure~\ref{f3-1-2-30} 
  
 \begin{figure}[H]
-  \begin{center}
-\hskip-0.3cm
-\begin{tikzpicture}[every node/.style={draw}] 
-\centering
-\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};] {};
+\centering 
+  \begin{tikzpicture}% [scale=0.8] 
+\draw[step=1cm, very thin, gray!40] (0,0) grid (11,3);
+\draw[black, thick] (0,0) rectangle (11,3);
+\filldraw [red] (1,1.5) circle (2pt);
+\filldraw [red] (10,1.5) circle (2pt);
+\foreach \i in {2}
+{
+\filldraw [black] (2,\i) circle (2pt);
+\filldraw [black] (3,\i) circle (2pt);
+\filldraw [black] (4,\i) circle (2pt);
+\filldraw [black] (5,\i) circle (2pt);
+\filldraw [black] (6,\i) circle (2pt);
+\filldraw [black] (7,\i) circle (2pt);
+\filldraw [black] (8,\i) circle (2pt);
+\filldraw [black] (9,\i) circle (2pt);
+}
 
-\node (m1) at (2,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m2) at (4,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m3) at (6,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m4) at (8,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m5) at (10,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m6) at (12,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m7) at (14,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m8) at (16,1) [circle,fill=black,scale=0.5] {};] {};
+\filldraw [black] (2,1) circle (2pt);
+\filldraw [black] (3,1) circle (2pt);
+\filldraw [black] (4,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (6,1) circle (2pt);
+\filldraw [black] (7,1) circle (2pt);
+\filldraw [black] (8,1) circle (2pt);
+\filldraw [black] (9,1) circle (2pt);
+\draw[thick, blue] (1,1.5) -- (2,1);
+\draw[thick, blue] (1,1.5) -- (2,2);
+\draw[thick, blue] (2,2) -- (3,2);
+\draw[thick, blue] (2,1) -- (3,1);
+\draw[thick, blue] (3,1) -- (4,1);
+\draw[thick, blue] (3,2) -- (4,2);
+\draw[thick, blue] (4,1) -- (5,1);
+\draw[thick, blue] (4,2) -- (5,2);
+\draw[thick, blue] (5,2) -- (6,2);
+\draw[thick, blue] (5,1) -- (6,1);
+\draw[thick, blue] (6,2) -- (7,2);
+\draw[thick, blue] (6,1) -- (7,1);
+\draw[thick, blue] (7,1) -- (8,1);
+\draw[thick, blue] (7,2) -- (8,2);
+\draw[thick, blue] (8,1) -- (9,1.5);
+\draw[thick, blue] (8,2) -- (9,1.5);
+\draw[thick, blue] (9,1.5) -- (10,1.5);
 
-\draw let \p1=(l1), \p2=(l1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l1)!0.5!(l1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m1), \p2=(m1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m1)!0.5!(m1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l2), \p2=(l2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l2)!0.5!(l2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m2), \p2=(m2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m2)!0.5!(m2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l3), \p2=(l3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l3)!0.5!(l3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m3), \p2=(m3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m3)!0.5!(m3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l4), \p2=(l4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l4)!0.5!(l4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m4), \p2=(m4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m4)!0.5!(m4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l5), \p2=(l5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l5)!0.5!(l5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m5), \p2=(m5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m5)!0.5!(m5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l6), \p2=(l6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l6)!0.5!(l6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(m6), \p2=(m6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (m6)!0.5!(m6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-  \draw let \p1=(l7), \p2=(l7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(l7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-  \draw let \p1=(m7), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (m7)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-% \draw let \p1=(m8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (m8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw[very thick] (9,1) -- (9,2);
+
+\node[anchor=north,font=\scriptsize] at (2,1) {(2,1)};
+\node[anchor=north,font=\scriptsize] at (3,1) {(2,2)};
+\node[anchor=north,font=\scriptsize] at (4,1) {(2,3)};
+\node[anchor=north,font=\scriptsize] at (5,1) {(2,4)};
+\node[anchor=north,font=\scriptsize] at (6,1) {(2,5)};
+\node[anchor=north,font=\scriptsize] at (7,1) {(2,6)};
+\node[anchor=north,font=\scriptsize] at (8,1) {(2,7)};
+\node[anchor=north,font=\scriptsize] at (9,1) {(2,8)};
+\node[anchor=south,font=\scriptsize] at (2,2) {(1,1)};
+\node[anchor=south,font=\scriptsize] at (3,2) {(1,2)};
+\node[anchor=south,font=\scriptsize] at (4,2) {(1,3)};
+\node[anchor=south,font=\scriptsize] at (5,2) {(1,4)};
+\node[anchor=south,font=\scriptsize] at (6,2) {(1,5)};
+\node[anchor=south,font=\scriptsize] at (7,2) {(1,6)};
+\node[anchor=south,font=\scriptsize] at (8,2) {(1,7)};
+\node[anchor=south,font=\scriptsize] at (9,2) {(1,8)};
+
+% \draw[very thick] (3,1) -- (3,2);
+% \draw[very thick] (4,1) -- (4,2);
+% \draw[very thick] (7,1) -- (7,2);
+% \draw[very thick] (7,1) -- (7,2);
+% \draw[very thick] (8,1) -- (8,2);
+% \draw[very thick] (9,1) -- (9,2);
+\begin{pgfonlayer}{background}
+    \filldraw [line width=4mm,black!3]
+      (0.2,0.2)  rectangle (10.8,2.8);
+  \end{pgfonlayer}
 \end{tikzpicture}
-\end{center}
-  \vskip-0.2cm
+%\vskip-0.2cm
   \caption{
  Non-crossing partition
  of $2 \times d$ with $d=8$.} 
-% \label{f3-1-3}
+\label{f3-1-2-30} 
 \end{figure}
 
 \vskip-0.4cm
@@ -2797,7 +2961,7 @@ $$
 \noindent
  which yields 
 $$
- \Var_m [ \sigma_k (kr-\tau) ]
+ \Var_m [ \sigma_k (t) ]
  \sim 
  4^{d-1}
  p_m^{2d+1}
@@ -2805,7 +2969,7 @@ $$
  \int_{
     [0,r]^{2d} 
   }\left(\bigotimes_{i=1}^2
- u_{\tau} \right)_{\! \! \! \rho}
+ u_t \right)_{\! \! \! \rho}
  ( x_1, \ldots , x_{2d} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
  \cdots
@@ -2825,71 +2989,102 @@ $$
  \int_{
     [0,r]^{2d}
  }\left(
- u_{\tau}
+ u_t
  \otimes
- u_{\tau}
+ u_t
  \right)_{ \rho}
  ( x_1, \ldots , x_{2d} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
  \cdots
  \mu_{\bar{\rho}_{2d}} ( d x_{2d} ) 
 =
-\frac{(\tau /r)^{2d-1}}{(2d-1)!}
+\frac{((kr-t) /r)^{2d-1}}{(2d-1)!}
 .
 $$
  If $m^{-1} \gg p_m$, the term 
 $$ 
- ( \E [ \sigma_k (kr-\tau) ] )^2 = 
-p_m^{2d+2} m^{2d} \frac{(\tau / r)^{2d}}{(d!)^2}, 
+ ( \E_m [ \sigma_k (t) ] )^2 = 
+p_m^{2d+2} m^{2d} \frac{((kr-t) / r)^{2d}}{(d!)^2}, 
 $$ 
- is dominated by the $2d$-block partition 
+ is dominated by the $d$-block partition 
+ given by the partition of Figure~\ref{f3-1-2-40} 
 
  % \vskip-0.2cm
 
 \begin{figure}[H]
-  \begin{center}
-\hskip-0.3cm
-\begin{tikzpicture}[every node/.style={draw}] 
-\centering
-\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};] {};
-\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};] {};
+\centering 
+  \begin{tikzpicture}% [scale=0.8] 
+\draw[step=1cm, very thin, gray!40] (0,0) grid (11,3);
+\draw[black, thick] (0,0) rectangle (11,3);
+\filldraw [red] (1,1.5) circle (2pt);
+\filldraw [red] (10,1.5) circle (2pt);
+\foreach \i in {2}
+{
+\filldraw [black] (2,\i) circle (2pt);
+\filldraw [black] (3,\i) circle (2pt);
+\filldraw [black] (4,\i) circle (2pt);
+\filldraw [black] (5,\i) circle (2pt);
+\filldraw [black] (6,\i) circle (2pt);
+\filldraw [black] (7,\i) circle (2pt);
+\filldraw [black] (8,\i) circle (2pt);
+\filldraw [black] (9,\i) circle (2pt);
+}
 
-\node (m1) at (2,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m2) at (4,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m3) at (6,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m4) at (8,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m5) at (10,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m6) at (12,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m7) at (14,1) [circle,fill=black,scale=0.5] {};] {};
-\node (m8) at (16,1) [circle,fill=black,scale=0.5] {};] {};
+\filldraw [black] (2,1) circle (2pt);
+\filldraw [black] (3,1) circle (2pt);
+\filldraw [black] (4,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (5,1) circle (2pt);
+\filldraw [black] (6,1) circle (2pt);
+\filldraw [black] (7,1) circle (2pt);
+\filldraw [black] (8,1) circle (2pt);
+\filldraw [black] (9,1) circle (2pt);
+\draw[thick, blue] (1,1.5) -- (2,1.5);
+\draw[thick, blue] (1,1.5) -- (2,1.5);
+\draw[thick, blue] (2,1.5) -- (3,1.5);
+\draw[thick, blue] (3,1.5) -- (4,1.5);
+\draw[thick, blue] (4,1.5) -- (5,1.5);
+\draw[thick, blue] (5,1.5) -- (6,1.5);
+\draw[thick, blue] (6,1.5) -- (7,1.5);
+\draw[thick, blue] (7,1.5) -- (8,1.5);
+\draw[thick, blue] (8,1.5) -- (9,1.5);
+\draw[thick, blue] (9,1.5) -- (10,1.5);
 
-\draw let \p1=(l1), \p2=(m1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l1)!0.5!(m1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l2), \p2=(m2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l2)!0.5!(m2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l3), \p2=(m3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l3)!0.5!(m3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l4), \p2=(m4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l4)!0.5!(m4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l5), \p2=(m5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l5)!0.5!(m5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l6), \p2=(m6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
-  in ($ (l6)!0.5!(m6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l7), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-% \draw let \p1=(l8), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}  in ($ (l8)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
-\draw let \p1=(l8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\node[anchor=north,font=\scriptsize] at (2,1) {(2,1)};
+\node[anchor=north,font=\scriptsize] at (3,1) {(2,2)};
+\node[anchor=north,font=\scriptsize] at (4,1) {(2,3)};
+\node[anchor=north,font=\scriptsize] at (5,1) {(2,4)};
+\node[anchor=north,font=\scriptsize] at (6,1) {(2,5)};
+\node[anchor=north,font=\scriptsize] at (7,1) {(2,6)};
+\node[anchor=north,font=\scriptsize] at (8,1) {(2,7)};
+\node[anchor=north,font=\scriptsize] at (9,1) {(2,8)};
+\node[anchor=south,font=\scriptsize] at (2,2) {(1,1)};
+\node[anchor=south,font=\scriptsize] at (3,2) {(1,2)};
+\node[anchor=south,font=\scriptsize] at (4,2) {(1,3)};
+\node[anchor=south,font=\scriptsize] at (5,2) {(1,4)};
+\node[anchor=south,font=\scriptsize] at (6,2) {(1,5)};
+\node[anchor=south,font=\scriptsize] at (7,2) {(1,6)};
+\node[anchor=south,font=\scriptsize] at (8,2) {(1,7)};
+\node[anchor=south,font=\scriptsize] at (9,2) {(1,8)};
+
+\draw[very thick] (2,1) -- (2,2);
+\draw[very thick] (3,1) -- (3,2);
+\draw[very thick] (4,1) -- (4,2);
+\draw[very thick] (5,1) -- (5,2);
+\draw[very thick] (6,1) -- (6,2);
+\draw[very thick] (7,1) -- (7,2);
+\draw[very thick] (7,1) -- (7,2);
+\draw[very thick] (8,1) -- (8,2);
+\draw[very thick] (9,1) -- (9,2);
+\begin{pgfonlayer}{background}
+    \filldraw [line width=4mm,black!3]
+      (0.2,0.2)  rectangle (10.8,2.8);
+  \end{pgfonlayer}
 \end{tikzpicture}
-\end{center}
-  \vskip-0.2cm
-  \caption{
+%\vskip-0.2cm
+ \caption{
  Non-crossing partition of $2 \times d$ with $d=8$.} 
-% \label{f3-1-4}
+\label{f3-1-2-40} 
 \end{figure}
 
 \vskip-0.4cm
@@ -2897,14 +3092,14 @@ $$
 \noindent
  which yields 
 $$ 
- \Var_m [ \sigma_k (kr-\tau) ]
+ \Var_m [ \sigma_k (t) ]
  \sim 
 p_m^{d+1}
  m^d(m-1)^d 
  \int_{
     [0,r]^{2d} 
   }\left(\bigotimes_{i=1}^2
- u_{\tau} \right)_{\! \! \! \rho}
+ u_t \right)_{\! \! \! \rho}
  ( x_1, \ldots , x_{2d} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
  \cdots
@@ -2916,32 +3111,32 @@ $$
  \int_{
     [0,r]^{2d}
  }\left(
- u_{\tau}
+ u_t
  \otimes
- u_{\tau}
+ u_t
  \right)_{ \rho}
  ( x_1, \ldots , x_{2d} ) 
  \mu_{\bar{\rho}_1} ( d x_1 ) 
  \cdots
  \mu_{\bar{\rho}_{2d}} ( d x_{2d} ) 
 =
-\frac{(\tau /r)^d}{d!}
+\frac{((kr-t) /r)^d}{d!}
 .
 $$
 \end{Proof} 
 \begin{corollary}
   \label{cjkfl} 
 % Suppose that $\limsup_{m\to \infty} p_m < 1$.
-  For $n\geq 1$ large enough, % $n\geq 4(v(G)-1)$,
-  the $j$-th cumulant of the normalized subgraph count
+  For $m$ large enough, % $n\geq 4(v(G)-1)$,
+  the $n$-th cumulant of the normalized $k$-hop count
 $$
-  \widebar{\sigma}_k (kr-\tau):= \frac{\sigma_k (kr-\tau)-\E [ \sigma_k (kr-\tau)]}{\sqrt{\Var_m [ \sigma_k (kr-\tau) ]}}
+  \widebar{\sigma}_k (t):= \frac{\sigma_k (t)-\E_m [ \sigma_k (t)]}{\sqrt{\Var_m [ \sigma_k (t) ]}}
   $$ 
  satisfies 
   \begin{eqnarray*}
-    \kappa_n\left(\widebar{\sigma}_k (kr-\tau)\right)\leq \begin{cases}
+    \kappa_n\left(\widebar{\sigma}_k (t)\right)\leq \begin{cases}
       \displaystyle
-      \frac{n!^{d+1}}{(C m p_m)^{n/2-1}}~~~~~~~{when}~~~m^{-(d-1)/d}\ll p_m,
+      \frac{n!^{d+1}}{(C m p_m)^{n/2-1}}~~~~~~~{when}~~~p_m \gg m^{-(d-1)/d},
       \medskip
       \\
       \displaystyle
@@ -2953,34 +3148,34 @@ $$
 \begin{Proof}
 % From the inequality $\sqrt{2\pi j}({j}/{e})^j<j!$, we have
 % \begin{equation} j^{j-1}<\frac{(j-1)!}{\sqrt{2\pi j}}e^j. \end{equation}
-  When $m^{-(d-1)/d}\ll p_m$, from the inequalities  
+  When $p_m \gg m^{-(d-1)/d}$, from the inequalities  
   \eqref{low-1} and \eqref{upp-1}, we have 
   \begin{align*}
     \nonumber
-    \kappa_n\left(\widebar{\sigma}_k (kr-\tau)\right)&= \frac{\kappa_n(\sigma_k (kr-\tau))}{\Var_m [ \sigma_k (kr-\tau) ]^{n/2}}    \\
+    \kappa_n\left(\widebar{\sigma}_k (t)\right)&= \frac{\kappa_n(\sigma_k (t))}{\Var_m [ \sigma_k (t) ]^{n/2}}    \\
     \nonumber
     &\leq n!^d n^{n-1}m^{1+(d-1)n}p_m^{nd+1}
       \left(  
-\frac{p_m^{2d+1} m^{2d-1} (2 \tau /r)^{2d-1}}{2(2d-1)!}
+\frac{p_m^{2d+1} m^{2d-1} (2 (kr-t) /r)^{2d-1}}{2(2d-1)!}
       \right)^{-n/2}
     \\
     \nonumber
     &\leq n!^{d+1} e^n m^{1-n/2}p_m^{nd+1}
     \left(  
- \frac{p_m^{2d+1} (2 \tau /r)^{2d-1}}{2(2d-1)!}
+ \frac{p_m^{2d+1} (2 (kr-t) /r)^{2d-1}}{2(2d-1)!}
       \right)^{-n/2}
     \\
     \nonumber
     & = n!^{d+1} e^n m^{1-n/2} p_m^{1-n/2}
     \left(  
-\frac{(2 \tau /r)^{2d-1}}{2(2d-1)!}
+\frac{(2 (kr-t) /r)^{2d-1}}{2(2d-1)!}
       \right)^{-n/2}. 
 \end{align*}
   Similarly, when $p_m\ll m^{-1}$ from,  
   % , from the inequality $$  \frac{m!}{(m-d)!}\ge (m-d+1)^d=\left(1-\frac{d-1}m\right)^dm^d \ge \left( \frac{3m}{4} \right)^d $$ and
   \eqref{low-2} and \eqref{upp-2} we have 
   \begin{align*}
-    \kappa_n\left(\widebar{\sigma}_k (kr-\tau)\right)&= \frac{\kappa_n(\sigma_k (kr-\tau))}{\Var_m [\sigma_k (kr-\tau)]^{n/2}}\nonumber\\
+    \kappa_n\left(\widebar{\sigma}_k (t)\right)&= \frac{\kappa_n(\sigma_k (t))}{\Var_m [\sigma_k (t)]^{n/2}}\nonumber\\
     &\leq n!^d n^{n-1} m^d p_m^{2n+d-1}
       \left(  
     Cm^dp_m^{d+1}\right)^{-n/2}\nonumber\\
@@ -3005,34 +3200,25 @@ $$
 \label{sec8} 
 
 \begin{remark}
-	To ensure a normal approximation, we only need to let some $m_\ell\to\infty$, or equivalently $M\to\infty$, not necessarily $m_1=\cdots=m_{k-1}=m$ and $m\to\infty$. 
+  To ensure a normal approximation, we only need to let some
+  $m_\ell$ tend to infinity,
+  i.e.
+  % $M$ tends to infinity,
+  $\max_{1\leq \ell \leq d} m_\ell$ should tend to infinity,   
+  which does not require 
+  $m_1=\cdots=m_{k-1}=m$ with $m$ tending to infinity. 
 \end{remark}
-
-In this section we will use the Wasserstein and Kolmogorov distances
- $d_W(X,Y)$ and $d_K(X,Y)$ 
- between the distributions of random variables $X, Y$, defined as
-$$
- d_W (X,Y):
- =\sup_{h\in\mathrm{Lip}(1)} |\mathrm{E}[h(X)]-\mathrm{E}[h(Y)]|,
-$$
- where $\mathrm{Lip}(1)$ denotes the class of real-valued
- Lipschitz functions with
- Lipschitz constant less than or equal to $1$,
- and
- $$
- d_K(X,Y) : = \sup_{x\in \real} | \P ( X \leq x ) - \P( Y \leq x ) |.
- $$ 
  Given $k\geq 2$ and $t\in [(k-1)r,kr)$,
  we consider the normalized $k$-hop count
 $$
-\widebar{\sigma}_k^{( m )} (t):= \frac{\sigma_k^{( m )} (t)- \E_\lambda [\sigma_k(t)]}{\sqrt{\Var_\lambda  [ \sigma_k(t)]}}. 
+\widebar{\sigma}_k^{(m)} (t):= \frac{\sigma_k^{(m)} (t)- \E_\lambda [\sigma_k(t)]}{\sqrt{\Var_\lambda  [ \sigma_k(t)]}}. 
 $$
  For any $t \in [(k-1)r,kr)$, from Corollary~\ref{cjkfl} the skewness
  of $\sigma_k (t )$ satisfies  
   \begin{eqnarray*}
-    \kappa_3\left(\widebar{\sigma}_k (kr-\tau)\right)\leq \begin{cases}
+    \kappa_3\left(\widebar{\sigma}_k (t)\right)\leq \begin{cases}
       \displaystyle
-      (C m p_m)^{-1/2}~~~~~~~{when}~~~m^{-(d-1)/d}\ll p_m,
+      (C m p_m)^{-1/2}~~~~~~~{when}~~~pm \gg m^{-1+1/d},
       \medskip
       \\
       \displaystyle
@@ -3043,19 +3229,19 @@ $$
   and more generally,
   from Corollary~\ref{cjkfl} and Theorem~1 in \cite{Janson1988}, 
   we find that 
- $\widebar{\sigma}_k^{( m )} (t)$
+ $\widebar{\sigma}_k^{(m)} (t)$
  converges in distribution
  to the standard normal distribution ${\cal N}(0,1)$ as $\lambda$
  tends to infinity, 
- provided that $m^{-1}\ll p_m$ as $m$ tends to
+ provided that $p_m \gg m^{-1+1/d}$ as $m$ tends to
  infinity.
 
  \medskip
  
  From Corollary~\ref{cjkfl}, we check that if
- $m^{-1}\ll p_m$, the cumulants of the normalized
+ $p_m \gg m^{-1+1/d}$, the cumulants of the normalized
  $U$-statistics 
- $\widebar{\sigma}_k (kr-\tau)$ satisfy the Statulevi\v{c}ius growth condition 
+ $\widebar{\sigma}_k (t)$ satisfy the Statulevi\v{c}ius growth condition 
  \eqref{Statuleviciuscond2} with $\gamma := d$ and 
  $$
  \Delta_m := 
@@ -3070,13 +3256,13 @@ $$
 (Kolmogorov bound). 
 % Let $f:[0,r]^d \to\real$ be a measurable function satisfying Assumption~\ref{assu1}, with $d\geq 2$.
     % Denote $W:=\frac{S_{n,k}(f)-\kappa_1(S_{n,k}(f))}{\sqrt{\kappa_2(S_{n,k}(f))}}$,
-  Assume that $m^{-(d-1)/d}\ll p_m$.
+ Let $d\geq 2$, $t\in [(k-1)r,kr]$, and assume that $p_m \gg m^{-1+1/d}$.
   Then, for $m$ large enough, we have 
     \begin{equation}
     \label{fjkf}
       \sup_{x\in\real}\left|
-      \IP\left(
-      \widebar{\sigma}_k (kr-\tau) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{(m p_m)^{1/(2+4d)}},
+      \P_m \left(
+      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{(m p_m)^{1/(2+4d)}},
     \end{equation}
     where $C_d>0$ depends only on
     $d \geq 2$. 
@@ -3086,73 +3272,43 @@ In particular, if
     \begin{equation}
 \nonumber % \label{fjkf}
       \sup_{x\in\real}\left|
-      \IP\left(
-      \widebar{\sigma}_k (kr-\tau) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{m^{(1+\alpha )/(2+4d)}},
+      \P_m \left(
+      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{m^{(1+\alpha )/(2+4d)}},
     \end{equation}
     where $C_d>0$ depends only on
     $d \geq 2$.
+% \noindent 
+ In the case $d=1$, \eqref{d=1} 
+ the central limit Berry-Esseen rate holds
+ since $\sigma_2(t)$ has a binomial distribution
+ with parameter \eqref{d=1}.
 
-    \medskip
-    
-By Corollary~\ref{cjkfl} and 
-Proposition~\ref{l1}-$ii)$,
- we also have the following result.
+ \medskip
+
+ The following threshold result for $k$-hop containment
+ is a another direct consequence of Theorem~\ref{th7.5-1}. 
 \begin{corollary}
-% \label{corg2-0}
- (Moderate deviation principle).
-% Let $f:[0,r]^d \to\real$ be a measurable function satisfying Assumption~\ref{assu1}, with $d\geq 2$.
-    % Denote $W:=\frac{S_{n,k}(f)-\kappa_1(S_{n,k}(f))}{\sqrt{\kappa_2(S_{n,k}(f))}}$,
-  Let $( a_m)_{m \geq 1}$ be a sequence of real numbers tending to infinity, and such that 
-$ 
-  a_m \ll m^{1/(2+4 d)}$. 
-   % as $n\to\infty$.
-  Then, $\big(a_m^{-1} \widebar{\sigma}_k (kr-\tau) \big)_{m \geq 1}$ satisfies a moderate deviation principle with speed $a_m^2$ and rate function $x^2/2$. 
-\end{corollary} 
- \noindent 
-     Moreover, \eqref{fjkf} can be improved as a Berry-Esseen bound
-     in the following proposition.
-\begin{prop}
-% \label{fsklf34}
-  Assuming that $p_m = 1$, $m\geq 1$.
-  Then, we have
-  $$
-  d_K(
-  \widebar{\sigma}_k (kr-\tau)
-  , {\cal N}) \leq \frac{C_k}{\sqrt{m}}, \qquad
-  m \geq 1,
-  $$
-  where $d_K(\widebar{\sigma}_k (kr-\tau), {\cal N})$ denotes the Kolmogorov % Wasserstein
-  distance between 
-  $\widebar{\sigma}_k (kr-\tau)$ and the standard normal distribution ${\cal N}$, 
-  and $C_k>0$ is a constant.
-\end{prop}
-\begin{Proof}
-  We % note that $\widebar{\sigma}_k(n)$ admits a Hoeffding decomposition and
-  apply \cite{zhangzs} for the Kolmogorov distance. 
-\end{Proof}
-The following thresholding result for $k$-hop containment
-is a another direct consequence of Theorem~\ref{th7.5-1}. 
-  \begin{corollary}
-    \label{graphcontain}
+\label{graphcontain}
+    Let $d\geq 2$ and $t\in [(k-1)r,kr]$. 
     We have 
     \begin{enumerate}[a)]
-      \item $\lim_{m\to\infty}\IP\left(N_G=0\right)=1$ if $p_m\gg m^{-(d-1)/d}$, 
-      \item $\lim_{m\to\infty}\IP\left(N_G=0\right)=0$ if $p_m\ll m^{-1}$. 
+      \item $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$ if $p_m\gg m^{-1+1/d}$, 
+      \item $\lim_{m\to\infty}\P_m (\sigma_k (t) =0)=1$ if $p_m\ll m^{-1}$. 
     \end{enumerate}
   \end{corollary}
   \begin{Proof}
- When $p_m\gg m^{-(d-1)/d}$,
+ When $p_m\gg m^{-1+1/d}$,
  from \eqref{upp-1} we have % and \eqref{upp-2}, we have 
  \begin{equation}
    \nonumber
-   |\kappa_2(\sigma_k (kr-\tau))|\leq
+   |\kappa_2(\sigma_k (t))|\leq
    2^{d+1} m^{2d-1}p_m^{2d+1},
  \end{equation}
  hence by \eqref{fjkdls-0} we have 
 \begin{equation}
 \nonumber
       \lim_{m\to \infty}
-   \frac{\kappa_2(N_G)}{\kappa_1(N_G)^2} \lesssim 
+   \frac{\kappa_2(\sigma_k (t) )}{\kappa_1(\sigma_k (t) )^2} \lesssim 
 \lim_{m\to \infty}
    \frac{m^{2d-1}p_m^{2d+1}}{p_m^{2d+2}m^{2d}}
    = 0, % \to0,
@@ -3160,26 +3316,66 @@ is a another direct consequence of Theorem~\ref{th7.5-1}.
  and
  \begin{eqnarray}
    \lim_{m\to \infty}
-   \frac{(\E[N_G])^2}{\E[N_G^2]}
+   \frac{(\E_m [\sigma_k (t) ])^2}{\E_m [(\sigma_k (t) )^2]}
    =
-   \lim_{m\to \infty} \frac{\kappa_1(N_G)^2}{\kappa_2(N_G)+\kappa_1(N_G)^2}
+   \lim_{m\to \infty} \frac{\kappa_1(\sigma_k (t) )^2}{\kappa_2(\sigma_k (t) )+\kappa_1(\sigma_k (t) )^2}
    = 1.
  \end{eqnarray}
  On the other hand, if $p_m\ll m^{-1}$, from
   \eqref{fjkdls-0} we have 
  \begin{equation}
 \nonumber
-    \lim_{m\to \infty} \E(N_G)=0. % \kappa_1(N_G)\to 0,
+    \lim_{m\to \infty} \E_m  [ \sigma_k (t)  ] =0. % \kappa_1(N_G)\to 0,
  \end{equation}
  We conclude by the first and second moment methods,
  see \cite[Page~54]{JLR}, which state that 
 \begin{equation}
 \nonumber % \label{firstsecm}
-\frac{(\E[N_G])^2}{\E[N_G^2]}\le\IP(N_G>0)\leq \E[N_G]. 
+\frac{(\E_m [\sigma_k (t) ])^2}{\E_m [( \sigma_k (t) )^2]}\le\P_m (\sigma_k (t) >0)\leq \E_m [\sigma_k (t) ]. 
 \end{equation}
 % for any non-negative integer-valued random variable $X$. With $X=N_G$,
 \end{Proof}
-
+ In the special case where
+ any two nodes are connected whenever they
+ are located within the distance $r$,
+ i.e. in the random geometric graph setting,
+ Corollary~\ref{thm4.2-1} can be improved into 
+ a Berry-Esseen bound 
+ as in the following remark that follows from e.g. 
+% note that $\widebar{\sigma}_k(n)$ admits a Hoeffding decomposition and
+ Theorem~4.1 of \cite{PS4} or 
+ Theorem~2.1 of \cite{zhangzs}
+ for the Kolmogorov distance. 
+\begin{remark}
+% \label{fsklf34}
+ Let $d\geq 2$ and $t\in [(k-1)r,kr]$. 
+ Assume that $p_m = 1$, $m\geq 1$,
+  and
+  $\mu_1 =\cdots = \mu_d$. 
+  We have the Kolmogorov distance bound 
+  $$
+  \sup_{x\in\real }|\P_m (\widebar{\sigma}_k (t)
+   \leq x)-\Phi(x)|
+  \leq \frac{C_k}{\sqrt{m}}, \qquad
+  m \geq 1,
+  $$
+  % where $d_K(\widebar{\sigma}_k (t), {\cal N})$ denotes the Kolmogorov % Wasserstein  distance between  $\widebar{\sigma}_k (t)$ and the standard normal distribution ${\cal N}$, and
+  where $C_k>0$ is a constant.
+\end{remark}
+ By Corollary~\ref{cjkfl} and Proposition~\ref{l1}-$ii)$,
+ we also have the following moderate deviation result.
+\begin{corollary}
+% \label{corg2-0}
+ (Moderate deviation principle).
+% Let $f:[0,r]^d \to\real$ be a measurable function satisfying Assumption~\ref{assu1}, with $d\geq 2$.
+    % Denote $W:=\frac{S_{n,k}(f)-\kappa_1(S_{n,k}(f))}{\sqrt{\kappa_2(S_{n,k}(f))}}$,
+  Let $d\geq 2$ and $t\in [(k-1)r,kr]$, 
+  let $( a_m)_{m \geq 1}$ be a sequence of real numbers tending to infinity, and such that 
+$ 
+  a_m \ll m^{1/(2+4 d)}$. 
+   % as $n\to\infty$.
+  Then, $\big(a_m^{-1} \widebar{\sigma}_k (t) \big)_{m \geq 1}$ satisfies a moderate deviation principle with speed $a_m^2$ and rate function $x^2/2$. 
+\end{corollary} 
 \section{Poisson approximation}\label{sec-pol}
 To study the Poisson approximation of the $k$-hop count $W$, we employ the
 well-established Stein-Chen method developed in 
@@ -3191,7 +3387,7 @@ This characterization yields the following Stein identity for Poisson approximat
   \label{steinidP}
   \lambda f(j+1)-jf(j)=h(j)-\Pn(\lambda)\{h\},
 \end{equation}
-where $\Pn(\lambda)\{h\}:=\E h(Y)$ with $Y\sim \Pn(\lambda)$.
+where $\Pn(\lambda)\{h\}:=\E_m [ h(Y)]$ with $Y\sim \Pn(\lambda)$.
 
 \medskip
 
@@ -3203,8 +3399,8 @@ distribution admits a particularly simple form.
 Consider 
 \begin{itemize}
 \item
-  a family $\{X_i : i \in \ci\}$ of Bernoulli random variables such that 
-  $\IP(X_i = 1) = p_i$,
+ a family $\{X_i : i \in \ci\}$ of Bernoulli random variables such that 
+ $\P_m (X_i = 1) = \bar{p}_i$,
 \item
   a family
   $\{\{X_j^{(i)} : j \in \ci\} : i \in \ci\}$ 
@@ -3215,7 +3411,7 @@ $$
 $$
  \item a random index $B$, independent of
 $\{\{X_j^{(i)} : j \in \ci\} : i \in \ci\}$, with distribution 
-  $$\IP(B = i) = \frac{p_i}{\E [W]},
+  $$\P_m (B = i) = \frac{\bar{p}_i}{\E_m  [W]},
   \quad i \in \ci.
   $$ 
 \end{itemize} 
@@ -3236,17 +3432,20 @@ When $\{X_i\}$ are negatively related, we have
 \begin{equation}
   \nonumber % \label{monotonecoupling1}
    \E\lvert W + 1 - W^s\rvert
-   = \E [ W + 1 - W^s ] 
+   = \E_m  [ W + 1 - W^s ] 
    = \mu^{-1}(\mu - \sigma^2),
 \end{equation}
-where $\mu = \E W$ and $\sigma^2 = \var(W)$.
+where $\mu = \E_m [W]$ and $\sigma^2 = \var(W)$.
  On the other hand, if $\{X_i\}$ are positively related, then
 \begin{align}\label{monotonecoupling2}
-   \E \lvert W + 1 - W^s\rvert
-   &= \E \left\lvert\sum_{j \ne B} (X_j^{(B)} - X_j) - X_B\right\rvert \nonumber\\
-   &\le \E \left\{\sum_{j \ne B} (X_j^{(B)} - X_j) + X_B\right\} \nonumber\\
-   &= \E [ W^s - W - 1 ] + 2\mu^{-1} \sum_{i \in \ci} p_i^2 \nonumber\\
-   &= \mu^{-1}(\sigma^2 - \mu) + 2\mu^{-1} \sum_{i \in \ci} p_i^2.
+   \E_m [\lvert W + 1 - W^s\rvert ]
+   &= \E_m  \bigg[\bigg|\sum_{j \ne B} (X_j^{(B)} - X_j) - X_B\bigg|
+     \bigg]
+   \nonumber\\
+   &\le \E_m  \bigg[
+     \sum_{j \ne B} (X_j^{(B)} - X_j) + X_B\bigg] \nonumber\\
+   &= \E_m  [ W^s - W - 1 ] + 2\mu^{-1} \sum_{i \in \ci} \bar{p}_i^2 \nonumber\\
+   &= \mu^{-1}(\sigma^2 - \mu) + 2\mu^{-1} \sum_{i \in \ci} \bar{p}_i^2.
 \end{align}
 % \subsubsection*{Stein-Chen method}
  In what follows, we consider 
@@ -3259,7 +3458,7 @@ where $\mu = \E W$ and $\sigma^2 = \var(W)$.
           I_\beta : =
           Y^{(0)}_{\beta (1)}Y^{(1)}_{\beta (1),\beta (2)}\cdots Y^{(d-1)}_{\beta (d-1),\beta (d)}
  Y^{(d)}_{\beta (d)}
- {\bf1}_{\big\{U^{(1)}_{\beta (1)} \leq \cdots \leq U^{(d)}_{\beta (d)} \leq \tau \big\}},
+ {\bf1}_{\big\{U^{(1)}_{\beta (1)} \leq \cdots \leq U^{(d)}_{\beta (d)} \leq kr-t \big\}},
         \quad
         \beta \in [m_1]\times\cdots\times[m_d]. 
 \end{equation} 
@@ -3290,16 +3489,16 @@ $I_\beta^{(\alpha)}:=I_{\beta}$.
 where 
 \begin{equation*}
 	\widetilde{Y}_{0,\beta(1)}:=
-	\begin{cases}1,\ \ \ &\mbox{if}\ \ 1\in A;
+	\begin{cases}1,\ \ \ &\mbox{if~} 1\in A;
           \medskip
           \\
 	  Y_{\beta (1 )}^{(0)} 
-,\ \ \ \ &\mbox{if}\ \ 1\notin A,
+,\ \ \ \ &\mbox{if~} 1\notin A,
 	\end{cases}
 \end{equation*}
 \begin{equation*}
 	\widetilde{Y}_{\beta(\ell),\beta(\ell+1)}:=\begin{cases}
-	1,\ \ \ &\mbox{if}~~~~\ell\in A\ \ \mbox{and}\ \ \ell+1\in A;
+	1,\ \ \ &\mbox{if}~\ell\in A \mbox{~and~} \ell+1\in A;
         \medskip
           \\
 		Y_{\beta (\ell ),\beta (\ell + 1)}^{( \ell )}
@@ -3310,12 +3509,12 @@ for $\ell=1,\dots,d-1$,
 and
 \begin{equation*}
 	\widetilde{Y}_{\beta(d),M}:=
-	\begin{cases}1,\ \ \ &\mbox{if}\ \ d\in A;
+	\begin{cases}1,\ \ \ &\mbox{if~} d\in A;
           \medskip
           \\
 	  Y_{\beta (d)}^{(d)}
-          \bone_{\big\{ U_{\beta( d )}^{( d )} \leq \tau  \big\}}
-          ,\ \ \ \ &\mbox{if}\ \ d\notin A.
+          \bone_{\big\{ U_{\beta( d )}^{( d )} \leq kr-t \big\}}
+          ,\ \ \ \ &\mbox{if~} d\notin A.
 	\end{cases}
 \end{equation*}
 \end{enumerate}
@@ -3330,46 +3529,56 @@ that $I_{\beta}^{(\alpha)}\ge I_\beta$, for all $\beta\ne\alpha$, and $\alpha\in
 \end{equation}
  We have 
 \begin{align}\label{count-parti}
-	\nu(i)&= \begin{cases}(m_1-1)\times(m_2-1)\times\cdots\times(m_d-1),\ \ \ &\mbox{\rm when}~~i=0;\\
-		(m_1-1)(m_2-1)\cdots (m_d-1)\sum_{i=1}^d\frac1{m_i-1},\ \ \ &\mbox{when}~~i=1;\\
-		(m_1-1)(m_2-1)\cdots (m_d-1)\sum_{1\le i\ne j\le d}\frac1{(m_i-1)(m_j-1)}, \ \ \ &\mbox{when}~~i=2;\\
-		\ \ \ \ \ \vdots\\
-		\sum_{i=1}^d(m_i-1),\ \ \ &\mbox{when}~~i=d-1;\\
-		1,\ \ \ &\mbox{when}~~i=d.
+  \nu(i)&= \begin{cases}
+    \displaystyle
+    (m_1-1)\times(m_2-1)\times\cdots\times(m_d-1),\ \ \ &\mbox{\rm when~}i=0;\\
+	\displaystyle
+    	(m_1-1)(m_2-1)\cdots (m_d-1)\sum_{i=1}^d\frac1{m_i-1},\ \ \ &\mbox{when~}i=1;\\[0.5ex]
+\displaystyle
+    		(m_1-1)(m_2-1)\cdots (m_d-1)\sum_{1\le i\ne j\le d}\frac1{(m_i-1)(m_j-1)}, \ \ \ &\mbox{when~}i=2;\\[0.5ex]
+		\ \ \ \ \ \vdots\\[0.5ex]
+\displaystyle
+    		\sum_{i=1}^d(m_i-1),\ \ \ &\mbox{when~}i=d-1;\\[0.5ex]
+		1,\ \ \ &\mbox{when~}i=d.
 	\end{cases}
 \end{align}
 For integer-valued random variables $X$ and $Y$, the total variation distance between $\law(X)$ and $\law(Y)$ is given by 
-\begin{equation*}
-  \dtv( X,Y):=\sup_{A\subseteq\Z}|\IP(X\in A)-\IP(Y\in A)|,
-\end{equation*}
+\begin{equation}
+  \label{dtv}
+  \dtv( X,Y):=\sup_{A\subseteq\Z}|\P_m (X\in A)-\P_m (Y\in A)|,
+\end{equation}
  with $\Z:=\{0,\pm1,\pm2,\dots\}$ standing for the set of signed integers.
 % \section{Poisson approximation}
 \begin{theorem}\label{poi-thm}
-  Let $W=\sum_{\alpha\in\ci}I_\alpha$ be the $k$-hop count defined in
+  Let $d\geq 2$ and $t\in [(k-1)r,kr]$,
+  and let $\sigma_k (t)=\sum_{\alpha\in\ci}I_\alpha$ be the $k$-hop count defined in
   \eqref{ustat}, with $I_\alpha$ given in
-  \eqref{ibeta} and $\lambda=\E [ W ]>0$.
+  \eqref{ibeta} and $\lambda (t):=\E_m  [ \sigma_k (t) ]>0$.
   Then, we have
 \begin{align}
-  \dtv(W,\Pn(\lambda))&\le
-  \tilde{p}
+  \dtv(\sigma_k (t),\Pn(\lambda (t)))&\le
+  \tilde{p}_m
   + 
-  \sum_{i=1}^{d-1}\nu(i)p^{d+1-i},
+  \sum_{i=1}^{d-1}\nu(i)p_m^{d+1-i},
   \label{po-error1}
 \end{align}
 where
 \begin{equation}
 \nonumber
-     \tilde{p}:=\IP(I_\alpha=1)
+     \tilde{p}_m:=\P_m (I_\alpha=1)
   =
-  p^{d+1}
-\int_0^\tau \int_0^{x_d} \cdots \int_0^{x_2} \mu_1(dx_1)\cdots \mu_d(dx_d)
+  p_m^{d+1}
+\int_0^{kr-t} \int_0^{x_d} \cdots \int_0^{x_2} \mu_1(dx_1)\cdots \mu_d(dx_d)
 \end{equation}
  and $\nu(i)$ is given in \eqref{count-parti}.
 \end{theorem}
 \begin{Proof}
-	By the Stein-Chen method, we have 
+  In what follows, we let
+  $W:  =\sigma_k (t)=\sum_{\alpha\in\ci}$
+  and $\lambda: = \lambda (t)$.
+  By the Stein-Chen method, we have 
 \begin{align}
-	\dtv( W ,\Pn(\lambda))&= \sup_{A\subseteq \Z}|\IP(W\in A)-\Pn(\lambda)\{A\}|\nonumber\\
+	\dtv( W ,\Pn(\lambda ))&= \sup_{A\subseteq \Z}|\P_m (W\in A)-\Pn(\lambda)\{A\}|\nonumber\\
 				  &\le\sup_{A\subseteq \Z}|\E[\lambda f_A(W+1)-Wf_A(W)]|\label{steinest01}
 \end{align}
 where $f_A$ is the unique solution for $h(\cdot)=\bone(\cdot\in A)$ in \eqref{steinidP} with $f_A(0)=0$. Recall from \cite[Lemma~4.4]{nross}, for any $A\subseteq \Z$,
@@ -3382,52 +3591,73 @@ where $\Delta f_A(j):=f_A(j+1)-f_A(j)$.
 \begin{align}
 \left|\E[\lambda f_A(W+1)-Wf_A(W)]\right|&= \left|\lambda\E[f_A(W+1)-f_A(W^s)]\right|\nonumber\\
 				    &\le\lambda \|\Delta f_A\|\ \E|W+1-W^s|\nonumber\\
-				    &\le\lambda^{-1}(\sigma^2 - \lambda) + 2\lambda^{-1} \sum_{\alpha \in \ci} (\IP(I_\alpha=1))^2\nonumber\\
-				    &=\lambda^{-1}(\sigma^2 - \lambda)+2\tilde{p},\label{err01}
+				    &\le\lambda^{-1}(\sigma^2 - \lambda) + 2\lambda^{-1} \sum_{\alpha \in \ci} (\P_m (I_\alpha=1))^2\nonumber\\
+				    &=\lambda^{-1}(\sigma^2 - \lambda)+2\tilde{p}_m,\label{err01}
 \end{align}
 where $\sigma:=\Var(W)$. 
 Moreover, we have 
 \begin{align}
-	\sigma^2-\lambda&=\sum_{\alpha\in\ci}\sum_{\beta\in\ci}\cov(I_\alpha,I_\beta)-\sum_{\alpha\in\ci}\IP(I_\alpha=1)\nonumber\\
-			&=\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)+\sum_{\alpha\in\ci}\cov(I_\alpha,I_\alpha)-\sum_{\alpha\in\ci}\IP(I_\alpha=1)\nonumber\\
-			&=\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\sum_{\alpha\in\ci}(\IP(I_\alpha=1))^2\nonumber\\
-			&=\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}. \label{err02}
+  \nonumber
+  \sigma^2-\lambda&=\sum_{\alpha\in\ci}\sum_{\beta\in\ci}\cov(I_\alpha,I_\beta)-\sum_{\alpha\in\ci}\P_m (I_\alpha=1)
+  \\
+  \nonumber
+  &=\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)+\sum_{\alpha\in\ci}\cov(I_\alpha,I_\alpha)-\sum_{\alpha\in\ci}\P_m (I_\alpha=1)
+  \\
+  \nonumber
+  &=\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\sum_{\alpha\in\ci}(\P_m (I_\alpha=1))^2
+  \\
+  \label{err02}
+  &=\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}_m. 
 \end{align}
 For any $\alpha\ne\beta\in\ci$, if $\beta(i)\ne\alpha(i)$ for all $i=1,\dots,d$, then $I_\alpha$, $I_\beta$ are independent. For $\alpha\ne\beta\in\ci$ with $\beta(i)=\alpha(i)$ for some $i=1,\dots,d$, we have 
 \begin{align}
-	\cov(I_\alpha,I_\beta)&=\E[I_\alpha I_\beta]-\tilde{p}^2\nonumber\\
-			      &=\tilde{p}\E[I_\beta^{(\alpha)}]-\tilde{p}^2\label{err03}.
+  \nonumber
+  \cov(I_\alpha,I_\beta)&=\E[I_\alpha I_\beta]-\tilde{p}_m^2
+  \\
+        \label{err03}
+	&=\tilde{p}_m\E[I_\beta^{(\alpha)}]-\tilde{p}_m^2.
 \end{align}
 Let $\alpha\in\ci$ be fixed, for $\beta\ne\alpha$ with $|\underline{\beta}\cap\underline{\alpha}|=i$, $i=1,\dots,d-1$, we have 
 \begin{equation}
-	\E[I_{\beta}^{(\alpha)}]\le p^{d+1-i}.\label{err04}
+  \nonumber 
+	\E[I_{\beta}^{(\alpha)}]\le p_m^{d+1-i}.\label{err04}
 \end{equation}
 Collecting \eqref{count-parti}, 
 \eqref{err03}, \eqref{err04} we have
 \begin{align}
-  &\sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}\nonumber\\
-  &=\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}\nonumber\\
-  &\le\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\left(\tilde{p}p^{d+1-i}-\tilde{p}^2\right)-\lambda\tilde{p}\nonumber\\
-  &\le\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\tilde{p}p^{d+1-i}-\lambda\tilde{p}\nonumber\\
-  &=\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\nu(i)\tilde{p}p^{d+1-i}-\lambda\tilde{p}\nonumber\\
-  &=\lambda\sum_{i=1}^{d-1}\nu(i)p^{d+1-i}-\lambda\tilde{p}.\label{err05}
+  \nonumber
+  \sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}_m
+  &=\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}_m
+  \\
+  \nonumber
+  &\le\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\left(\tilde{p}_mp_m^{d+1-i}-\tilde{p}_m^2\right)-\lambda\tilde{p}_m
+  \\
+  \nonumber
+  &\le\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\tilde{p}_mp_m^{d+1-i}-\lambda\tilde{p}_m
+  \\
+  \nonumber
+  &=\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\nu(i)\tilde{p}_mp_m^{d+1-i}-\lambda\tilde{p}_m
+  \\
+  \nonumber
+  &=\lambda\sum_{i=1}^{d-1}\nu(i)p_m^{d+1-i}-\lambda\tilde{p}_m.\label{err05}
 \end{align}
 Combining 
 \eqref{err01}, \eqref{err02} and \eqref{err05}, it shows that
 \begin{align}
-	\left|\E[\lambda f_A(W+1)-Wf_A(W)]\right|&\le\sum_{i=1}^{d-1}\nu(i)p_m^{d+1-i}+\tilde{p}
+	\left|\E[\lambda f_A(W+1)-Wf_A(W)]\right|&\le\sum_{i=1}^{d-1}\nu(i)p_m^{d+1-i}+\tilde{p}_m
 \end{align}
 Combining with \eqref{steinest01}, the proof is complete. 
 \end{Proof}
- We note that in order to ensure Poisson approximation, there is no need to force $\E [W]$ converges to a constant $\mu$. 
-  Poisson approximation by Stein-Chen method does not require $\E [ W]$ be a constant. In fact, $\E [W]$ can be large.
+ We note that in order to ensure Poisson approximation, there is no need to force $\E_m  [\sigma_k (t)]$ to converge to a constant $\mu$. 
+  Poisson approximation by Stein-Chen method does not require $\E_m  [\sigma_k (t)]$ be a constant. In fact, $\E_m  [\sigma_k (t)]$ can be large.
   \begin{corollary}
     \label{c2} 
-  Assume that $m_1=m_2=\cdots=m_d=m$,
+    Let $d\geq 2$ and $t\in [(k-1)r,kr]$,
+     and assume that $m_1=m_2=\cdots=m_d=m$,
   and assume that $m^dp_m^{d+1}\to c\in(0,\infty)$.
-  Then, as $m\to\infty$ we have
+  Then, as $m$ tends to infinity we have
 \begin{align}
-  \dtv(W,\Pn(\lambda))&
+  \dtv(\sigma_k (t),\Pn(\lambda))&
   \asymp m^{-1/(d+1)}.
 \nonumber % \label{po-error1}
 \end{align}
@@ -3437,8 +3667,12 @@ Combining with \eqref{steinest01}, the proof is complete.
    hence the error bound in \eqref{po-error1} is of order 
 	$$\sum_{i=1}^{d-1}m^{d-i}p_m^{d+1-i}+p_m^{d+1}\asymp \sum_{i=1}^{d-1}m^{d-i}(m^{-\frac{d}{d+1}})^{d+1-i}\asymp m^{-1/(d+1)}.$$
 \end{Proof}
+ In the case $d=1$, 
+ Poisson convergence also holds $\sigma_2(t)$ when
+ $mp_m^2\to c\in(0,\infty)$ from
+ \eqref{d=1}.
 
-\appendix
+ \appendix
 
 \section{Moments and cumulants} 
 In this section we gather some preliminary facts 
@@ -3506,7 +3740,7 @@ for $t$ in a neighborhood of zero.
  are given from its cumulants by the joint moment-cumulant relation
 \begin{equation}
 \label{cgf1}
-   \E [ X^n ] 
+   \E_m  [ X^n ] 
  = 
  \sum_{\pi \in \Pi [n]} 
   \prod_{A \in \pi }
@@ -3527,7 +3761,7 @@ for $t$ in a neighborhood of zero.
  \sum_{ \sigma \in \Pi [n] }
  \mu ( \sigma , \widehat{\bf 1} )
   \prod_{A \in \sigma}
-  \E [ X^{|A|} ]
+  \E_m  [ X^{|A|} ]
   \\
   \label{jklsda1-0}
   & = &  
@@ -3536,7 +3770,7 @@ for $t$ in a neighborhood of zero.
   (-1)^{l-1}
   \sum_{\pi_1\cup \cdots \cup \pi_l = \{1,\ldots , n\}}
   \prod_{j=1}^l 
-  \E [ X_i^{|\pi_j|} ], 
+  \E_m  [ X_i^{|\pi_j|} ], 
 \end{eqnarray} 
 see Theorem~1 of \cite{elukacs} % Relations~(2.8)-(2.9) in \cite{mccullagh},
 or Corollary~5.1.6 in \cite{stanley}. 
@@ -3564,7 +3798,7 @@ the joint moments of $(X_1,\ldots , X_n)$
  are given from its cumulants by the joint moment-cumulant relation
 \begin{equation}
 \nonumber %  \label{cgf}
-   \E [ X_1 \cdots X_n ] 
+   \E_m  [ X_1 \cdots X_n ] 
  = 
  \sum_{\pi \in \Pi [n]} 
   \prod_{A \in \pi }
@@ -3583,7 +3817,7 @@ and
  \sum_{ \sigma \in \Pi [n] }
  \mu ( \sigma , \widehat{\bf 1} )
   \prod_{A \in \sigma}
-  \E \Bigg[ \prod_{i\in A} X_i \Bigg]
+  \E_m  \Bigg[ \prod_{i\in A} X_i \Bigg]
   \\
   \label{jklsda1}
   & = &  
@@ -3592,13 +3826,12 @@ and
   (-1)^{l-1}
   \sum_{\pi_1\cup \cdots \cup \pi_l = \{1,\ldots , n\}}
   \prod_{j=1}^l 
-  \E \Bigg[ \prod_{i\in \pi_j} X_i \Bigg], 
+  \E_m  \Bigg[ \prod_{i\in \pi_j} X_i \Bigg], 
 \end{eqnarray} 
-see
-\cite{leonov},
-\cite{malyshev1980},
-and Proposition~3.2.1
- in \cite{peccatitaqqu}. 
+ see
+ \cite{leonov},
+ \cite{malyshev1980},
+ and Proposition~3.2.1 in \cite{peccatitaqqu}. 
 
 \section{Cumulant method} 
 % \label{appx}
@@ -3636,7 +3869,7 @@ and write $\kappa_n(\xi):=\kappa(\xi'_{[n]})$ for the $n$-$th$ order
     \sum_{\sigma
       % =\{a_1,\dots,a_s\}
       \in\Pi(b)}(-1)^{s-1}(s-1)!\prod_{a\in \sigma}
-    \E \Bigg[
+    \E_m  \Bigg[
       \prod_{l\in a} X_l
 % \mathbf{X}^{(a_i)}
     \Bigg] 
@@ -3663,7 +3896,7 @@ and write $\kappa_n(\xi):=\kappa(\xi'_{[n]})$ for the $n$-$th$ order
  \cite[Corollary~2.1]{saulis} and \cite[Theorem~2.4]{doering})
   One has
 \begin{equation*}
-\sup_{x\in\real }|\IP(X_n\leq x)-\Phi(x)|\leq \frac{C(\gamma )}{(\Delta_n)^{1/(1+2\gamma)}},
+\sup_{x\in\real }|\P_m (X_n\leq x)-\Phi(x)|\leq \frac{C(\gamma )}{(\Delta_n)^{1/(1+2\gamma)}},
 \end{equation*}
 for some $C(\gamma ) >0$ depending only on $\gamma$.
 \item (Moderate deviation principle,
@@ -3678,10 +3911,10 @@ for some $C(\gamma ) >0$ depending only on $\gamma$.
   corollary of \cite[Lemma~2.4]{saulis} and \cite[Theorem~2.5]{doering}).
   For any $x\geq 0$ and sufficiently large $n \geq 1$, 
 \begin{equation*}
-\IP(|X_n|\geq x)\le2\exp\left(-\frac14\min\left( \frac{x^2}{2^{1+\gamma}},(x\Delta_n)^{1/(1+\gamma)}\right) \right).
+\P_m (|X_n|\geq x)\le2\exp\left(-\frac14\min\left( \frac{x^2}{2^{1+\gamma}},(x\Delta_n)^{1/(1+\gamma)}\right) \right).
 \end{equation*} 
 \item (Normal approximation with Cram\'er corrections, \cite[Lemma~2.3]{saulis}). There exists a constant $c>0$ such that for all $n \geq 1$ and $x\in(0,c(\Delta_n)^{1/(1+2\gamma)})$ we have 
-\begin{eqnarray*} \frac{\IP(X_n\geq x)}{1-\Phi(x)}&=& \left(1+O\left(\frac{x+1}{(\Delta_n)^{1/(1+2\gamma)}}\right)\right) \exp \big( \widetilde{L}(x) \big), \\ \frac{\IP(X_n\leq -x)}{\Phi(-x)}&=& \left(1+O\left(\frac{x+1}{(\Delta_n)^{1/(1+2\gamma)}}\right)\right) \exp \big( \widetilde{L}(-x) \big), \end{eqnarray*} where $\widetilde{L}(x)$ is related to the Cram\'er-Petrov series. 
+\begin{eqnarray*} \frac{\P_m (X_n\geq x)}{1-\Phi(x)}&=& \left(1+O\left(\frac{x+1}{(\Delta_n)^{1/(1+2\gamma)}}\right)\right) \exp \big( \widetilde{L}(x) \big), \\ \frac{\P_m (X_n\leq -x)}{\Phi(-x)}&=& \left(1+O\left(\frac{x+1}{(\Delta_n)^{1/(1+2\gamma)}}\right)\right) \exp \big( \widetilde{L}(-x) \big), \end{eqnarray*} where $\widetilde{L}(x)$ is related to the Cram\'er-Petrov series. 
 \end{enumerate}
 \end{prop}
 
@@ -3700,6 +3933,546 @@ for some $C(\gamma ) >0$ depending only on $\gamma$.
 \footnotesize 
 
 % \setcitestyle{numbers}
+
+\def\cprime{$'$} \def\polhk#1{\setbox0=\hbox{#1}{\ooalign{\hidewidth
+  \lower1.5ex\hbox{`}\hidewidth\crcr\unhbox0}}}
+  \def\polhk#1{\setbox0=\hbox{#1}{\ooalign{\hidewidth
+  \lower1.5ex\hbox{`}\hidewidth\crcr\unhbox0}}} \def\cprime{$'$}
+\begin{thebibliography}{KGKP21}
+
+\bibitem[BCJ23]{bhattacharya23}
+B.~Bhattacharya, A.~Chatterjee, and S.~Janson.
+\newblock Fluctuations of subgraph counts in graphon based random graphs.
+\newblock {\em Combin. Probab. Comput.}, 32(3):428--464, 2023.
+
+\bibitem[BHJ92]{BarbourHolstJanson}
+A.D. Barbour, L.~Holst, and S.~Janson.
+\newblock {\em Poisson approximation}, volume~2 of {\em Oxford Studies in
+  Probability}.
+\newblock The Clarendon Press, Oxford University Press, New York, 1992.
+
+\bibitem[CGR16]{coulson16}
+M.~Coulson, R.~E. Gaunt, and G.~Reinert.
+\newblock Poisson approximation of subgraph counts in stochastic block models
+  and a graphon model.
+\newblock {\em ESAIM Probab. Stat.}, 20:131--142, 2016.
+
+\bibitem[Che75]{chen1975}
+L.H.Y. Chen.
+\newblock Poisson approximation for dependent trials.
+\newblock {\em Ann. Probab.}, 3(3):534--545, 1975.
+
+\bibitem[DE13]{doring}
+H.~D{\"{o}}ring and P.~Eichelsbacher.
+\newblock Moderate deviations via cumulants.
+\newblock {\em J. Theoret. Probab.}, 26:360--385, 2013.
+
+\bibitem[DF14]{DevroyeFraiman14}
+L.~Devroye and N.~Fraiman.
+\newblock Connectivity of inhomogeneous random graphs.
+\newblock {\em Random Structures Algorithms}, 45(3):408--420, 2014.
+
+\bibitem[DJS22]{doering}
+H.~D{\"o}ring, S.~Jansen, and K.~Schubert.
+\newblock The method of cumulants for the normal approximation.
+\newblock {\em Probab. Surv.}, 19:185--270, 2022.
+
+\bibitem[Dro97]{drory1997}
+A.~Drory.
+\newblock Exact solution of a one-dimensional continuum percolation model.
+\newblock {\em Phys. Rev. E (3)}, 55(4):3878--3885, 1997.
+
+\bibitem[GK19]{AGK19}
+R.~Arratia~L. Goldstein and F.~Kochman.
+\newblock Size bias for one and all.
+\newblock {\em Probab. Surv.}, 16:161, 2019.
+
+\bibitem[GT18]{thale18}
+J.~Grote and C.~Th{\"a}le.
+\newblock Gaussian polytopes: a cumulant-based approach.
+\newblock {\em J. Complexity}, 47:1--41, 2018.
+
+\bibitem[HHO25]{heerten}
+N.~Heerten, C.~Hirsch, and M.~Otto.
+\newblock Moderate deviations for weight-dependent random connection models.
+\newblock {\em J. Appl. Probab.}, pages 1--23, 2025.
+
+\bibitem[HP{\v{C}}21]{hladky21}
+J.~Hladk{\'y}, C.~Pelekis, and M.~{\v{C}}ileikis.
+\newblock A limit theorem for small cliques in inhomogeneous random graphs.
+\newblock {\em J. Graph Theory}, 97:578--599, 2021.
+
+\bibitem[Jan88]{Janson1988}
+S.~Janson.
+\newblock Normal convergence by higher semiinvariants with applications to sums
+  of dependent random variables and random graphs.
+\newblock {\em Ann. Probab.}, 16(1):305--312, 1988.
+
+\bibitem[J{\L}R00]{JLR}
+S.~Janson, T.~{\L}uczak, and A.~Ruci{\'n}ski.
+\newblock {\em Random graphs}.
+\newblock Wiley-Interscience Series in Discrete Mathematics and Optimization.
+  Wiley-Interscience, New York, 2000.
+
+\bibitem[KGKP21]{giles-privault}
+A.P. Kartun-Giles, K.~Koufos, and N.~Privault.
+\newblock Connectivity of 1d random geometric graphs.
+\newblock Preprint arXiv:2105.07731, 2021.
+
+\bibitem[Kho08]{khorunzhiy}
+O.~Khorunzhiy.
+\newblock On connected diagrams and cumulants of {E}rd{\Horig{o}}s-{R}\'enyi
+  matrix models.
+\newblock {\em Comm. Math. Phys.}, 282:209--238, 2008.
+
+\bibitem[LP24]{LiuPrivault}
+Q.~Liu and N.~Privault.
+\newblock Normal approximation of subgraph counts in the random-connection
+  model.
+\newblock {\em Bernoulli}, 30:3224--3250, 2024.
+
+\bibitem[LP25a]{LiuPrivault25}
+Q.~Liu and N.~Privault.
+\newblock Gaussian fluctuations of generalized {$U$}-statistics and subgraph
+  counting in the binomial random-connection model.
+\newblock Preprint arXiv:2505.12338, 33 pages, to appear in Stochastic
+  Processes and their Applications, 2025.
+
+\bibitem[LP25b]{LiuPri23b}
+Q.~Liu and N.~Privault.
+\newblock Graph connectivity with fixed endpoints in the random-connection
+  model.
+\newblock {\em Probab. Engrg. Inform. Sci.}, 39(3):370--396, 2025.
+
+\bibitem[LP25c]{LiuPrivault24}
+Q.~Liu and N.~Privault.
+\newblock Normal to {P}oisson phase transition for subgraph counting in the
+  random-connection model.
+\newblock {\em Electron. J. Probab.}, 30:1--32, 2025.
+
+\bibitem[LS59]{leonov}
+V.P. Leonov and A.N. Shiryaev.
+\newblock {On a method of calculation of semi-invariants.}
+\newblock {\em Theory Probab. Appl.}, 4:319--329, 1959.
+
+\bibitem[Luk55]{elukacs}
+E.~Lukacs.
+\newblock Applications of {F}a\`a di {B}runo's formula in mathematical
+  statistics.
+\newblock {\em Amer. Math. Monthly}, 62:340--348, 1955.
+
+\bibitem[LX20]{LiuXia20}
+Q.~Liu and A.~Xia.
+\newblock On moderate deviations in {P}oisson approximation.
+\newblock {\em J. Appl. Probab.}, 57(3):1005--1027, 2020.
+
+\bibitem[Mal80]{malyshev1980}
+V.A. Malyshev.
+\newblock Cluster expansions in lattice models of statistical physics and the
+  theory of quantum fields.
+\newblock {\em Russian Mathematical Surveys}, 35(1):1--62, 1980.
+
+\bibitem[McC87]{mccullagh}
+P.~McCullagh.
+\newblock {\em Tensor methods in statistics}.
+\newblock Monographs on Statistics and Applied Probability. Chapman \& Hall,
+  London, 1987.
+
+\bibitem[MM91]{MalyshevMinlos91}
+V.A. Malyshev and R.A. Minlos.
+\newblock {\em Gibbs Random Fields}, volume~44 of {\em Mathematics and its
+  Applications (Soviet Series)}.
+\newblock Kluwer Academic Publishers Group, Dordrecht, 1991.
+
+\bibitem[Pen18]{penrose18}
+M.~Penrose.
+\newblock Inhomogeneous random graphs, isolated vertices, and {P}oisson
+  approximation.
+\newblock {\em J. Appl. Probab.}, 55(1):112--136, 2018.
+
+\bibitem[Pri24]{privaultkhops}
+N.~Privault.
+\newblock Asymptotic analysis of $k$-hop connectivity in the 1{D} unit disk
+  random graph model.
+\newblock {\em Methodol. Comput. Appl. Probab.}, 26(47), 2024.
+
+\bibitem[PS22]{PS4}
+N.~Privault and G.~Serafin.
+\newblock Berry-{E}sseen bounds for functionals of independent random
+  variables.
+\newblock {\em Electron. J. Probab.}, 27:1--37, 2022.
+
+\bibitem[PT11]{peccatitaqqu}
+G.~Peccati and M.~Taqqu.
+\newblock {\em Wiener Chaos: Moments, Cumulants and Diagrams: A survey with
+  Computer Implementation}.
+\newblock Bocconi \& Springer Series. Springer, 2011.
+
+\bibitem[Ros11]{nross}
+N.~Ross.
+\newblock Fundamentals of {S}tein's method.
+\newblock {\em Probab. Surv.}, 8:201--293, 2011.
+
+\bibitem[Rot75]{rotabk}
+G.-C. Rota, editor.
+\newblock {\em Finite operator calculus}.
+\newblock Academic Press, 1975.
+\newblock With the collaboration of P. Doubilet, C. Greene, D. Kahaner, A.
+  Odlyzko and R. Stanley.
+
+\bibitem[RSS78]{rudzkis}
+R.~Rudzkis, L.~Saulis, and V.A. Statulevi\v{c}ius.
+\newblock A general lemma on probabilities of large deviations.
+\newblock {\em Litovsk. Mat. Sb.}, 18(2):99--116, 217, 1978.
+
+\bibitem[SS91]{saulis}
+L.~Saulis and V.A. Statulevi\v{c}ius.
+\newblock {\em Limit Theorems for Large Deviations}, volume~73 of {\em
+  Mathematics and its Applications (Soviet Series)}.
+\newblock Kluwer Academic Publishers Group, Dordrecht, 1991.
+
+\bibitem[ST24]{schulte-thaele}
+M.~Schulte and C.~Th{\"a}le.
+\newblock Moderate deviations on {P}oisson chaos.
+\newblock {\em Electron. J. Probab.}, 29:1--27, 2024.
+
+\bibitem[Sta99]{stanley}
+R.P. Stanley.
+\newblock {\em Enumerative combinatorics. {V}ol. 2}, volume~62 of {\em
+  Cambridge Studies in Advanced Mathematics}.
+\newblock Cambridge University Press, Cambridge, 1999.
+
+\bibitem[Zha22]{zhangzs}
+Z.S. Zhang.
+\newblock Berry-{E}sseen bounds for generalized {$U$}-statistics.
+\newblock {\em Electron. J. Probab.}, 27:1--36, 2022.
+
+\end{thebibliography}
+
+\end{document}
+
+\bibliography{../../bib/privault}
+\bibliographystyle{alpha}
+% \bibliographystyle{chicagoa}
+% \bibliographystyle{plainnat}
+
+\begin{tikzpicture}% [scale=0.8] 
+  \draw[step=1cm, very thin, gray!40] (0,0) grid (7,4);
+  \draw[black, thick] (0,0) rectangle (7,4);
+  \filldraw [red] (1,2) circle (2pt);
+  \filldraw [red] (6,2) circle (2pt);
+  \filldraw [black] (2,2) circle (2pt);
+  \filldraw [black] (3,1.5) circle (2pt);
+  \filldraw [black] (3,3) circle (2pt);
+  \filldraw [black] (5,1) circle (2pt);
+%  \filldraw [black] (5,2) circle (2pt);
+  \filldraw [black] (4,2) circle (2pt);
+  \filldraw [black] (5,2.5) circle (2pt);
+  \filldraw [black] (4,3) circle (2pt);
+  \filldraw [black] (4,1) circle (2pt);
+%  \filldraw [black] (4,1) circle (2pt);
+  \draw[thick,blue] (1,2) -- (2,2); 
+  \draw[thick,blue] (3,1.5) -- (4,2);
+  \draw[thick,blue] (3,3) -- (4,3);
+  \draw[thick,blue] (4,3) -- (5,2.5);
+  \draw[thick,blue] (2,2) -- (3,3);
+  \draw[thick,blue] (2,2) -- (3,1.5);
+  \draw[thick,blue] (5,2.5) -- (4,2);
+%  \draw[thick,blue] (4,2) -- (4,1);
+% \draw[thick,blue] (2,2) .. controls (3,1.5) .. (4,2);
+  \draw[thick,blue] (3,1.5) -- (4,1);
+  \draw[thick,blue] (4,1) -- (5,1);
+  \draw[thick,blue] (5,2.5) -- (6,2);
+%  \draw[thick,blue] (4,2) -- (5,2);
+%  \draw[thick,blue] (5,2) -- (6,2);
+  \draw[thick,blue] (5,1) -- (6,2);
+
+  \node[anchor=east,font=\footnotesize] at (1,2) {9};
+  \node[anchor=west,font=\footnotesize] at (6,2) {10};
+  \node[anchor=south,font=\footnotesize] at (3,3) {2};
+  \node[anchor=south,font=\footnotesize] at (4,3) {3};
+  \node[anchor=north,font=\footnotesize] at (3,1.5) {5};
+  \node[anchor=south,font=\footnotesize] at (5,2.5) {4};
+  \node[anchor=south,font=\footnotesize] at (2,2) {1};
+  \node[anchor=south,font=\footnotesize] at (4,2) {6};
+  %\node[anchor=north,font=\small] at (3,1) {7};
+  \node[anchor=north,font=\footnotesize] at (5,1) {8};
+  \node[anchor=north,font=\footnotesize] at (4,1) {7};
+
+  \begin{pgfonlayer}{background}
+    \filldraw [line width=4mm,black!3]
+      (0.2,0.2)  rectangle (6.8,3.8);
+  \end{pgfonlayer}
+\end{tikzpicture}}%
+
+
+\begin{figure}[H]
+  \begin{center}
+  \begin{tikzpicture}[every node/.style={draw}] 
+\centering
+\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};
+\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};
+\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};
+\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};
+\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};
+\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};
+\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};
+\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};
+
+\draw let \p1=(l1), \p2=(l1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l1)!0.5!(l1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l2), \p2=(l2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l2)!0.5!(l2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l3), \p2=(l3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l3)!0.5!(l3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l4), \p2=(l4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l4)!0.5!(l4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l5), \p2=(l5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l5)!0.5!(l5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l6), \p2=(l6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l6)!0.5!(l6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l7), \p2=(l7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l7)!0.5!(l7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l8), \p2=(l8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l8)!0.5!(l8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\end{tikzpicture}
+\end{center}
+  \vskip-0.2cm
+  \caption{
+ Single non-crossing partition
+of $[1] \times [d]$ with $d=8$.} 
+\label{f2-1}
+\end{figure}
+
+\vskip-0.4cm
+
+\noindent
+
+
+\begin{figure}[H]
+  \begin{center}
+\hskip-0.3cm
+\begin{tikzpicture}[every node/.style={draw}] 
+\centering
+\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};] {};
+
+\node (m1) at (2,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m2) at (4,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m3) at (6,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m4) at (8,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m5) at (10,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m6) at (12,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m7) at (14,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m8) at (16,1) [circle,fill=black,scale=0.5] {};] {};
+
+\draw let \p1=(l1), \p2=(m1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l1)!0.5!(m1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l2), \p2=(m2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l2)!0.5!(m2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l3), \p2=(m3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l3)!0.5!(m3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l4), \p2=(m4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l4)!0.5!(m4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l5), \p2=(m5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l5)!0.5!(m5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l6), \p2=(m6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l6)!0.5!(m6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l7), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+% \draw let \p1=(l8), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}  in ($ (l8)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\end{tikzpicture}
+\end{center}
+  \vskip-0.2cm
+  \caption{
+ Non-crossing partition of $2 \times d$ with $d=8$.} 
+% \label{f3-1-4}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+\hskip-0.3cm
+\begin{tikzpicture}[every node/.style={draw}] 
+\centering
+\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};] {};
+
+\node (m1) at (2,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m2) at (4,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m3) at (6,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m4) at (8,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m5) at (10,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m6) at (12,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m7) at (14,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m8) at (16,1) [circle,fill=black,scale=0.5] {};] {};
+
+\draw let \p1=(l1), \p2=(l1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l1)!0.5!(l1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m1), \p2=(m1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m1)!0.5!(m1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l2), \p2=(l2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l2)!0.5!(l2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m2), \p2=(m2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m2)!0.5!(m2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l3), \p2=(l3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l3)!0.5!(l3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m3), \p2=(m3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m3)!0.5!(m3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l4), \p2=(l4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l4)!0.5!(l4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m4), \p2=(m4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m4)!0.5!(m4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l5), \p2=(l5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l5)!0.5!(l5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m5), \p2=(m5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m5)!0.5!(m5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l6), \p2=(l6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l6)!0.5!(l6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m6), \p2=(m6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m6)!0.5!(m6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+  \draw let \p1=(l7), \p2=(l7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(l7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+  \draw let \p1=(m7), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (m7)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+% \draw let \p1=(m8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (m8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\end{tikzpicture}
+\end{center}
+  \vskip-0.2cm
+  \caption{
+ Non-crossing partition
+ of $2 \times d$ with $d=8$.} 
+% \label{f3-1-3}
+\end{figure}
+
+\vskip-0.4cm
+
+\begin{figure}[H]
+  \begin{center}
+\hskip-0.3cm
+\begin{tikzpicture}[every node/.style={draw}] 
+\centering
+\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};] {};
+
+\node (m1) at (2,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m2) at (4,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m3) at (6,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m4) at (8,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m5) at (10,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m6) at (12,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m7) at (14,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m8) at (16,1) [circle,fill=black,scale=0.5] {};] {};
+
+\draw let \p1=(l1), \p2=(l1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l1)!0.5!(l1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m1), \p2=(m1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m1)!0.5!(m1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l2), \p2=(l2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l2)!0.5!(l2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m2), \p2=(m2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m2)!0.5!(m2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l3), \p2=(l3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l3)!0.5!(l3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m3), \p2=(m3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m3)!0.5!(m3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l4), \p2=(l4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l4)!0.5!(l4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m4), \p2=(m4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m4)!0.5!(m4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l5), \p2=(l5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l5)!0.5!(l5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m5), \p2=(m5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m5)!0.5!(m5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l6), \p2=(l6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l6)!0.5!(l6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m6), \p2=(m6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m6)!0.5!(m6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+  \draw let \p1=(l7), \p2=(l7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(l7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+  \draw let \p1=(m7), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (m7)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l8), \p2=(l8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l8)!0.5!(l8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (m8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\end{tikzpicture}
+\end{center}
+  \vskip-0.2cm
+  \caption{
+ Non-crossing partition
+ of $2 \times d$ with $d=8$.} 
+% \label{f3-1-2}
+\end{figure}
+
+\vskip-0.4cm
+
+
+\begin{figure}[H]
+\centering 
+\hskip-0.3cm
+\begin{tikzpicture}[every node/.style={draw}] 
+\centering
+\node (l1) at (2,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l2) at (4,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l3) at (6,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l4) at (8,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l5) at (10,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l6) at (12,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l7) at (14,0) [circle,fill=black,scale=0.5] {};] {};
+\node (l8) at (16,0) [circle,fill=black,scale=0.5] {};] {};
+
+\node (m1) at (2,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m2) at (4,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m3) at (6,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m4) at (8,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m5) at (10,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m6) at (12,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m7) at (14,1) [circle,fill=black,scale=0.5] {};] {};
+\node (m8) at (16,1) [circle,fill=black,scale=0.5] {};] {};
+
+\draw let \p1=(l1), \p2=(l1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l1)!0.5!(l1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m1), \p2=(m1), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m1)!0.5!(m1) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l2), \p2=(m2), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l2)!0.5!(m2) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l3), \p2=(m3), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l3)!0.5!(m3) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l4), \p2=(l4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l4)!0.5!(l4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m4), \p2=(m4), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m4)!0.5!(m4) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l5), \p2=(l5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l5)!0.5!(l5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(m5), \p2=(m5), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (m5)!0.5!(m5) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l6), \p2=(m6), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}
+  in ($ (l6)!0.5!(m6) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l7), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+% \draw let \p1=(l8), \p2=(m7), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)}  in ($ (l8)!0.5!(m7) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\draw let \p1=(l8), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l8)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+% \draw let \p1=(l7), \p2=(m8), \n1={atan2(\y2-\y1,\x2-\x1)}, \n2={veclen(\y2-\y1,\x2-\x1)} in ($ (l7)!0.5!(m8) $) ellipse [x radius=\n2/2+8pt, y radius=0.3cm,rotate=0-\n1];
+\end{tikzpicture}
+\vskip-0.2cm
+\caption{
+ Example of a non-crossing partition
+of $2 \times d$ with $d=8$.} 
+\label{f3-1-1}
+\end{figure}
+
 
 \def\cprime{$'$} \def\polhk#1{\setbox0=\hbox{#1}{\ooalign{\hidewidth
   \lower1.5ex\hbox{`}\hidewidth\crcr\unhbox0}}}
@@ -3904,13 +4677,6 @@ Z.S. Zhang.
 
 \end{thebibliography}
 
-\end{document}
-
-\bibliography{../../bib/privault}
-\bibliographystyle{alpha}
-% \bibliographystyle{chicagoa}
-% \bibliographystyle{plainnat}
-
 On the other side,
 when $p_m\ll m^{-1}$, we can show that 
 for all $q=d+1,\dots,(d-1)n+1$, 
@@ -3918,10 +4684,7 @@ for all $q=d+1,\dots,(d-1)n+1$,
 	\frac{m^d p_m^{d+1}}{m^q p_m^{\zeta(n,d,q)}}\gg 1.
 \end{align*}
 
-
-
-
-  \noindent
+\noindent
   $(a)$ 
  When $m^{-1}\ll p_m$, 
 %  using \eqref{convex1} and \eqref{convex2}, 
@@ -4033,28 +4796,28 @@ $d \geq 1$.
 % \label{fsklf34}
   Let $k\geq 2$ and $t\in [(k-1)r,kr)$.
   The normalized $k$-hop count 
-$\widebar{\sigma}_k^{( m )} (t)$ 
+$\widebar{\sigma}_k^{(m)} (t)$ 
 satisfies the Wasserstein and Kolmogorov bounds 
 \begin{equation}
 \label{fjkldsf-2} 
 % d_K( \widebar{\sigma}_k (t) , {\cal N} ) :=
-d_{K/W} \big( \widebar{\sigma}_k^{( m )} (t) , {\cal N} \big)
+d_{K/W} \big( \widebar{\sigma}_k^{(m)} (t) , {\cal N} \big)
 \leq \frac{C(k,r)}{\sqrt{\lambda}}
 \end{equation} 
  for some constant $C(k,r)>0$, as $\lambda$ tends to infinity. 
 \end{prop}
 \begin{Proof}
- The kurtosis of $\sigma_k^{( m )}(t )$ satisfies 
+ The kurtosis of $\sigma_k^{(m)}(t )$ satisfies 
 \begin{eqnarray*} 
  \frac{\E_\lambda [ ( \sigma_k(t) -  \E_\lambda [ \sigma_k(t) ] )^4 ]}{( \Var_\lambda [ \sigma_k (t)] )^2} - 3
  & = & 
- \E_\lambda \big[ \big( \widebar{\sigma}_k^{( m )}(t) \big)^4 \big] - 3 
+ \E_\lambda \big[ \big( \widebar{\sigma}_k^{(m)}(t) \big)^4 \big] - 3 
  \\
  & = & 
- \frac{c_{k,4}^{( m )} (kr-t;kr-t;kr-t;kr-t)}{( \Var_\lambda [ \sigma_k (t)] )^2} 
+ \frac{c_{k,4}^{(m)} (kr-t;kr-t;kr-t;kr-t)}{( \Var_\lambda [ \sigma_k (t)] )^2} 
  \\
   & = & 
-(B_4)^{k-2} O ( m^{-1} ), 
+(B_4)^{k-2} O (m^{-1} ), 
 \end{eqnarray*} 
  as $m$ tends to infinity. 
  The Kolmogorov distance bound in \eqref{fjkldsf-2} 
@@ -4065,10 +4828,10 @@ d_{K/W} \big( \widebar{\sigma}_k^{( m )} (t) , {\cal N} \big)
  \medskip
 
  Regarding the Wasserstein distance bound,
- we can represent $\sigma_k^{( m )} (t)$ 
+ we can represent $\sigma_k^{(m)} (t)$ 
  as the $U$-statistics  
 $$ 
- \sigma_k^{( m )} (t) 
+ \sigma_k^{(m)} (t) 
  = 
  \sum_{((x_1,l_1),\ldots , ((x_{k-1},l_{k-1}) ) \in \omega^{k-1}
    \atop (x_i,l_i)\not=(x_j,l_j), 1\leq i\not= j \leq d}
@@ -4082,11 +4845,11 @@ $$
 $$ 
  $((x_1,l_1),\ldots , (x_{k-1},l_{k-1}))\in ([0,r]\times \{1,\ldots , k-1\})^{k-1}$
  is the symmetrization in
- $k-1$ variables in $[0,r]\times \{1,\ldots , k-1\}$ of $f_\tau$. 
+ $k-1$ variables in $[0,r]\times \{1,\ldots , k-1\}$ of $f_t$. 
 % , where $$ h(x,x',l,l') : = {\bf 1}_{\{x<x'\}} {\bf 1}_{\{l<l'\}}, \qquad x, x', l, l' \geq 0. $$
   Theorem~4.7 in \cite{reitzner} yields the bound 
   $$
-  d_W\big(\widebar{\sigma}_k^{( m )}, {\cal N}\big) \leq
+  d_W\big(\widebar{\sigma}_k^{(m)}, {\cal N}\big) \leq
   \sum_{1\leq i \leq j < k}
   \frac{\sqrt{M_{i,j}}}{\Var_m [ \sigma_k(t)]}
  $$
@@ -4105,7 +4868,7 @@ $$
  Hence by \eqref{fjkdls45} and \eqref{dfjkvar} we have
 \begin{eqnarray*} 
   \lefteqn{
-    d_W\big(\widebar{\sigma}_k^{( m )}, {\cal N}\big)
+    d_W\big(\widebar{\sigma}_k^{(m)}, {\cal N}\big)
   }
   \\
    & \leq & 
@@ -4126,7 +4889,7 @@ $$
   ( m r)^{1-i/2-j/2}. 
 \end{eqnarray*}
  The above conclusions can also be reached by 
- noting that $\widebar{\sigma}_k^{( m )}$ admits a Hoeffding decomposition
+ noting that $\widebar{\sigma}_k^{(m)}$ admits a Hoeffding decomposition
  and by applying Theorem~1.3 in \cite{doblerpeccati} for the Wasserstein
 % distance, or Theorem~4.2 in \cite{PS4---revised}
  distance, or Theorem~6.3 in \cite{PS4} 
@@ -4138,7 +4901,7 @@ $$
 The following result shows that
 the normalized $k$-hop count
 $$
-\widebar{\sigma}_k := \frac{\sigma_k - \E[\sigma_k]}{\sqrt{\Var [ \sigma_k]}}
+\widebar{\sigma}_k := \frac{\sigma_k - \E[\sigma_k]}{\sqrt{\Var_m [ \sigma_k]}}
 $$
 converges in distribution to the standard normal
 distribution as $m$ tends to infinity. 
@@ -4153,7 +4916,7 @@ By \cite{rudzkis},
    distance bound
    \begin{equation}
 \nonumber % \label{fjkf} 
- d_K \big( \widebar{\sigma}_k^{( m )} (t) , {\cal N} \big) 
+ d_K \big( \widebar{\sigma}_k^{(m)} (t) , {\cal N} \big) 
 \leq \frac{C(k,r)}{\lambda^{1/(2 + 4(k-3))}}
 \end{equation} 
    for $t\in [(k-1)r,kr)$, as $\lambda$ tends to infinity.
@@ -4238,7 +5001,7 @@ $$
  In particular, we have
 \begin{align} 
 \nonumber % \label{fjkdls}
-  & \frac{(\E  [ \sigma_k(kr-\tau) ])^2}{\E  [ \sigma_k(kr-\tau)^2 ]} 
+  & \frac{(\E_m   [ \sigma_k(kr-\tau) ])^2}{\E_m   [ \sigma_k(kr-\tau)^2 ]} 
   = 
   \left(
   \frac{(m_1-1)\cdots (m_d-1)}{m_1\cdots m_d}
@@ -4261,7 +5024,7 @@ $$
 \end{align} 
  When $d=1$ (two-hops), we have 
 $$
- \E  [ (\sigma_2(2r-\tau))^2 ] 
+ \E_m   [ (\sigma_2(2r-\tau))^2 ] 
 = 
  (\sigma_2(2r-\tau))^2 
 = 
@@ -4269,7 +5032,7 @@ $$
 $$   
  When $d=2$ (three-hops), we have 
 $$
- \E  [ (\sigma_3(3r-\tau))^2 ] 
+ \E_m   [ (\sigma_3(3r-\tau))^2 ] 
  = 
  \frac{ m_1(m_1-1)m_2(m_2-1)}{4}
  +
@@ -4280,7 +5043,7 @@ $$
 $$   
  and
  $$
-  \Var [ \sigma_3(3r-\tau) ]
+  \Var_m [ \sigma_3(3r-\tau) ]
  = 
  \frac{ m_1(m_1-1)m_2(m_2-1)}{4}
  +
@@ -4295,7 +5058,7 @@ $$
  When $d=3$ (four-hops), we find 
 \begin{align*} 
 \nonumber 
- & \E  [ (\sigma_4(4r-\tau))^2 ]  = 
+ & \E_m   [ (\sigma_4(4r-\tau))^2 ]  = 
  \frac{m_1(m_1-1)m_2(m_2-1)m_3(m_3-1)}{3!^2}
  +
  6 \frac{m_1(m_1-1)m_2(m_2-1)m_3}{5!}
@@ -4327,7 +5090,7 @@ $|f(\lambda )| \leq C_n \lambda^n$ for any $\lambda >\lambda_n$.
 $$ 
  \E_\lambda [ ( \sigma_k (kr - \tau ) )^n ]
   \leq 
-  ( \E [ ( N_{\lambda \tau} )^n ] )^d 
+  ( \_m E [ ( N_{\lambda \tau} )^n ] )^d 
  =
  O \big( ( \lambda \tau  )^{nd} \big)
  % O \left( \prod_{l=1}^{k-1} ( \lambda_i (kr - t_i ))^n \right)
@@ -4338,9 +5101,9 @@ $$
 \begin{Proof}
  We show by induction on $d\geq 1$ that 
 $$ 
-  m^{( m )}_{k,n} (\tau_1 ,\ldots , \tau_n )
+  m^{(m)}_{k,n} (\tau_1 ,\ldots , \tau_n )
   \leq 
-  ( \E [ ( N_{\lambda \tau } )^n ] )^{k-1}
+  ( \E_m  [ ( N_{\lambda \tau } )^n ] )^{k-1}
   , 
   \qquad
   0 \leq \tau_1,\ldots , \tau_n \leq \tau. 
@@ -4350,32 +5113,32 @@ $$
   $S(n,l)$ the Stirling number of the second
  kind,  
   $$
-  \E [ ( N_{\lambda \tau } )^n ] = 
+  \E_m  [ ( N_{\lambda \tau } )^n ] = 
 \sum_{l=1}^n
 S(n,l) ( \lambda \tau )^l
 = O(\lambda^n).
 $$
  The case $k=1$ is covered by the fact that 
-  $\sigma_1 (r - \tau ) = 1$ and $m^{( m )}_{1,n}(\tau ) = 1$, $n \geq 0$.
+  $\sigma_1 (r - \tau ) = 1$ and $m^{(m)}_{1,n}(\tau ) = 1$, $n \geq 0$.
  Next, % by the recurrence relation \eqref{fdfdf}
  we have
 \begin{eqnarray*} 
-  m^{( m )}_{k+1,n} (\tau ,\ldots , \tau )
+  m^{(m)}_{k+1,n} (\tau ,\ldots , \tau )
    & \leq &  
   \sum_{l=1}^n
   ( \lambda \tau )^l \sum_{\pi_1\cup \cdots \cup \pi_l = \{1,\ldots , n\}}
   \sup_{0 \leq \tau_1,\ldots , \tau_l \leq \tau }
-  m^{( m )}_{k,n} (\tau_1,\ldots , \tau_l ) 
+  m^{(m)}_{k,n} (\tau_1,\ldots , \tau_l ) 
   \\
    & = &  
   \sup_{0 \leq \tau_1,\ldots , \tau_l \leq \tau}
-  m^{( m )}_{k,n} (\tau_1,\ldots , \tau_l ) 
+  m^{(m)}_{k,n} (\tau_1,\ldots , \tau_l ) 
   \sum_{l=1}^n
   S(n,l) ( \lambda \tau )^l 
   \\
    & = &  
-  \E [ ( N_{\lambda \tau } )^n ] 
-  m^{( m )}_{k,n} (\tau,\ldots , \tau ),
+  \E_m  [ ( N_{\lambda \tau } )^n ] 
+  m^{(m)}_{k,n} (\tau,\ldots , \tau ),
   \qquad k \geq 1. 
 \end{eqnarray*} 
 % $0\leq \tau_1\leq \cdots \leq \tau_n \leq \tau$,
@@ -4395,7 +5158,7 @@ appearing in its decomposition, see \cite[Lemma~2]{Janson91} and also \cite[Theo
    \to\real$ be a bounded measurable function with $d\geq 2$. We assume that 
   \begin{equation}
 \nonumber %  \label{assu01}
-       \Var
+       \Var_m
       \left[\sum_{\ell=1}^d
         f_{(\ell)} (X_1) \right] >0. 
   \end{equation}
@@ -4417,7 +5180,7 @@ and $\mathbf{x}=(x_1,\dots,x_{i-1},x,x_{i+1},\dots,x_d )$.
 
  Hence, the second moment of $\sigma_k$ is given by
 \begin{align*} 
- & \E  [ \sigma_k^2 ]
+ & \E_m   [ \sigma_k^2 ]
   = 
  \E\left[
  \sum_{\alpha_1 \in [m_1] \times \cdots \times [m_d]_{\ne}} 
@@ -4482,7 +5245,7 @@ if $(k,l)$ and $(k',l')$ belong to a same block of $\pi$ then we should have $l=
  This yields
 \begin{align*} 
 \nonumber 
-& \E  [ \sigma_k(kr-\tau_1) \cdots  \sigma_k(kr-\tau_n)  ] 
+& \E_m   [ \sigma_k(kr-\tau_1) \cdots  \sigma_k(kr-\tau_n)  ] 
 \\
 & = 
  \hskip-0.4cm
@@ -4716,7 +5479,7 @@ and
 ., when $\lambda_k ( du)=\lambda_k du$, as 
  \begin{equation}
    \label{fjklsdf-11} 
-  m_{k,1}^{( m )}(\tau )
+  m_{k,1}^{(m)}(\tau )
 =
 \lambda_1\cdots \lambda_{k-1} \frac{\tau^{k-1}}{(k-1)!}. 
 \end{equation} 
@@ -5038,7 +5801,6 @@ In particular, we have
 which is consistent with the higher order terms
 $36\tau^5/5$ and $-\tau^{11}/14850$ in 
 for $k=3$ and $k=4$ in Tables~\ref{table6} and \ref{table7}. 
-
 
 \hskip-10cm
 \scriptsize
@@ -5638,7 +6400,7 @@ c^{(n)}_k (s,\ldots , s) = O ( (\lambda s)^{ 1 + (k-2)n }).
   (-1)^{l-1}
   \sum_{\pi_1\cup \cdots \cup \pi_l = \{1,\ldots , n\}}
   \prod_{j=1}^l 
-  \E \Bigg[ \prod_{i\in \pi_j} Z_i^{l_i} \Bigg], 
+  \E_m  \Bigg[ \prod_{i\in \pi_j} Z_i^{l_i} \Bigg], 
 $$
 
 
@@ -5726,7 +6488,7 @@ $$
      where 
 $$
   m_{k,2} (u_1,u_2) 
-  =  \E [ \sigma_k(kr- u_1) \sigma_k(kr-u_2) ],
+  =  \E_m  [ \sigma_k(kr- u_1) \sigma_k(kr-u_2) ],
  \qquad 0 \leq u_1, u_2 \leq r. 
 $$
 
@@ -5768,7 +6530,7 @@ $$
    stochastic integrals, we have
     \begin{align*} 
  & 
-    \E [ \sigma_k^2 (t) ] 
+    \E_m  [ \sigma_k^2 (t) ] 
     \\
    & = 
  \frac{1}{(k-1)!^2} \sum_{l=0}^{k-1}
@@ -5805,7 +6567,7 @@ $$
 \end{align*} 
 hence since $s_i\in [(i-1)r,ir]$, $i=1,\ldots , k-1$, we have 
 \begin{align*} 
-& \E [\sigma_k^2 (kr-\tau) ] 
+& \E_m  [\sigma_k^2 (kr-\tau) ] 
   = 
  \sum_{l=0}^{k-1}
   \sum_{
@@ -5879,7 +6641,7 @@ $$
 $$
   m_{k,n}(s_1,\ldots , s_n)
   :=
-  \E \big[ Z^{(k)}_{s_1} \cdots Z^{(k)}_{s_n} \big] 
+  \E_m  \big[ Z^{(k)}_{s_1} \cdots Z^{(k)}_{s_n} \big] 
 $$
  of the multiple stochastic integral 
 $$ 
@@ -5942,7 +6704,7 @@ $$
 
 
   $$ 
-  \E  [ (\sigma_k(kr-\tau))^2 ]
+  \E_m   [ (\sigma_k(kr-\tau))^2 ]
 =
  \sum_{l=0}^r
  \sum_{
@@ -5959,7 +6721,7 @@ $$
 
 \begin{align*} 
 \nonumber 
-& \E  [ \sigma_k(kr-t_1) \sigma_k(kr-t_2)  ] 
+& \E_m   [ \sigma_k(kr-t_1) \sigma_k(kr-t_2)  ] 
 \\
  & =  
  \sum_{\rho^1, \ldots , \rho^{k-1} \in \Pi [2] }
@@ -5979,7 +6741,7 @@ $$
    For any $t_1,\ldots , t_n \in [0,r]$, we have 
 \begin{align*} 
 \nonumber 
-& \E  [ \sigma_k(kr-t_1) \cdots  \sigma_k(kr-t_n)  ] 
+& \E_m   [ \sigma_k(kr-t_1) \cdots  \sigma_k(kr-t_n)  ] 
 \\
  & =  
  \sum_{\rho^1, \ldots , \rho^{k-1} \in \Pi [n] }
@@ -6016,7 +6778,7 @@ $$
 \begin{align*} 
 \nonumber 
 & m_{k+1,n}(t_1,\ldots , t_n)
- = \E  [ \sigma_k((k+1)r-t_1) \cdots  \sigma_k((k+1)r-t_n)  ] 
+ = \E_m   [ \sigma_k((k+1)r-t_1) \cdots  \sigma_k((k+1)r-t_n)  ] 
 \\
 & = 
 % \hskip-0.3cm
@@ -6030,7 +6792,7 @@ $$
 % \hskip-0.2cm
    \int_{[0,r]^{|\rho|}}
  \sum_{1\leq l_q \leq k \atop 1 \leq q \leq |\rho|} \prod_{j=1}^{|\rho |}
-   \prod_{i\in \rho_j}
+   \prod_{i\in b_j}
    f_{t_i} \big(z_{\zeta^\rho_{i,1}},l_{\zeta^\rho_{i,1}}; \ldots ; z_{\zeta^\rho_{i,k}},l_{\zeta^\rho_{i,k}}\big) 
    \lambda_{\bar{\rho}_1} ( d z_1 ) 
    \cdots
@@ -6046,7 +6808,7 @@ $$
      \rho \wedge \pi = \hat{0}
    }}
 % \hskip-0.2cm
-   \int_{\prod_{j=1}^{|\rho|} [0,t_{\min \rho_j}]} 
+   \int_{\prod_{j=1}^{|\rho|} [0,t_{\min b_j}]} 
    \sum_{1\leq l_q\leq k \atop 1 \leq q \leq |\rho|}
    \prod_{j=1}^{|\rho |}
    \prod_{i\in \rho_j}
@@ -6136,7 +6898,7 @@ contained in $\rho_j$, $j=1,\ldots , |\rho|$.
    For any $t_1,\ldots , t_n \in [0,r]$, we have 
 \begin{align*} 
 \nonumber 
-& \E  [ \sigma_k(kr-t_1) \cdots  \sigma_k(kr-t_n)  ] 
+& \E_m   [ \sigma_k(kr-t_1) \cdots  \sigma_k(kr-t_n)  ] 
 \\
  & =  
  \sum_{\rho^1, \ldots , \rho^{k-1} \in \Pi [n] }
@@ -6207,7 +6969,7 @@ ${\rm NC} [n\times (k-1)]$.
  := g\big(\min (t_1,\ldots , t_{p_1} ) ,\ldots , \min ( t_{p_1+\cdots + p_{n-1}+1}, \ldots
  , t_n ) \big).
  $$
-% Let $$ m_k(t_1,\ldots , t_n) = \E [ \sigma_k (t_1) \cdots \sigma_k ( t_n) ] $$  denote the joint moment of order $n$ of the $k$-hop count. 
+% Let $$ m_k(t_1,\ldots , t_n) = \E_m  [ \sigma_k (t_1) \cdots \sigma_k ( t_n) ] $$  denote the joint moment of order $n$ of the $k$-hop count. 
  Similarly, given $(\pi_1,\ldots , \pi_l)$ a partition of 
  $\{1,\ldots , n\}$,
  where $|\pi_i |$ 
@@ -6311,7 +7073,7 @@ f_k(s_1,\ldots , s_{k-1}) :=
    For any $t_1,\ldots , t_n \in [0,r]$, we have 
 \begin{align*} 
 \nonumber 
-& \E  [ \sigma_k(kr-t_1) \cdots  \sigma_k(kr-t_n)  ] 
+& \E_m   [ \sigma_k(kr-t_1) \cdots  \sigma_k(kr-t_n)  ] 
  \\
   & =  
  \sum_{
@@ -6340,7 +7102,7 @@ ${\rm NC} [n\times (k-1)]$.
  By Proposition~\ref{p2.2-3}, we have
 \begin{align*} 
 \nonumber 
-& \E  [ \sigma_k(kr-t_1) \cdots  \sigma_k(kr-t_n)  ] 
+& \E_m   [ \sigma_k(kr-t_1) \cdots  \sigma_k(kr-t_n)  ] 
 \\
 & = 
 % \hskip-0.3cm
@@ -6429,7 +7191,7 @@ Proposition~\ref{djks1} then shows that the
   partitions as 
 \begin{align*} 
 \nonumber 
- &   \E  [ ( \sigma_k(kr-t))^n ] 
+ &   \E_m   [ ( \sigma_k(kr-t))^n ] 
 \\
 & = 
 % \hskip-0.3cm
@@ -6474,7 +7236,7 @@ contained in $\rho_j$, $j=1,\ldots , |\rho|$.
 a result, we have 
 \begin{align*} 
 \nonumber 
- &   \E  [ ( \sigma_k(kr-t))^n ] 
+ &   \E_m   [ ( \sigma_k(kr-t))^n ] 
  = 
  \sum_{
    \rho^1, \ldots , \rho^{k-1} \in \Pi [n]
@@ -6579,7 +7341,7 @@ $$
  as 
 \begin{equation} 
 \nonumber 
- \E  [ ( \sigma_k)^n ] 
+ \E_m   [ ( \sigma_k)^n ] 
  = 
 % \sum_{k=r}^{nr}  
  \sum_{
@@ -6611,7 +7373,7 @@ From \eqref{ckn}, we have
 \begin{eqnarray*} 
 \frac{c_{k,n} (t,\ldots , t)}{ (c_{k,2}(t,\ldots , t) )^{n/2}}
  & = & 
-\frac{c_{k,n}(t,\ldots , t)}{( \Var [ \sigma_k(t)] )^{n/2}} 
+\frac{c_{k,n}(t,\ldots , t)}{( \Var_m [ \sigma_k(t)] )^{n/2}} 
 \\
  & \simeq & 
 \frac{((2k-3)!)^{n/2}}{\lambda^{n(2k-3)/2}}
@@ -6631,7 +7393,7 @@ and therefore tends to zero as $\lambda$ tends to infinity,
 $n\geq 2$.
  As a consequence of Theorem~1 in \cite{Janson1988}, 
 the normalized $k$-hop count
-$\widebar{\sigma}^{( m )}_k (t)$ 
+$\widebar{\sigma}^{(m)}_k (t)$ 
 converges in distribution to the standard normal
 distribution as $\lambda$ tends to infinity. 
 
@@ -6839,7 +7601,7 @@ $$
   \prod_{q=1}^l 
   \left(
   t^{d_q}
-  ( \E [ ( N_{\lambda t} )^{|\pi_q|} ] )^{k-2}
+  ( \E_m  [ ( N_{\lambda t} )^{|\pi_q|} ] )^{k-2}
   S(|\pi_q|,d_q) 
   \right)
   \\
@@ -6868,7 +7630,7 @@ $$
   }
   \prod_{q=1}^l 
   \left(
-  ( \E [ ( N_{\lambda t} )^{|\pi_q|} ] )^{k-2}
+  ( \E_m  [ ( N_{\lambda t} )^{|\pi_q|} ] )^{k-2}
   S(|\pi_q|,d_q) 
   \right)
   \\
@@ -6898,7 +7660,7 @@ $$
   \prod_{q=1}^l 
   \left(
   ( ( \lambda t )^{|\pi_q|(k-2)}
-    ( \E [ ( N_1 )^{|\pi_q|} ] )^{k-2}
+    ( \E_m  [ ( N_1 )^{|\pi_q|} ] )^{k-2}
   )
   S(|\pi_q|,d_q) 
   \right)
@@ -6929,7 +7691,7 @@ $$
   \prod_{q=1}^l 
   \left(
   ( ( \lambda t )^{|\pi_q|(k-2)}
-    ( \E [ ( N_1 )^n ] )^{(k-2)}
+    ( \E_m  [ ( N_1 )^n ] )^{(k-2)}
   )
   S(|\pi_q|,d_q) 
   \right)
@@ -6960,7 +7722,7 @@ $$
   \prod_{q=1}^l 
   \left(
   ( ( \lambda t )^{|\pi_q|(k-2)}
-    ( \E [ ( N_1 )^n ] )^{(k-2)}
+    ( \E_m  [ ( N_1 )^n ] )^{(k-2)}
   )
   S(|\pi_q|,d_q) 
   \right). 
@@ -7089,32 +7851,32 @@ In the case of third order standard cumulants, we have
  \kappa_3 \big( Z^{(k+1)}_t \big)^3 
  =
  \E\big[ \big( Z^{(k+1)}_t \big)^3 \big] 
- - 3 \E \big[ \big( Z^{(k+1)}_t \big)^2 \big]
- \E \big[ Z^{(k+1)}_t \big]
- + 2 \big(  \E \big[ Z^{(k+1)}_t \big] \big)^2 
+ - 3 \E_m  \big[ \big( Z^{(k+1)}_t \big)^2 \big]
+ \E_m  \big[ Z^{(k+1)}_t \big]
+ + 2 \big(  \E_m  \big[ Z^{(k+1)}_t \big] \big)^2 
 \\
  & = 
   \int_0^t
-  \E \big[ \big( Z^{(k)}_{s_1} \big)^3 \big] 
+  \E_m  \big[ \big( Z^{(k)}_{s_1} \big)^3 \big] 
   ds_1
   +
   3 \int_0^t
   \int_0^t
-  \E \big[ \big( Z^{(k)}_{s_1} \big)^2 Z^{(k)}_{s_3} \big]
+  \E_m  \big[ \big( Z^{(k)}_{s_1} \big)^2 Z^{(k)}_{s_3} \big]
   ds_1 ds_3 
  - 3   \int_0^t
-\E \big[ \big( Z^{(k)}_{s_1} \big)^2 \big]
+\E_m  \big[ \big( Z^{(k)}_{s_1} \big)^2 \big]
 ds_1 
 \int_0^t
-\E \big[ Z^{(k)}_{s_1} \big]
+\E_m  \big[ Z^{(k)}_{s_1} \big]
 ds_1
 \\
  & 
 -3 \int_0^t \int_0^t
-\E \big[ Z^{(k)}_{s_1} Z^{(k)}_{s_2} \big]
+\E_m  \big[ Z^{(k)}_{s_1} Z^{(k)}_{s_2} \big]
 ds_1 ds_2 
 \int_0^t
-\E \big[ Z^{(k)}_{s_1} \big]
+\E_m  \big[ Z^{(k)}_{s_1} \big]
 ds_1 
 \\
   & 
@@ -7122,10 +7884,10 @@ ds_1
   \int_0^t
   \int_0^t
   \int_0^t
-  \E \big[ Z^{(k)}_{s_1} Z^{(k)}_{s_2} Z^{(k)}_{s_3} \big]
+  \E_m  \big[ Z^{(k)}_{s_1} Z^{(k)}_{s_2} Z^{(k)}_{s_3} \big]
   ds_1ds_2ds_3
    + 2 \left( \int_0^t
-\E \big[ Z^{(k)}_{s_1} \big]
+\E_m  \big[ Z^{(k)}_{s_1} \big]
 ds_1 \right)^3. 
 \end{align*}
 
@@ -7149,7 +7911,7 @@ We have
   \sum_{l=1}^n \lambda_2^l 
   \sum_{\pi_1\cup \cdots \cup \pi_l = \{1,\ldots , n\}}
   \int_{\real_+^l} 
-  \E \left[ \prod_{j=1}^l
+  \E_m  \left[ \prod_{j=1}^l
     \big(
     N_{s_j}^{(1)} 
     {\bf 1}_{[0,t_{\min \pi_j}]}(s_j)
@@ -7168,7 +7930,7 @@ We have
   \int_0^t
   \cdots
   \int_0^t
-  \E \big[ \big( N_{s_1}^{(1)} \big)^{|\pi_1|}
+  \E_m  \big[ \big( N_{s_1}^{(1)} \big)^{|\pi_1|}
   \cdots
   \big( N_{s_k}^{(1)} \big)^{|\pi_k|} \big] 
   ds_1\cdots ds_k. 
@@ -7183,9 +7945,9 @@ $$
 $$
  hence we have
 \begin{eqnarray*} 
- \E [ \sigma_2(2r-t_1)\cdots \sigma_2(2r-t_n) ]
+ \E_m  [ \sigma_2(2r-t_1)\cdots \sigma_2(2r-t_n) ]
  & : = & 
-  \E \big[ N^{(1)}_{t_1} \cdots N^{(1)}_{t_n} \big] 
+  \E_m  \big[ N^{(1)}_{t_1} \cdots N^{(1)}_{t_n} \big] 
   \\
   & = & 
   \sum_{l=1}^n \lambda_1^l
@@ -7220,7 +7982,7 @@ $$
  $\pi_1 = \mlq 12\mrq$, and $\pi_1|\pi_2 = \mlq 1|2 \mrq$,
  which yields 
   $$
-  \E [N_{t_1}N_{t_2}] 
+  \E_m  [N_{t_1}N_{t_2}] 
   =
   t_1 + t_1 t_2, 
   $$
@@ -7246,7 +8008,7 @@ $\pi_1 | \pi_2 = \mlq 12|3\mrq; \ \mlq 1|23\mrq; \ \mlq 13|2\mrq$,
 
  hence 
  $$
-  \E [N_{t_1}N_{t_2}N_{t_3}]
+  \E_m  [N_{t_1}N_{t_2}N_{t_3}]
   =
   t_1t_2t_3 + 2 t_1 t_2 + t_1 t_3 + t_1, 
   $$
@@ -7290,7 +8052,7 @@ $ \pi_1 | \pi_2 | \pi_3 | \pi_4 = \mlq 1|2|3|4\mrq$, % 15
 
 hence we have 
   $$
-  \E [N_{t_1}N_{t_2}N_{t_3}N_{t_4}]
+  \E_m  [N_{t_1}N_{t_2}N_{t_3}N_{t_4}]
   =
   t_1t_2t_3t_4
   + 3 t_1t_2t_3 + 2 t_1t_2t_4 + t_1t_3t_4
@@ -7347,7 +8109,7 @@ $$
   \sum_{l=1}^n \lambda_2^l 
   \sum_{\pi_1\cup \cdots \cup \pi_l = \{1,\ldots , n\}}
   \int_{\real_+^l} 
-  \E \left[ \prod_{j=1}^l
+  \E_m  \left[ \prod_{j=1}^l
     \big(
     N_{s_j}^{(1)} 
     {\bf 1}_{[0,t_{\min \pi_j}]}(s_j)
@@ -7366,7 +8128,7 @@ $$
   \int_0^t
   \cdots
   \int_0^t
-  \E \big[ \big( N_{s_1}^{(1)} \big)^{|\pi_1|}
+  \E_m  \big[ \big( N_{s_1}^{(1)} \big)^{|\pi_1|}
   \cdots
   \big( N_{s_k}^{(1)} \big)^{|\pi_k|} \big] 
   ds_1\cdots ds_k. 
@@ -7446,7 +8208,7 @@ $$
 \begin{eqnarray} 
 \nonumber 
 \lefteqn{ 
- \E \left[ 
+ \E_m  \left[ 
  \left( 
  \int_0^T u_1(t) dN_t 
  \right)^{n_1} 
@@ -7462,7 +8224,7 @@ $$
  \sum_{k=1}^n 
  ~ 
  \sum_{\pi_1 \cup \cdots \cup \pi_k = \{ 1, \ldots , n \} } 
- \E \left[ 
+ \E_m  \left[ 
  \int_{\real_+^k} 
 % \epsilon_{t_1}^+ \cdots \epsilon_{t_k}^+ 
  \left( 
@@ -7494,7 +8256,7 @@ $$
 \begin{eqnarray} 
 \label{fjds2} 
   \lefteqn{
-    \E \left[ 
+    \E_m  \left[ 
  \left( \int_0^T u_t dN_t \right)^n 
  \right] 
   }
@@ -7503,7 +8265,7 @@ $$
   & = & 
  \sum_{k=1}^n 
  \sum_{ \pi_1\cup \cdots \cup \pi_k = \{1,\ldots , n\} } 
- \E \left[ 
+ \E_m  \left[ 
    \int_0^T \cdots \int_0^T
    % \epsilon^+_{t_1,\ldots , t_k}
    ( u^{|\pi_1|} (t_1 ) \cdots u^{|\pi_k|} (t_k ) ) 
@@ -7516,10 +8278,10 @@ $$
 
 
 In the case of three-hops, we have
- $\E  [ \sigma_3 (3r-t) ] = t^2 \lambda_1 \lambda_2 / 2$ 
+ $\E _m  [ \sigma_3 (3r-t) ] = t^2 \lambda_1 \lambda_2 / 2$ 
  and 
  $$
- \Var [ \sigma_3 (3r-t)]
+ \Var_m [ \sigma_3 (3r-t)]
  = 
  2 \frac{t^3}{3!}
  \left(
