@@ -523,7 +523,7 @@ expressed by a combinatorial approach in \cite{giles-privault}.
  For this, we will use the cumulant method, see 
  \cite{rudzkis},
  \cite{saulis},
- \cite{khorunzhiy},
+ %\cite{khorunzhiy},
  \cite{doring},
  \cite{thale18},
 % \cite{jansen},
@@ -632,11 +632,11 @@ Given two functions $f(x)$ and $g(x)>0$,
     If $p_m \asymp m^{-1+1/d}$, 
     then as $m$ tends to infinity we have
 \begin{align}
-  \dtv(\sigma_k (t),\Pn(\lambda))&
+	\dtv(\sigma_k (t),\Pn(\lambda\textcolor{red}{(t)}))&
   \asymp \frac{1}{m^{1/(d+1)}},
 \nonumber % \label{po-error1}
 \end{align}
-where $\dtv$ denotes the total variation distance,
+where \textcolor{red}{$\lambda(t)=\E_m[\sigma_k(t)]$} and $\dtv$ denotes the total variation distance; 
 see Corollary~\ref{c2} and \eqref{dtv}.
 \item
   Sparse regime.
@@ -695,22 +695,15 @@ $$
  of identical length $\tau : = kr - t$.
 
  \medskip
- 
-% of the one-dimensional 
-% unit disk random-connection model with connection radius $r>0$
-% on a finite interval, see \cite{drory1997}. 
-% and \cite{penrosebk} for the more general setting of random geometric graphs.
 
-% \medskip 
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.94\linewidth]{kops_new-crop}
-\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
-\label{fklds} 
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=0.94\linewidth]{kops_new-crop}
+%\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
+%\label{fklds} 
+%\end{figure}
 
-% see Figure~\ref{fklds} for an example with $k=5$, $x=0$, $t=4.5$, and $r=1$.
 
 \vskip-0.4cm
 
@@ -918,7 +911,7 @@ denote the single-block coarsest partition of $b$,
  where $\rho_i$ is a partition of $\{(\ell ,i)\}_{\ell =1,\ldots , n}$
  for $i=1,\ldots , d$, 
 % As above, we let $\lambda_l(s):=\lambda ( s)$, $l=1,\ldots , d$. 
- see Figure~\ref{fig:diagram0-1-2}.  
+ see Figure~\ref{fig:diagram0-1-2}\textcolor{red}{-(b)}.  
 % \vspace{-0.3cm}
 \begin{figure}[H]
 \captionsetup[subfigure]{font=footnotesize}
@@ -1437,7 +1430,12 @@ We can further denote the vertex set of the graph $\rho_G$ as $V(\rho_G):=\left[
         \qquad n,d \geq 1. 
       \end{equation}
       \noindent
-      $b)$ 
+      $b)$ \textcolor{red}{Given $n\ge1$ and $d\ge2$, we denote by 
+      $$
+      \mathcal{M}(n,d):=\{\rho\in{\rm CNC}([n]\times [d]): |\rho|=1+(d-1)n\}
+      $$
+      the set of maximal connected non-crossing partition of $[n]\times[d]$.
+}
        The cardinality of the set 
       $\mathcal{M}(n,d)$
        of maximal connected non-crossing partitions of $[n]\times[d]$
@@ -1482,38 +1480,54 @@ Proposition~\ref{p1} provides a combinatorial expression for the joint
  $t_1 , \ldots , t_n \in [(k-1)r,kr]$, 
  using sums over non-crossing partitions of $[n]\times [d]$. % \{1,\ldots , n\}$. 
 % Letting $\rho_{K_k}$ denote the contraction graph of the complete graph $K_k$ on $k$ vertices,
- For any set partition
- $\rho =\{b_1,\dots,b_{|\rho |}\}\in\Pi([n]\times[d])$
- and bounded measurable function
- $f:[0,r]^d \to\real $, consider the function 
-$$
-\left(\bigotimes_{i=1}^n f
-\right)_{\! \! \! \rho }
- \ \! : \ \! [0,r]^{|\rho |} \to\real
-$$
- defined as 
-\begin{eqnarray*}
-\left(\bigotimes_{i=1}^n f
-\right)_{\! \! \! \rho }
-( x_1, \ldots , x_{|\rho |} ) :=\prod_{i=1}^n 
-f\big(x^{(i)}_1,\dots,x^{(i)}_d \big),
-\end{eqnarray*}
- where $x^{(i)}_\ell:=x_n$ if $(i,\ell)\in b_n$, 
- $n = 1 , \ldots , |\rho |$. 
+ \textcolor{red}{
+  Given $j\ge1$ and $f^{(i)}:[0,r]^d \to\real$, $i=1,\dots,j$,
+       measurable functions, we let 
+       \begin{equation}
+         \nonumber % \label{def:tensorproduct-1}
+       \left(\bigotimes_{i=1}^jf^{(i)} \right)(x_{1,1},\ldots,x_{1,d},\ldots,
+       x_{j,1},\ldots , x_{j,d}):=\prod_{i=1}^jf^{(i)} (x_{i,1},\dots,x_{i,d}), 
+      % \qquad x_1,\dots,x_N\in \R^d.
+\end{equation}
+  and for $\rho\in \Pi([j] \times [d] )$ we denote by 
+        $$
+        \left(
+	\bigotimes_{i=1}^jf^{(i)} \right)_{\! \! \! \rho} \ \! : \ \! [0,r]^{|\rho|}\to\real
+        $$
+        the function obtained by equating any two variables
+        whose indexes belong to a same block of $\rho$.
+}
+% For any set partition
+% $\rho =\{b_1,\dots,b_{|\rho |}\}\in\Pi([n]\times[d])$
+% and bounded measurable function
+% $f:[0,r]^d \to\real $, consider the function 
+%$$
+%\left(\bigotimes_{i=1}^n f
+%\right)_{\! \! \! \rho }
+% \ \! : \ \! [0,r]^{|\rho |} \to\real
+%$$
+% defined as 
+%\begin{eqnarray*}
+%\left(\bigotimes_{i=1}^n f
+%\right)_{\! \! \! \rho }
+%( x_1, \ldots , x_{|\rho |} ) :=\prod_{i=1}^n 
+%f\big(x^{(i)}_1,\dots,x^{(i)}_d \big),
+%\end{eqnarray*}
+% where $x^{(i)}_\ell:=x_n$ if $(i,\ell)\in b_n$, 
+% $n = 1 , \ldots , |\rho |$. 
  In Proposition~\ref{p1}, we 
  provide an identity for the joint moments of $k$-hop counts. 
 \begin{prop}
 \label{p1}
   Let $d\geq 1$. 
   For any $n \geq 1$ and $t_1,\ldots , t_n \in [(k-1)r,kr]$,
- we have 
+   \textcolor{red}{the joint moment of $\sigma_k(t_i)$ is given by}
 \begin{align} 
 \label{djkls12}
 & \E  [ \sigma_k(t_1) \cdots  \sigma_k(t_n)  ] 
 \\
 \nonumber
 & = \sum_{
-% \substack{\rho\in {\rm NC} ([n]\times[d])\\\rho\wedge\pi=\widehat{0}}
  \rho\in {\rm NC} ([n]\times[d])
 }
 p^{e(\rho_G)}
@@ -1525,35 +1539,19 @@ p^{e(\rho_G)}
   }\left(\bigotimes_{i=1}^n
  u_{t_i} \right)_{\! \! \! \rho}
  ( x_1, \ldots , x_{|\rho|} ) 
- \mu_{\bar{b}_1} ( d x_1 ) 
- \cdots 
- \mu_{\bar{b}_{|\rho|}} ( d x_{|\rho|} ) 
-% \mu^{\otimes |\rho|} ( \mathrm{d}\mathbf{x} )
-, 
+ \textcolor{red}{\prod_{j=1}^{|\rho|} \mu_{\bar{b}_j} ( \mathrm{d} x_j ). }
 \end{align} 
- where
- any
- $\rho\in {\rm NC} ([n]\times[d])$
+ \textcolor{red}{Here, $\rho=\{b_1,\dots,b_{|\rho |} \}\in {\rm NC} ([n]\times[d])$
  is written as 
- $\rho=\{b_1,\dots,b_{|\rho |} \}$ and 
-% $$c(\rho ) : = |b_1|+|b_d|+\sum_{i=1}^{d-1} \min ( |b_i|,|b_{i+1}|), $$ 
- $u_t : [0,r]^d \mapsto \{0,1\}$ is the indicator function
- of $d$ variables given by 
+$\rho=\bigcup_{i=1}^d\rho_i$, see \eqref{fjklds143}.
+ Moreover, %$u_t : [0,r]^d \mapsto \{0,1\}$ is the indicator function of $d$ variables given by 
 \begin{equation}
 \label{jklf12} 
  u_t (x_1 , \ldots , x_d)
- =
- {\bf1}_{\{x_1 \leq \cdots \leq x_d \leq kr-t \}}
-% \prod_{p=1}^d {\bf 1}_{\{m_1+\cdots +m_{p-1} < i_p \leq m_1+\cdots + m_p\}}
-,
+ := {\bf1}_{\{x_1 \leq \cdots \leq x_d \leq kr-t \}},
  \quad x_1,\ldots , x_d \in [0,r], 
 \end{equation} 
- and $\bar{b}_i$
- denotes the index $k\in \{1,\ldots ,d\}$
- of the partition $\rho_k$ containing $b_i$,
- see \eqref{fjklds143}. 
-% denotes the index $j\in \{1,\ldots , d \}$ of the unique block $\eta_j = ((i,j))_{i=1,\ldots , n}$ containing $\rho_i$, $i=1,\ldots , |\rho|$. 
-% where $\zeta^j_i$ denotes the block of $\pi^j$ that contains the index $i\in \{1,\ldots , n\}$,  and $dz^j_{\pi^j} := (dz^j_i )_{ i \in \pi^j}$, $j=1,\ldots , k-1$. 
+and $\bar{b}_i$ denotes the unique $k\in \{1,\ldots ,d\}$ such that $b_i\in\rho_k$.}
 \end{prop}
 \begin{Proof}
  For any $t_1,\ldots , t_n \in [0,r]$,
@@ -1589,7 +1587,7 @@ p^{e(\rho_G)}
  \right]
  \\
  & = 
-     \sum_{\substack{\rho\in {\rm NC}([n]\times [d])\\\rho\wedge\pi=\widehat{0}}}
+ \sum_{\textcolor{red}{\rho\in {\rm NC}([n]\times [d])}}
         \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
   \atop
 1\leq i \leq n}
@@ -1602,9 +1600,10 @@ p^{e(\rho_G)}
  u_{t_i} \big(U^{(1)}_{\alpha_i(1)} , \ldots , U^{(d)}_{\alpha_i(d)}\big) \Big) 
  \right]
        \\
-    &       = \sum_{\substack{\rho\in{\rm NC}([n]\times [d])\\\rho\wedge\pi=\widehat{0}}}
+&=\sum_{\textcolor{red}{\rho\in {\rm NC}([n]\times [d])}}
  p^{e(\rho_G)}
-    \sum_{\alpha_1\in [n]^k,\ldots,\alpha_n\in[n]^k
+ \sum_{\textcolor{red}{\alpha\in
+	 ([m_1] \times \cdots \times [m_d])^n}
     \atop \sqcap (\alpha ) = \rho }
     \int_{[0,r]^{|\rho|}} \left(\bigotimes_{i=1}^n u_{t_i} \right)_{\! \! \! \rho}
       ( x_1, \ldots , x_{|\rho|} ) 
@@ -1613,7 +1612,7 @@ p^{e(\rho_G)}
  \mu_{\bar{\rho}_{|\rho|}} ( d x_{|\rho|} ) 
 % (\mathbf{x})\mu^{\otimes |\rho|} ( \mathrm{d}\mathbf{x} )
 \\
-& = \sum_{\substack{\rho\in{\rm NC}([n]\times [d])\\\rho\wedge\pi=\widehat{0}}}
+&=\sum_{\textcolor{red}{\rho\in {\rm NC}([n]\times [d])}}
 C_{m_1,\ldots , m_d} (\rho)
  p^{e(\rho_G)}
 \int_{
@@ -6863,11 +6862,8 @@ $$
   \int_{[0,t_{\min \pi_1}]}
   \cdots
   \int_{[0,t_{\min \pi_l}]}
-\sum_{
-   \substack{
+  \sum_{\textcolor{red}{
      \rho \in {\rm NC} [n\times (k-1)] 
-     \\
-     \rho \wedge \pi = \hat{0}
    }}
      {\bf 1}_{\{
        \bar{\rho}_1 \leq \cdots \leq \bar{\rho}_{|\rho|}
