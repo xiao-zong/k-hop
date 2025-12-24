@@ -2630,27 +2630,34 @@ m^{-(q-d)}p_m^{-(q-d)-(n-1)},\ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n,
   \textcolor{red}{\left(mp_m\right)^{-(q-d)}p_m^{-(n-1)}},\ \ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n. 
    \end{cases}
 \end{align}
-\textcolor{blue}{Hence, when $p_m\ll m^{-1}$, we have} 
+\textcolor{blue}{Hence, when $p_m\ll m^{-1}$,
+  for all
+ $q=d+1,\ldots , 1+(d-1)n$, we have} 
 $$
-m^dp_m^{d+1}\gg m^q p_m^{\zeta(n,d,q)}, \quad 
- q=d+1,\ldots , 1+(d-1)n. 
+m^dp_m^{d+1}\gg m^q p_m^{\zeta(n,d,q)}. 
 $$
-\textcolor{blue}{Moreover, when $m^{-1+1/d}\gg p_m\gtrsim m^{-1}$, we have $mp_m^2\ll 1$ as $d\ge2$, and also $mp_m\gtrsim1$. Hence,  if $m^{-1+1/d}\gg p_m\gtrsim m^{-1}$, 
+\textcolor{blue}{On the other hand,
+  when $m^{-1+1/d}\gg p_m\gtrsim m^{-1}$, we have $mp_m^2\ll 1$ since
+  $d\ge2$, and $mp_m\gtrsim1$,
+  hence for all $d+n\le q \le 1+(d-1)n$
+  we find that 
 \begin{align*}
 	(mp_m)^{-(q-d)}p_m^{-(n-1)}&\gtrsim (mp_m)^{-(d-1)(n-1)}p_m^{-(n-1)}\\
-					       &=[(mp_m)^{d-1}p_m]^{-(n-1)}\gg1
+  &
+  = ( m^{ -1 + 1/d }p_m^{-1} )^{(n-1)d}
+  \\
+   & \gg1. 
 \end{align*}
-for $d+n\le q \le 1+(d-1)n$.
-In conlusion, from \eqref{cum-asy1}, we know that when $p_m\ll m^{-1+1/d}$, 
+We conclude from \eqref{cum-asy1} that when $p_m\ll m^{-1+1/d}$,
+ for $q=d+1,\dots,1+(d-1)n$ we have} 
 $$
-m^dp_m^{d+1}\gg m^qp_m^{\zeta(n,d,q)},
+\textcolor{blue}{m^dp_m^{d+1}\gg m^qp_m^{\zeta(n,d,q)}.}
 $$
-for $q=d+1,\dots,1+(d-1)n$. 
-}
- And given that $\zeta (n,d,d) = d+1$,
- from \eqref{fjkldf} we obtain, for $m$ large enough, \textcolor{blue}{when $p_m\ll m^{-1+1/d}$}
+ Hence, given that $\zeta (n,d,d) = d+1$,
+ \textcolor{blue}{when $p_m\ll m^{-1+1/d}$}
+ we obtain from \eqref{fjkldf} that for $m$ large enough,
 \begin{align*}
-  \vert\kappa_n(\sigma_k (t))\vert &\leq n^{n-1}
+ \vert\kappa_n(\sigma_k (t))\vert &\leq n^{n-1}
   \sum_{q=d}^{1+(d-1)n} |\mathcal{C}(n,d,q)|m^q p_m^{\zeta (n,d,q)}\\
   &\leq n^{n-1} m^dp_m^{d+1} 
   \sum_{q=d}^{1+(d-1)n} |\mathcal{C}(n,d,q)|\\
