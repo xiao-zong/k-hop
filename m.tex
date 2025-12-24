@@ -325,7 +325,7 @@
 
 \newcommand{\re}{\mathrm{e}}            % Roman e for exponential
 
-\title{\Large \textcolor{red}{Phase Transitions for $k$-Hop Connectivity in One-Dimensional Binomial Random-Connection Models}}
+\title{\huge Phase transition for $k$-hop connectivity in one-dimensional binomial random\textcolor{red}{-connection models}} % -connection models}}
  
 \date{\normalsize \today} 
 %\today 
@@ -395,9 +395,8 @@ School of Physical and Mathematical Sciences, Nanyang Technological University, 
 \baselineskip0.6cm
  
 \begin{abstract} 
-\textcolor{red}{
 We study the number of $k$-hop paths between two fixed endpoints in a one-dimensional binomial random-connection model. By deriving explicit combinatorial expressions for the joint moments of all orders, we analyze the asymptotic growth of cumulants as the number of points in the underlying point process tends to infinity. We show that, depending on the scaling regime, the $k$-hop count exhibits a phase transition between Gaussian and Poisson limits. 
-Moreover, we establish both a central limit theorem with explicit convergence rates under the Kolmogorov distance and quantitative Poisson approximation bounds. These results provide a detailed description of the  fluctuation behavior for multi-hop connectivity in one-dimensional random-connection models.}
+Moreover, we establish both a central limit theorem with explicit convergence rates under the Kolmogorov distance and quantitative Poisson approximation bounds. These results provide a detailed description of the  fluctuation behavior for multi-hop connectivity in one-dimensional random-connection models. 
 %  We derive moment identities and cumulant bounds for
 %  the count of $k$-hops in a one-dimensional binomial
 %  random-connection model with unit disk connection function.
@@ -406,12 +405,13 @@ Moreover, we establish both a central limit theorem with explicit convergence ra
 \end{abstract} 
  
 \noindent {\bf Key words:} 
-\textcolor{red}{Random-connection model, 
+Random-connection model, 
+random geometric graph,
 Phase transition,
 Central limit theorem,
 Poisson approximation,
 Multi-hop connectivity,
-Cumulants and joint moments.}
+Joint cumulants and moments.
 %Random graph,
 %1D unit disk model,
 %$k$-hop counts, 
@@ -426,7 +426,7 @@ Cumulants and joint moments.}
 60G55, % Point processes (e.g., Poisson, Cox, Hawkes processes)
 % 60G57	Random measures
 60F05, % Central limit and other weak theorems
-\textcolor{red}{60D05}. % Geometric probability and stochastic geometry 
+60D05. % Geometric probability and stochastic geometry 
  
 \baselineskip0.7cm
  
@@ -435,21 +435,17 @@ Cumulants and joint moments.}
 Random-connection models (RCMs) are random graphs based on
 randomly located vertices which are independently connected
 with a location-dependent probability. 
- They include the binomial RCM 
- which can be regarded as 
- a generalization of the Erd{\H o}s-R\'enyi model, 
- and has been studied under different names, for example
- as inhomogeneous random graphs,
- c.f. \cite{DevroyeFraiman14,penrose18,hladky21}, and as
- graphon-based random graphs c.f. \cite{coulson16,zhangzs,bhattacharya23}.
+ The binomial RCM, in particular, may be viewed as a spatial generalization of the Erd{\H o}s-R\'enyi model, 
+ and has been extensively studied under various framework, including inhomogeneous random graphs,
+ c.f. \cite{DevroyeFraiman14,penrose18,hladky21,bhattacharya25}, and graphon-based random graphs c.f. \cite{coulson16,zhangzs,bhattacharya23}.
 
  \medskip
 
- In this paper, we focus on the one-dimensional 
+ In this paper, we study a one-dimensional 
  unit disk binomial RCM with connection radius $r>0$
  on a finite interval, see \cite{drory1997},
  as illustrated Figure~\ref{fjkld23}.  
- \textcolor{red}{Specifically, we investigate the number of paths of length $k$ (or $k$-hop paths) connecting two fixed endpoints. Multi-hop connectivity is a critical metric in applications such as wireless networks, device-to-device and/or station-to-device communications in cellular networks and spread of infection.}
+ Our focus is on multi-hop connecticity, specifically the number of paths of length $k$ (referred to as $k$-hop paths) connecting two fixed endpoints. Multi-hop connectivity plays a central role in applications including wireless networks, device-to-device and/or station-to-device communications in cellular networks, and spread of infection. 
 %   \vspace{-11cm}
  \begin{figure}[H]
    \begin{center}
@@ -499,70 +495,59 @@ table {
 
    \noindent
 % \noindent
-   \textcolor{red}{We consider nodes distributed over the interval $[0, kr]$, where $k \geq 2$, according to a binomial point process $\eta$ constrained to have $m_i$ points within each cell $[(i-1)r, ir]$, $i=1, \ldots, k-1$. We assume a connection probability $p \in [0,1]$ such that any two nodes at locations $s$ and $t$ are connected if and only if $|t-s| \leq r$. In this setting, a $k$-hop path is defined as a sequence connecting two fixed endpoints $s, t \in [0, kr]$ through exactly $d:=k-1$ intermediate nodes.}
- \medskip
+   \textcolor{red}{Specifically, we examine a system where nodes are distributed over the interval 
+   $[0, kr]$, with $k \geq 2$, according to a binomial point process $\eta$. This process is constrained such that $m_i$ points are located within each sub-interval (or ``cell'') $[(i-1)r, ir]$, $i=1, \ldots, k-1$. Two nodes located at positions $s$ and $t$ are connected by an edge independently with probability $p\in[0,1]$ if and only if $|t-s| \leq r$.
+}   
+\medskip
 
-% \noindent
- \textcolor{red}{We investigate the random variable $\sigma_k(t)$, defined as the number of $k$-hop paths connecting two fixed endpoints located at $0$ and $t \in [0, kr]$. The exact distribution of these counts was previously derived using a combinatorial approach in \cite{giles-privault}. In the present work, we analyze the asymptotic behavior of $\sigma_k(t)$ as the number of points in the underlying binomial process tends to infinity. To this end, we employ the method of cumulants, see \cite{rudzkis, saulis, doring, thale18, doering}. This method has been successfully applied recently to study moderate deviations in random geometric graphs and weighted random-connection models \cite{schulte-thaele, heerten}, as well as normal approximations for subgraph counts in multidimensional random-connection models \cite{LiuPrivault}, including settings with fixed endpoints \cite{LiuPrivault24}.}
- %We are interested in the count $\sigma_k ( t )$ of  $k$-hops connecting two fixed endpoints located respectively at $0$ and $t$ for some $t \in [0,kr]$. In this context, the distribution of $k$-hop counts has been expressed by a combinatorial approach in \cite{giles-privault}. We will consider the asymptotic behavior of the count statistics $\sigma_k (t)$ as the number of binomial points tends to infinity.
-% When $k=1$ we have $\sigma_1(t) =1$, $t\in [0,r]$. 
- % where for later convenience of notation we model $\sigma_k$ as a function of the remaining distance $kr-\tau$ from $t$ to $kr$. For this, we will use the cumulant method, see \cite{rudzkis}, \cite{saulis},
- %\cite{khorunzhiy},
- %\cite{doring},
- %\cite{thale18},
-% \cite{jansen},
- %\cite{doering},
- %which has been recently applied
- %to moderate deviation in random geometric graphs
- %and weighted random-connection models 
- %in \cite{schulte-thaele}, \cite{heerten}, 
- %and to normal approximation for subgraph counts
- %in the multidimensional random-connection model, 
- %see \cite{LiuPrivault}, and \cite{LiuPrivault24} in the presence of endpoints.  
+\textcolor{red}{
+Within this framework, a $k$-hop path is defined as a sequence of edges connecting two fixed endpoints through exactly $d:=k-1$ intermediate nodes.
+We investigate the random variable $\sigma_k(t)$, which counts the number of $k$-hop paths connecting the fixed endpoints located at $0$ and $t \in [(k-1)r, kr]$. An exact expression for the distribution of $\sigma_k(t)$
+ was previously obtained via a combinatorial approach in \cite{giles-privault}.
+The present work focuses on the asymptotic behaviour of $\sigma_k(t)$ as the number of points in the underlying binomial point process tends to infinity.}
+\medskip
+
+\textcolor{red}{
+To this end, we employ the method of cumulants, see, for example, \cite{rudzkis, saulis, doring, thale18, doering}. This technique has recently proven successful in studying moderate deviations in random geometric graphs and weighted random-connection models \cite{schulte-thaele, heerten}, as well as normal approximations for subgraph counts in multidimensional random-connection models \cite{LiuPrivault}. Related results in settings with fixed endpoints can be found in \cite{LiuPrivault24}.}
 
  \medskip
- 
- In Proposition~\ref{p1}, 
- we derive a combinatorial expression for
- the joint moments 
- of $k$-hop counts \textcolor{red}{corresponding to } different endpoint locations within $[rd,rk]$.
- \textcolor{red}{We then specialize this general result in Proposition~\ref{djklfs2} and Corollary~\ref{djklfs2-2} to obtain explicit formulas for the variance.}
+We first derive a combinatorial expression for the joint moments for $k$-hop counts for varying endpoints locations within $[(k-1)d,rk]$, see Proposition~\ref{p1}.
+This result is then specialized in Proposition~\ref{djklfs2}
+ and Corollary~\ref{djklfs2-2}, where explicit expressions for the variance are obtained.
 
 \medskip
-\textcolor{red}{Subsequently, we focus on the homogeneous case where $m_1=m_2=\cdots=m_d=m \geq 1$. Let $\P_m$ denote  
-the distribution of the one-dimensional unit disk model with $m$ points per cell and connection probability $p_m$. 
-We also denote by $\kappa_n\big(\widebar{\sigma}_k (t)\big)$ the cumulant of order 
-$n\geq 2$ of the normalized $k$-hop count
+
+Subsequently, we focus on the homogeneous case where $m_1=m_2=\cdots=m_d=m$ for the asymptotic analysis.
+Let $\P_m$ denote the distribution of the one-dimensional unit disk model with $m$ points per cell and connection probability $p_m$. For $n\ge2$, we write $\kappa_n\big(\widebar{\sigma}_k (t)\big)$ for the cumulant of order 
+$n$ of the normalized $k$-hop count
 $$ 
    \widebar{\sigma}_k (t):= \frac{\sigma_k (t)-\E_m [ \sigma_k (t)]}{\sqrt{\Var_m [ \sigma_k (t) ]}}. 
 $$ 
-In Section~\ref{sec6}, we first derive a general 
-cumulant bound for $\sigma_k(t)$; see Theorem~\ref{jkldd12}. This leads to a refined 
-estimation in Theorem~\ref{th7.5-1} depending on the connection probability $p_m$. 
-Combining this with the asymptotic variance established in Proposition~\ref{prop7.6}, 
-we obtain the following bound in Corollary~\ref{cjkfl} 
+In Section~\ref{sec6}, we derive a general cumulant bound for $\sigma_k(t)$; see Theorem~\ref{jkldd12},
+ which is further refined in Theorem~\ref{th7.5-1} in terms of
+ the connection probability $p_m$. 
+ Combined with the asymptotic variance established in Proposition~\ref{prop7.6}, 
+ this leads to the following cumulant bound, stated in Corollary~\ref{cjkfl} 
 \begin{equation*}
     \kappa_n\big(\widebar{\sigma}_k (t)\big)\leq \begin{cases}
       \displaystyle
-      \frac{n!^{d+1}}{(C m p_m)^{n/2-1}} & \text{when } p_m \gg m^{-(d-1)/d},
+      \frac{C n!^{d+1}}{(m p_m)^{n/2-1}} & \text{when } p_m \gg m^{-(d-1)/d},
       \medskip
       \\
       \displaystyle
-      \frac{n!^{d+1}}{\big(C m^d p_m^{d+1}\big)^{n/2-1}} & \text{when } p_m\ll m^{-1},
+      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}} & \text{when } p_m\ll m^{-1},
     \end{cases}
 \end{equation*}
-for $n\ge3$, where $C$ is a constant independent of $m \geq 1$.}
+$n\ge3$, where $C$ is a constant independent of $m \geq 1$. 
+
+Applying the method of cumulants, we establish in Corollary~\ref{thm4.2-1} the convergence rate of the normalized $k$-hop count $\widebar{\sigma}_k (t)$ to the standard normal distribution under the Kolmogorov distance as $m$ tends to infinity.
+
   \medskip
 
-\textcolor{red}{This moment--cumulant analysis reveals a phase transition between Gaussian and 
-Poisson limiting regimes under different scalings. Using the method of cumulants, 
-we obtain in Corollary~\ref{thm4.2-1} the bound \eqref{fjkf} for the convergence 
-of the normalized $k$-hop count $\widebar{\sigma}_k (t)$ to the standard normal 
-distribution under the Kolmogorov distance as $m$ tends to infinity. Furthermore, 
-in Theorem~\ref{poi-thm}, we provide a Poisson approximation for the $k$-hop 
-count via the Stein-Chen method.}
+In addition, we establish in Theorem~\ref{poi-thm} a Poisson approximation for the $k$-hop count using the Stein--Chen method. Taken together, the moment--cumulant analysis reveals a phase transition between Gaussian and Poisson limiting regimes, depending on the scaling of the connection probability $p_m$ relative to the node density.
 
 \medskip
+
 We employ the following standard notation for the asymptotic behavior of functions 
 $f(x)$ and $g(x)>0$ as $x$ tends to infinity.
 We write 
@@ -574,12 +559,18 @@ We write
 \item $f(x)\ll g(x)$, or $g(x)\gg f(x)$, if $f(x)\geq 0$ and $f(x)/g(x)\to 0$.
 \end{itemize}
 with the convention $0/0=0$. 
-\textcolor{red}{Throughout, we denote by $\Phi$ the cumulative distribution function of the standard normal distribution. For $d\geq 2$ and a fixed endpoint $t\in [(k-1)r,kr]$, we identify the following three regimes:}
-\begin{description}
-	\item[Dense regime.]
-  If $p_m \gg m^{-1+1/d}$,
-    then we have $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$,
-    see Corollary~\ref{graphcontain}-$a)$. Moreover, the normalized count satisfies the Kolmogorov bound 
+Throughout, we denote by $\Phi$ the cumulative distribution function of the standard normal distribution.
+
+\medskip
+
+For $d\geq 2$ and a fixed endpoint $t\in [(k-1)r,kr]$, we identify the following
+ regimes as $m$ tends to infinity. 
+\begin{enumerate}[i)] 
+	\item {\bf Dense regime}, $p_m \gg m^{-1+1/d}$.
+           
+  We have $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$,
+  see Corollary~\ref{graphcontain}-$i)$,
+   and the normalized count satisfies the Kolmogorov bound 
     \begin{equation}
    \nonumber % \label{fjkf}
    \sup_{x\in\real }|\P_m (\widebar{\sigma}_k (t)\leq x)-\Phi(x)|
@@ -589,31 +580,43 @@ with the convention $0/0=0$.
     where $C_d>0$ depends only on
     $d \geq 2$, see 
     Corollary~\ref{thm4.2-1}.
-\item[Thermodynamic regime.]
-    If $p_m \asymp m^{-1+1/d}$, 
-    then as $m$ tends to infinity we have
+\item {\bf Thermodynamic regime},
+ $p_m \asymp m^{-1+1/d}$.
+
+ As $m$ tends to infinity we have
 \begin{align}
-	\dtv(\sigma_k (t),\Pn(\lambda\textcolor{red}{(t)}))&
+	\dtv(\sigma_k (t),\Pn(\lambda_k (m,t)))&
   \asymp \frac{1}{m^{1/(d+1)}},
 \nonumber % \label{po-error1}
 \end{align}
-where \textcolor{red}{$\Pn(\lambda)$ denotes the Poisson distribution with parameter $\lambda$, $\lambda(t)=\E_m[\sigma_k(t)]$} and $\dtv$ is the total variation distance; 
-see Corollary~\ref{c2} and \eqref{dtv}.
-\item[Sparse regime.]
-  If $p_m\ll m^{-1}$, we have the convergence in probability 
+see Corollary~\ref{c2} and \eqref{dtv},
+where $\Pn(\lambda_k (m,t))$ denotes
+  the Poisson distribution with parameter
+  $\lambda_k (m,t):=\E_m[\sigma_k(t)]$,
+  and $\dtv$ is the total variation distance
+ defined as 
+\begin{equation}
+  \label{dtv}
+  \dtv( X,Y):=\sup_{A\subseteq\Z}|\P (X\in A)-\P (Y\in A)|
+\end{equation}
+for integer-valued random variables $X$ and $Y$ % , the total variation distance between $\law(X)$ and $\law(Y)$ is given by
+with $\Z:=\{0,\pm1,\pm2,\dots\}$ standing for the set of signed integers.
+\item {\bf Sparse regime}, $p_m\ll m^{-1}$ .
+
+   We have the convergence in probability 
   $$
   \lim_{m\to\infty}\P_m (\sigma_k (t) =0)=1,
   $$
- see Corollary~\ref{graphcontain}-$b)$. 
-\end{description}
-    % In Proposition~\ref{fsklf34} we also obtain the Berry-Esseen bound
+ see Corollary~\ref{graphcontain}-$ii)$. 
+\end{enumerate} 
+% In Proposition~\ref{fsklf34} we also obtain the Berry-Esseen bound
 % $$\sup_{x\in \real} | \P_m ( \widebar{\sigma}_k (t) \leq x ) - \P_m ({\cal N} \leq x ) | \leq \frac{C(k,r)}{\sqrt{m}} $$ using the Stein method, together with a bound of same order for the Wasserstein distance.
 % In Theorem~\ref{poi-thm}, we provide a Poisson approximation of the $k$-hop count via Stein-Chen method. In particular, when $m^dp_m^{d+1}\to c\in(0,\infty)$, in Corollary~\ref{c2} we show that the error bound for the Poisson approximation is of the order  
 %\begin{align} \dtv(W,\Pn(\lambda))&  \asymp m^{-1/(d+1)}.\nonumber % \label{po-error1}\end{align}as $m_1=m_2=\cdots=m_d=m$ tends to infinity.
 % \medskip 
 The paper is organized as follows. Section~\ref{sec3} formulates the $k$-hop count within the framework of generalized $U$-statistics. Section~\ref{sec-prel} introduces the necessary preliminaries on diagrams and set partitions, which lay the groundwork for Section~\ref{sec4}, where we express the moments as summations over non-crossing partitions.  In Section~\ref{sec6}, we derive explicit bounds for moments and cumulants, which leads to a normal approximation for the normalized $k$-hop counts with Berry--Esseen rates via the Stein and cumulant methods in Section~\ref{sec8}. Finally, Section~\ref{sec-pol} provides a Poisson approximation using the Stein--Chen method.
 
-\section{Binomial model and $k$-hop counts} 
+\section{Binomial random-connection model and $k$-hop counts} 
 % \label{sec4}
 % \section{Single node per cell} 
 \label{sec3}
@@ -632,15 +635,15 @@ $$\mathcal{P}:=
 $$ 
  with $t\in ((k-1)r,kr)$. %  for some $\tau\in(0,r)$.
 
-In this article, we consider a random graph, also referred as a random connection model, constructed as follows.
+In this article, we consider a random graph, also referred as a random-connection model, constructed as follows.
 For any two distinct points $u,w\in\mathcal{P}$, if $|u-w|\le r$, then they are connected by a random edge with probability $p\in[0,1]$ independently, denoted by $u\leftrightarrow w$.
 Let the resulting random graph be denoted by $\mathbb{G}_p(\mathcal{P})$.
 
-We focus on the count of $k$-hop, that is a path of order $k+1$, connecting $0$ to $t$ in the random connection model $\mathbb{G}_p(\mathcal{P})$.
+We focus on the count of $k$-hop, that is a path of order $k+1$, connecting $0$ to $t$ in the random-connection model $\mathbb{G}_p(\mathcal{P})$.
 More formally, we can write it as 
 \begin{equation}
   \nonumber 
-	\sigma_k (t):=\sum_{\beta\in[m_1]\times\cdots\times[m_{d}]}\bone(0\leftrightarrow X_{\beta(1)}^{(1)})\left(\prod_{\ell=1}^{k-2}\bone\left(X_{\beta(\ell)}^{(\ell)}\leftrightarrow X_{\beta(\ell+1)}^{(\ell+1)}\right)\right)\bone(X_{\beta(d)}^{(d)}\leftrightarrow t),\label{def-khop1}
+	\sigma_k (t):=\sum_{\beta\in[m_1]\times\cdots\times[m_{d}]}\bone\left(0\leftrightarrow X_{\beta(1)}^{(1)}\right)\left(\prod_{\ell=1}^{k-2}\bone\left(X_{\beta(\ell)}^{(\ell)}\leftrightarrow X_{\beta(\ell+1)}^{(\ell+1)}\right)\right)\bone\left(X_{\beta(d)}^{(d)}\leftrightarrow t\right),\label{def-khop1}
 \end{equation}
 with $[n]:=\{1,2,\dots,n\}$.
  
@@ -656,12 +659,12 @@ $$
  \medskip
 
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.94\linewidth]{kops_new-crop}
-\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
-\label{fklds} 
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=0.94\linewidth]{kops_new-crop}
+%\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
+%\label{fklds} 
+%\end{figure}
 
 
 \vskip-0.4cm
@@ -686,8 +689,11 @@ Therefore, it can be mapped to a
  $$ 
  with $ y_1 \ge \cdots \ge y_d$. 
 
- Hence, for $t\in [(k-1)r,kr]$, the count $\sigma_k (t)$ in \eqref{def-khop1} of $k$-hop 
- connecting $0$ to $t$ can be rewritten as a generalized $U$-statistics of order $d$
+ \medskip
+ 
+ Hence, the count $\sigma_k (t)$ in \eqref{def-khop1} of $k$-hop 
+ connecting $0$ to $t\in [(k-1)r,kr]$ 
+ can be rewritten as a generalized $U$-statistics of order $d$
 \begin{equation}
 \label{ustat} 
  \sigma_k (t) = \sum_{\beta \in [m_1] \times \cdots \times [m_d]} 
@@ -870,7 +876,7 @@ denote the single-block coarsest partition of $b$,
  where $\rho_i$ is a partition of $\{(\ell ,i)\}_{\ell =1,\ldots , n}$
  for $i=1,\ldots , d$, 
 % As above, we let $\lambda_l(s):=\lambda ( s)$, $l=1,\ldots , d$. 
- see Figure~\ref{fig:diagram0-1-2}\textcolor{red}{-(b)}.  
+ see Figure~\ref{fig:diagram0-1-2}-$(b)$.  
 % \vspace{-0.3cm}
 \begin{figure}[H]
 \captionsetup[subfigure]{font=footnotesize}
@@ -1381,7 +1387,7 @@ We can further denote the vertex set of the graph $\rho_G$ as $V(\rho_G):=\left[
        \begin{lemma}
          \label{fkla12}
           \noindent
-        $a)$ The cardinality of the set \ ${\rm CNC}([n]\times [d])$
+        $i)$ The cardinality of the set \ ${\rm CNC}([n]\times [d])$
        of connected non-crossing partitions of $[n]\times[d]$ satisfies 
        \begin{equation}
          \label{coeff-0}
@@ -1389,25 +1395,22 @@ We can further denote the vertex set of the graph $\rho_G$ as $V(\rho_G):=\left[
         \qquad n,d \geq 1. 
       \end{equation}
       \noindent
-      $b)$ \textcolor{red}{Given $n\ge1$ and $d\ge2$, we denote by 
+      $ii)$ Let $n,d\ge1$. 
+      The cardinality of the set
       $$
-      \mathcal{M}(n,d):=\{\rho\in{\rm CNC}([n]\times [d]): |\rho|=1+(d-1)n\}
+      \mathcal{M}(n,d):=\big\{\rho\in{\rm CNC}([n]\times [d]): |\rho|=1+(d-1)n\big\}
       $$
-      the set of maximal connected non-crossing partition of $[n]\times[d]$.
-}
-       The cardinality of the set 
-      $\mathcal{M}(n,d)$
-       of maximal connected non-crossing partitions of $[n]\times[d]$
-       satisfies
-                   $|\mathcal{M}(1,d)|=1$ and              
+      of maximal connected non-crossing partition of $[n]\times[d]$
+      is given by $|\mathcal{M}(1,d)|=1$ for $n=1$, and by               
       \begin{equation}
         \label{coeff-10}
-        |\mathcal{M}(n,d)|=d, \qquad n\geq 2, \ d\geq 1. 
+        |\mathcal{M}(n,d)|=d
       \end{equation}
-      \end{lemma} 
+      for $n\geq 2$.
+       \end{lemma} 
 \begin{Proof}
 \noindent
- $a)$ We clearly have $|{\rm NC} (1,d) | =1$ for all $d\geq 1$. 
+ $i)$ We clearly have $|{\rm NC} (1,d) | =1$ for all $d\geq 1$. 
 % As a consequence of Lemma~\ref{restrict-partition},
 Any % connected
  non-crossing partition $\rho \in {\rm NC}(n+1,d)$ can be
@@ -1424,7 +1427,7 @@ Any % connected
  \medskip 
 
  \noindent
- $b)$ 
+ $ii)$ 
  We clearly have $|\mathcal{M}(1,d)|=1$ and
  $|\mathcal{M}(2,d)|=d$ for all $d\geq 1$.
  Next, each maximal connected non-crossing partition 
@@ -1439,23 +1442,30 @@ Proposition~\ref{p1} provides a combinatorial expression for the joint
  $t_1 , \ldots , t_n \in [(k-1)r,kr]$, 
  using sums over non-crossing partitions of $[n]\times [d]$. % \{1,\ldots , n\}$. 
 % Letting $\rho_{K_k}$ denote the contraction graph of the complete graph $K_k$ on $k$ vertices,
- \textcolor{red}{
-  Given $j\ge1$ and $f^{(i)}:[0,r]^d \to\real$, $i=1,\dots,j$,
-       measurable functions, we let 
+\begin{definition} 
+  Let $j\ge1$, and consider a family
+  $$
+  f^{(i)}:[0,r]^d \to\real, \quad i=1,\dots,j,
+  $$ 
+  of measurable functions. 
+  \begin{enumerate}[i)]
+    \item We let 
        \begin{equation}
          \nonumber % \label{def:tensorproduct-1}
        \left(\bigotimes_{i=1}^jf^{(i)} \right)(x_{1,1},\ldots,x_{1,d},\ldots,
-       x_{j,1},\ldots , x_{j,d}):=\prod_{i=1}^jf^{(i)} (x_{i,1},\dots,x_{i,d}), 
+       x_{j,1},\ldots , x_{j,d}):=\prod_{i=1}^jf^{(i)} (x_{i,1},\dots,x_{i,d}),
+       \quad \mbox{and} 
       % \qquad x_1,\dots,x_N\in \R^d.
 \end{equation}
-  and for $\rho\in \Pi([j] \times [d] )$ we denote by 
+\item for any partition $\rho\in \Pi([j] \times [d] )$, we denote by 
         $$
         \left(
 	\bigotimes_{i=1}^jf^{(i)} \right)_{\! \! \! \rho} \ \! : \ \! [0,r]^{|\rho|}\to\real
         $$
         the function obtained by equating any two variables
         whose indexes belong to a same block of $\rho$.
-}
+  \end{enumerate}
+\end{definition}
 % For any set partition
 % $\rho =\{b_1,\dots,b_{|\rho |}\}\in\Pi([n]\times[d])$
 % and bounded measurable function
@@ -1480,7 +1490,7 @@ Proposition~\ref{p1} provides a combinatorial expression for the joint
 \label{p1}
   Let $d\geq 1$. 
   For any $n \geq 1$ and $t_1,\ldots , t_n \in [(k-1)r,kr]$,
-   \textcolor{red}{the joint moment of $\sigma_k(t_i)$ is given by}
+  the joint moments of $\sigma_k(t_i)$ are given by 
 \begin{align} 
 \label{djkls12}
 & \E  [ \sigma_k(t_1) \cdots  \sigma_k(t_n)  ] 
@@ -1498,19 +1508,27 @@ p^{e(\rho_G)}
   }\left(\bigotimes_{i=1}^n
  u_{t_i} \right)_{\! \! \! \rho}
  ( x_1, \ldots , x_{|\rho|} ) 
- \textcolor{red}{\prod_{j=1}^{|\rho|} \mu_{\bar{b}_j} ( \mathrm{d} x_j ). }
+ \prod_{j=1}^{|\rho|} \mu_{\bar{b}_j} ( \mathrm{d} x_j ), 
 \end{align} 
- \textcolor{red}{Here, $\rho=\{b_1,\dots,b_{|\rho |} \}\in {\rm NC} ([n]\times[d])$
+where
+\begin{enumerate}[i)]
+  \item 
+ any partition $\rho=\{b_1,\dots,b_{|\rho |} \}\in {\rm NC} ([n]\times[d])$
  is written as 
-$\rho=\bigcup_{i=1}^d\rho_i$, see \eqref{fjklds143}.
- Moreover, %$u_t : [0,r]^d \mapsto \{0,1\}$ is the indicator function of $d$ variables given by 
+$\rho=\bigcup_{i=1}^d\rho_i$ 
+ (see \eqref{fjklds143}),
+\item
+  $\bar{b}_i$ denotes the unique $k\in \{1,\ldots ,d\}$ such that $b_i\in\rho_k$,
+  and 
+\item we let
+%$u_t : [0,r]^d \mapsto \{0,1\}$ is the indicator function of $d$ variables given by 
 \begin{equation}
 \label{jklf12} 
  u_t (x_1 , \ldots , x_d)
  := {\bf1}_{\{x_1 \leq \cdots \leq x_d \leq kr-t \}},
- \quad x_1,\ldots , x_d \in [0,r], 
+ \quad x_1,\ldots , x_d \in [0,r]. 
 \end{equation} 
-and $\bar{b}_i$ denotes the unique $k\in \{1,\ldots ,d\}$ such that $b_i\in\rho_k$.}
+\end{enumerate}
 \end{prop}
 \begin{Proof}
  For any $t_1,\ldots , t_n \in [0,r]$,
@@ -1546,7 +1564,7 @@ and $\bar{b}_i$ denotes the unique $k\in \{1,\ldots ,d\}$ such that $b_i\in\rho_
  \right]
  \\
  & = 
- \sum_{\textcolor{red}{\rho\in {\rm NC}([n]\times [d])}}
+ \sum_{\rho\in {\rm NC}([n]\times [d])}
         \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
   \atop
 1\leq i \leq n}
@@ -1559,10 +1577,10 @@ and $\bar{b}_i$ denotes the unique $k\in \{1,\ldots ,d\}$ such that $b_i\in\rho_
  u_{t_i} \big(U^{(1)}_{\alpha_i(1)} , \ldots , U^{(d)}_{\alpha_i(d)}\big) \Big) 
  \right]
        \\
-&=\sum_{\textcolor{red}{\rho\in {\rm NC}([n]\times [d])}}
+&=\sum_{\rho\in {\rm NC}([n]\times [d])}
  p^{e(\rho_G)}
- \sum_{\textcolor{red}{\alpha\in
-	 ([m_1] \times \cdots \times [m_d])^n}
+ \sum_{\alpha\in
+	 ([m_1] \times \cdots \times [m_d])^n
     \atop \sqcap (\alpha ) = \rho }
     \int_{[0,r]^{|\rho|}} \left(\bigotimes_{i=1}^n u_{t_i} \right)_{\! \! \! \rho}
       ( x_1, \ldots , x_{|\rho|} ) 
@@ -1571,7 +1589,7 @@ and $\bar{b}_i$ denotes the unique $k\in \{1,\ldots ,d\}$ such that $b_i\in\rho_
  \mu_{\bar{\rho}_{|\rho|}} ( d x_{|\rho|} ) 
 % (\mathbf{x})\mu^{\otimes |\rho|} ( \mathrm{d}\mathbf{x} )
 \\
-&=\sum_{\textcolor{red}{\rho\in {\rm NC}([n]\times [d])}}
+&=\sum_{\rho\in {\rm NC}([n]\times [d])}
 C_{m_1,\ldots , m_d} (\rho)
  p^{e(\rho_G)}
 \int_{
@@ -1749,9 +1767,9 @@ $$
 \subsubsection*{Second moment}
 \noindent
  When $n=2$, the count of blocks
-of non-crossing partitions of $[2] \times [d]$
-ranges from $d$ to $2d$, each block has size either one or two,
-as in Figure~\ref{f3-1-1} for $d=8$. 
+ of non-crossing partitions of $[2] \times [d]$
+ ranges from $d$ to $2d$ and every block has size either one or two,
+ see Figure~\ref{f3-1-1} for $d=8$. 
 
 % \vskip-0.2cm
 
@@ -2320,7 +2338,7 @@ $$
 \end{equation}
   where $\mathcal{C}(n,d,q)$ represents the collection of
   all partitions $\rho$ on $[n]\times[d]$ connected, non-crossing
-  and having precisely $r$ blocks, and 
+  and having precisely $\textcolor{red}{q}$ blocks, and 
 \begin{equation}
 \nonumber % \label{min-edge}
  \zeta (n,d,q) :=\min
@@ -2331,7 +2349,7 @@ $$
   From Property~C in \cite[Page~29]{MalyshevMinlos91}, we know that
   if $\alpha =
   [\alpha_1,\ldots , \alpha_n]^\top \in
-  ([m_1]\times \cdots \times [m_d])^n$ is disconnected, i.e. 
+  ([m]\times \cdots \times [m])^n$ is disconnected, i.e. 
   if there exists a partition $\{A,B\}$ of $[n]$ such that 
   \begin{equation*}
     \big\{\alpha_i(\ell)\}_{(i, \ell ) \in A \times [d]}
@@ -2352,7 +2370,7 @@ $$
     \nonumber
     \kappa_n(
     \sigma_k(t_1), \ldots , \sigma_k(t_n) 
-    )&= \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
+    )&= \sum_{\alpha_i\in [m]\times \cdots \times [m]
   \atop
  1 \leq i \leq n
     }
@@ -2365,7 +2383,7 @@ $$
 )
     \\
     \nonumber
-    &= \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
+    &= \sum_{\alpha_i\in [m]\times \cdots \times [m]
   \atop
       {
         1 \leq i \leq n
@@ -2382,7 +2400,7 @@ $$
     \\
     \label{fjkldf1} 
     &= \sum_{\rho\in{\rm CNC}([n]\times [d])}
-    \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
+    \sum_{\alpha_i\in [m]\times \cdots \times [m]
   \atop
       {
         1 \leq i \leq n, \ \sqcap (\alpha )=\rho
@@ -2399,7 +2417,7 @@ $$
  for any 
  $$
  [\alpha_1,\ldots , \alpha_n]^\top \in
- ([m_1]\times \cdots \times [m_d])^n
+ ([m]\times \cdots \times [m])^n
  $$
  such that $\sqcap (\alpha )=\rho$, we have 
 \begin{align}
@@ -2414,7 +2432,7 @@ $$
 &\leq
 \sum_{l=1}^n \sum_{\{b_1,\dots,b_l\}\in\Pi([n])}(l-1)!
 \prod_{i=1}^l\left|
-  \E\left[\prod_{\ell\in b_i}
+  \E_m\left[\prod_{\ell\in b_i}
     u_{t_\ell} (\mathbf{U}_{\alpha_\ell})
   \right]
 \right|
@@ -2445,23 +2463,23 @@ n^{n-1}p_m^{e(\rho_G )},
 \begin{align*}
   \kappa_n(\sigma_k(t ))
     &= \sum_{\rho\in{\rm CNC}([n]\times [d])}
-    \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
+    \sum_{\alpha_i\in [m]\times \cdots \times [m]
   \atop
       {
         1 \leq i \leq n, \ \sqcap (\alpha )=\rho
       }
       }
-      \kappa(        u_{t_1} (\mathbf{U}_{\alpha_1})
+      \kappa(u_{\textcolor{red}{t}} (\mathbf{U}_{\alpha_1})
   ,
   \ldots
   ,
-  u_{t_n} (\mathbf{U}_{\alpha_n})
+  u_{\textcolor{red}{t}} (\mathbf{U}_{\alpha_n})
   )
 \\ 
-&=
+   &\textcolor{red}{\le}
 n^{n-1}
 \sum_{\rho\in{\rm CNC}([n]\times [d])}
-    \sum_{\alpha_i\in [m_1]\times \cdots \times [m_d]
+    \sum_{\alpha_i\in [m]\times \cdots \times [m]
   \atop
       {
         1 \leq i \leq n, \ \sqcap (\alpha )=\rho
@@ -2477,7 +2495,7 @@ n^{n-1}
     m^q p_m^{\zeta (n,d,q)}
     \sum_{\substack{\rho\in{\rm CNC}([n]\times [d])\\|\rho|=q}} 1 
     \\ 
-    & \leq 
+    & \textcolor{red}{=} 
     n^{n-1}
     \sum_{q=d}^{1+(d-1)n}
     |\mathcal{C}(n,d,q)|
@@ -2486,7 +2504,7 @@ n^{n-1}
 % \\ & \leq |m|^{1+(d-1)n} n^{n-1}|{\rm CNC}([n]\times [d])|, 
  \end{align*}
 $m\geq 2 ( 1 + (d-1)n)$,
-which yields \eqref{fjkldf} from Lemma~\ref{fkla12}-$(a)$. % below. 
+which yields \eqref{fjkldf} from Lemma~\ref{fkla12}-$i)$. % below. 
 \end{Proof}
  We note that 
 \begin{equation}
@@ -2502,16 +2520,16 @@ which yields \eqref{fjkldf} from Lemma~\ref{fkla12}-$(a)$. % below.
 % Assume that $\limsup_{m\to \infty} p_m < 1$.\footnote{\textcolor{red}{Should we remove this condition, here and in the SPA paper?}}
 % with $v(G)=k$ vertices,
 Let $d\geq 2$ and $t\in [(k-1)r,kr]$.
-\begin{enumerate}[a)]
-\item If
- $p_m\gg m^{-1+1/d}$, then for $m$ large enough 
- we have 
+\begin{enumerate}[i)]
+\item {\bf Dense regime}, $p_m\gg m^{-1+1/d}$.
+  For $m$ large enough, we have 
  \begin{equation}
    \label{upp-1}
     |\kappa_n(\sigma_k (t))|\leq
    n^{n-1}n!^d m^{1+(d-1)n}p_m^{nd+1}. 
   \end{equation}
-\item If $p_m\ll m^{-1}$, then for $m$ large enough we have 
+\item {\bf Sparse regime}, $p_m\ll m^{-1}$.
+   For $m$ large enough, we have 
     \begin{equation}
       \label{upp-2}
       |\kappa_n(\sigma_k (t))|\leq
@@ -2522,7 +2540,7 @@ Let $d\geq 2$ and $t\in [(k-1)r,kr]$.
 \end{theorem}
 \begin{Proof}
 \noindent
-$(a)$ For $q=d,\ldots , (d-1)n$, we have 
+$i)$ For $q=d,\ldots , (d-1)n$, we have 
 \begin{align}
   \label{fjkldfaa1}
   \frac{m^{1+(d-1)n}p_m^{nd+1}}{m^qp_m^{\zeta(n,d,q)}}&=m^{1+(d-1)n-q}p_m^{nd+1-\zeta(n,d,q)}
@@ -2590,7 +2608,7 @@ $(a)$ For $q=d,\ldots , (d-1)n$, we have
 \smallskip
  
 \noindent
- $(b)$ When $p_m\ll m^{-1}$, for all $q=d+1,\ldots, 1+(d-1)n$ we have
+ $ii)$ When $p_m\ll m^{-1}$, for all $q=d+1,\ldots, 1+(d-1)n$ we have
 \begin{align}
   \label{fjkldfaa1-2}
   \frac{m^d p_m^{d+1}}{m^q p_m^{\zeta(n,d,q)}}&=m^{-(q-d)}p_m^{-(\zeta(n,d,q)-d-1)}
@@ -2640,9 +2658,8 @@ $$
 % Assume that $\limsup_{m\to \infty} p_m < 1$.
 % with $v(G)=k$ vertices,
   Let $d\geq 2$ and $t\in [(k-1)r,kr]$.
-  \begin{enumerate}[a)]
-\item If
- $p_m\geq m^{-1+/d}$, $m\geq 1$, then we have 
+  \begin{enumerate}[i)]
+\item If $p_m\geq m^{-1+1/d}$, $m\geq 1$, then we have 
   \begin{equation}
     \nonumber % \label{upp-1}
     |\kappa_n(\sigma_k (t))|\leq
@@ -2666,8 +2683,9 @@ $$
 \label{prop7.6}
 % Suppose that $\limsup_{m\to \infty} p_m < 1$. 
  Let $d\geq 2$ and $t\in [(k-1)r,kr]$. 
-\begin{enumerate}[a)]
-\item If $p_m \gg m^{-1+1/d}$, we have % the equivalence  
+\begin{enumerate}[i)]
+\item {\bf Dense regime}, $p_m \gg m^{-1+1/d}$.
+   We have % the equivalence  
   \begin{equation}
     \label{low-1}
     \Var_m [\sigma_k (t)]
@@ -2677,9 +2695,8 @@ $$
 . 
   \end{equation}
 % where $C>0$ is a constant independent of $m \geq 2d-1$.
-\item If
-  $p_m\ll m^{-1}$, 
-  we have % the equivalence
+\item {\bf Sparse regime}, $p_m\ll m^{-1}$. 
+   We have % the equivalence
   \begin{equation}
     \label{low-2}
     \Var_m [ \sigma_k (t) ]
@@ -2699,7 +2716,7 @@ We have
 & \E_m  [ ( \sigma_k(t) )^2 ] 
 \\
 \nonumber
-& = \sum_{\substack{\rho\in {\rm NC} ([2]\times[d])\\\rho\wedge\pi=\widehat{0}}}
+& = \sum_{\textcolor{red}{\rho\in {\rm NC} ([2]\times[d])}}
 p_m^{|\rho|}
 \left(
  \prod_{i=1}^d \frac{m!}{(m - |\rho_i| )!}
@@ -2719,7 +2736,10 @@ defined in \eqref{jklf12} and
  $\bar{\rho}_i$ denotes the index $j\in \{1,\ldots , d \}$ of the unique block
  $\eta_j = ((i,j))_{i=1, 2}$ containing $b_i$, $i=1,\ldots , |\rho|$. 
 
- If $p_m \gg m^{-1+1/d}$, the dominant term
+\smallskip
+
+\noindent
+ $i)$ If $p_m \gg m^{-1+1/d}$, the dominant term
  in $\E_m  [ ( \sigma_k(t) )^2 ]$ 
  is obtained for the maximal $2d$-block partition 
  of Figure~\ref{f3-1-2-20} 
@@ -2959,7 +2979,8 @@ $$
 \frac{((kr-t) /r)^{2d-1}}{(2d-1)!}
 .
 $$
- If $m^{-1} \gg p_m$, the term 
+\smallskip
+$ii)$ If $p_m \ll m^{-1}$, the term 
 $$ 
  ( \E_m [ \sigma_k (t) ] )^2 = 
 p_m^{2d+2} m^{2d} \frac{((kr-t) / r)^{2d}}{(d!)^2}, 
@@ -3094,20 +3115,20 @@ $$
   \begin{eqnarray*}
     \kappa_n\left(\widebar{\sigma}_k (t)\right)\leq \begin{cases}
       \displaystyle
-      \frac{n!^{d+1}}{(C m p_m)^{n/2-1}}~~~~~~~{when}~~~p_m \gg m^{-(d-1)/d},
+      \frac{C n!^{d+1}}{(m p_m)^{n/2-1}}~~~~~~~{when}~~~p_m \gg m^{-(d-1)/d},
       \medskip
       \\
       \displaystyle
-      \frac{n!^{d+1}}{\big(C m^d p_m^{d+1}\big)^{n/2-1}}~~~~{when}~~~p_m\ll m^{-1},
+      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}}~~~~{when}~~~p_m\ll m^{-1},
     \end{cases}
 \end{eqnarray*}
- $n\ge3$, where $C$ is a constant independent of $m \geq 1$.
+ $n\ge3$, where $C>0$ is a constant independent of $m \geq 1$.
 \end{corollary}
 \begin{Proof}
 % From the inequality $\sqrt{2\pi j}({j}/{e})^j<j!$, we have
 % \begin{equation} j^{j-1}<\frac{(j-1)!}{\sqrt{2\pi j}}e^j. \end{equation}
-  When $p_m \gg m^{-(d-1)/d}$, from the inequalities  
-  \eqref{low-1} and \eqref{upp-1}, we have 
+  $i)$ When $p_m \gg m^{-(d-1)/d}$, from the inequalities  
+  \eqref{low-1} and \eqref{upp-1} we have 
   \begin{align*}
     \nonumber
     \kappa_n\left(\widebar{\sigma}_k (t)\right)&= \frac{\kappa_n(\sigma_k (t))}{\Var_m [ \sigma_k (t) ]^{n/2}}    \\
@@ -3129,9 +3150,9 @@ $$
 \frac{(2 (kr-t) /r)^{2d-1}}{2(2d-1)!}
       \right)^{-n/2}. 
 \end{align*}
-  Similarly, when $p_m\ll m^{-1}$ from,  
+  $ii)$ When $p_m\ll m^{-1}$, from   
   % , from the inequality $$  \frac{m!}{(m-d)!}\ge (m-d+1)^d=\left(1-\frac{d-1}m\right)^dm^d \ge \left( \frac{3m}{4} \right)^d $$ and
-  \eqref{low-2} and \eqref{upp-2} we have 
+ \eqref{low-2} and \eqref{upp-2} we similarly have 
   \begin{align*}
     \kappa_n\left(\widebar{\sigma}_k (t)\right)&= \frac{\kappa_n(\sigma_k (t))}{\Var_m [\sigma_k (t)]^{n/2}}\nonumber\\
     &\leq n!^d n^{n-1} m^d p_m^{2n+d-1}
@@ -3157,39 +3178,35 @@ $$
 \section{Berry-Esseen bounds and moderate deviations} % Central limit theorem} 
 \label{sec8} 
 
-\begin{remark}
-  To ensure a normal approximation, we only need to let some
-  $m_\ell$ tend to infinity,
-  i.e.
-  % $M$ tends to infinity,
-  $\max_{1\leq \ell \leq d} m_\ell$ should tend to infinity,   
-  which does not require 
-  $m_1=\cdots=m_{k-1}=m$ with $m$ tending to infinity. 
-\end{remark}
- Given $k\geq 2$ and $t\in [(k-1)r,kr)$,
- we consider the normalized $k$-hop count
-$$
-\widebar{\sigma}_k^{(m)} (t):= \frac{\sigma_k^{(m)} (t)- \E_\lambda [\sigma_k(t)]}{\sqrt{\Var_\lambda  [ \sigma_k(t)]}}. 
-$$
- For any $t \in [(k-1)r,kr)$, from Corollary~\ref{cjkfl} the skewness
- of $\sigma_k (t )$ satisfies  
+%\begin{remark}
+%  To ensure normal approximation, we only need to let some $m_\ell$ tend to infinity, i.e.
+  % $M$ tends to infinity,  $\max_{1\leq \ell \leq d} m_\ell$ should tend to infinity,   
+%which does not require 
+ % $m_1=\cdots=m_{k-1}=m$ as $m$ tends to infinity. 
+%\end{remark}
+For any $t \in [(k-1)r,kr)$, from Corollary~\ref{cjkfl} the skewness
+ of the normalized $k$-hop count
+$
+\widebar{\sigma}_k (t)
+$
+ satisfies  
   \begin{eqnarray*}
     \kappa_3\left(\widebar{\sigma}_k (t)\right)\leq \begin{cases}
       \displaystyle
-      (C m p_m)^{-1/2}~~~~~~~{when}~~~pm \gg m^{-1+1/d},
+      \frac{C}{(m p_m)^{1/2}}~~~~~~~{when}~~~\textcolor{red}{p_m} \gg m^{-1+1/d},
       \medskip
       \\
       \displaystyle
-      (C m^d p_m^{d+1})^{-1/2}~~~~{when}~~~p_m\ll m^{-1},
+      \frac{C}{(m^d p_m^{d+1})^{1/2}}~~~~{when}~~~p_m\ll m^{-1},
     \end{cases}
 \end{eqnarray*}
- for $m$ large enough, where $C$ is a constant independent of $m \geq 1$, 
-  and more generally,
+  for $m$ large enough, where $C>0$ is a constant independent of $m \geq 1$.
+   More generally,
   from Corollary~\ref{cjkfl} and Theorem~1 in \cite{Janson1988}, 
   we find that 
- $\widebar{\sigma}_k^{(m)} (t)$
+ $\widebar{\sigma}_k (t)$
  converges in distribution
- to the standard normal distribution ${\cal N}(0,1)$ as $\lambda$
+ to the standard normal distribution ${\cal N}(0,1)$ as $m$
  tends to infinity, 
  provided that $p_m \gg m^{-1+1/d}$ as $m$ tends to
  infinity.
@@ -3203,7 +3220,7 @@ $$
  \eqref{Statuleviciuscond2} with $\gamma := d$ and 
  $$
  \Delta_m := 
- (C m p_m)^{1/2}, 
+ C (m p_m)^{1/2}, 
 $$ 
       where $C>0$ depends only on
       $d \geq 2$.
@@ -3211,10 +3228,12 @@ $$
  we have the following results.
 \begin{corollary}
 \label{thm4.2-1}
-(Kolmogorov bound). 
+ (Kolmogorov bound, dense regime). 
 % Let $f:[0,r]^d \to\real$ be a measurable function satisfying Assumption~\ref{assu1}, with $d\geq 2$.
     % Denote $W:=\frac{S_{n,k}(f)-\kappa_1(S_{n,k}(f))}{\sqrt{\kappa_2(S_{n,k}(f))}}$,
- Let $d\geq 2$, $t\in [(k-1)r,kr]$, and assume that $p_m \gg m^{-1+1/d}$.
+
+\noindent
+Let $d\geq 2$, $t\in [(k-1)r,kr]$, and assume that $p_m \gg m^{-1+1/d}$. 
   Then, for $m$ large enough, we have 
     \begin{equation}
     \label{fjkf}
@@ -3231,15 +3250,14 @@ In particular, if
 \nonumber % \label{fjkf}
       \sup_{x\in\real}\left|
       \P_m \left(
-      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{m^{(1+\alpha )/(2+4d)}},
+      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{m^{(\textcolor{red}{1-\alpha} )/(2+4d)}},
     \end{equation}
     where $C_d>0$ depends only on
     $d \geq 2$.
 % \noindent 
- In the case $d=1$, \eqref{d=1} 
- the central limit Berry-Esseen rate holds
+ In the case $d=1$, the central limit Berry-Esseen rate holds
  since $\sigma_2(t)$ has a binomial distribution
- with parameter \eqref{d=1}.
+ with parameter in \eqref{d=1}.
 
  \medskip
 
@@ -3249,9 +3267,11 @@ In particular, if
 \label{graphcontain}
     Let $d\geq 2$ and $t\in [(k-1)r,kr]$. 
     We have 
-    \begin{enumerate}[a)]
-      \item $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$ if $p_m\gg m^{-1+1/d}$, 
-      \item $\lim_{m\to\infty}\P_m (\sigma_k (t) =0)=1$ if $p_m\ll m^{-1}$. 
+    \begin{enumerate}[i)]
+    \item {\bf Dense regime}, $p_m \gg m^{-1+1/d}$.
+ We have $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$. 
+\item {\bf Sparse regime}, $p_m\ll m^{-1}$. 
+ We have $\lim_{m\to\infty}\P_m (\sigma_k (t) =0)=1$. 
     \end{enumerate}
   \end{corollary}
   \begin{Proof}
@@ -3336,7 +3356,8 @@ $
 \end{corollary} 
 \section{Poisson approximation}\label{sec-pol}
 To study the Poisson approximation of the $k$-hop count $W$, we employ the
-well-established Stein-Chen method developed in 
+ well-established
+ Stein-Chen method originally developed in 
  \cite{chen1975} for deriving bounds on the distance between a distribution of interest and the Poisson distribution under various probability metrics. The method is based on the key observation that a non-negative random variable $Y \sim \Pn(\lambda)$ if and only if 
 $$\E[\lambda f(Y+1)-Yf(Y)]=0,$$
 for all bounded functions $f:\Z_+\to\R$. 
@@ -3363,10 +3384,11 @@ Consider
   a family
   $\{\{X_j^{(i)} : j \in \ci\} : i \in \ci\}$ 
   of Bernoulli random variables such that 
-$$
+  \begin{equation}
+    \label{sizebiasedcond}
    \law\!\big(\{X_j^{(i)} : j \in \ci\}\big)
    = \law\!\big(\{X_j : j \in \ci\} \,|  \, X_i = 1\big), 
-$$
+\end{equation} 
  \item a random index $B$, independent of
 $\{\{X_j^{(i)} : j \in \ci\} : i \in \ci\}$, with distribution 
   $$\P_m (B = i) = \frac{\bar{p}_i}{\E_m  [W]},
@@ -3383,17 +3405,22 @@ $$W := \sum_{i \in \ci} X_i$$
 \begin{definition}[\cite{BarbourHolstJanson}]
 The family $\{X_i : i \in \ci\}$ is said to be
 \emph{negatively related} (resp. \emph{positively related}) if one can
-construct $\{\{X_j^{(i)} : j \in \ci\} : i \in \ci\}$ such that
+construct
+ a family 
+ $\{\{X_j^{(i)} : j \in \ci\} : i \in \ci\}$
+ of Bernoulli random variables satisfying 
+ \eqref{sizebiasedcond} and 
 $X_j^{(i)} \le X_j$ (resp. $X_j^{(i)} \ge X_j$) for all $j \ne i$.
 \end{definition}
-When $\{X_i\}$ are negatively related, we have 
+ When the  $X_i$'s are negatively related, we have 
 \begin{equation}
   \nonumber % \label{monotonecoupling1}
-   \E\lvert W + 1 - W^s\rvert
+   \E [ \lvert W + 1 - W^s\rvert ] 
    = \E_m  [ W + 1 - W^s ] 
-   = \mu^{-1}(\mu - \sigma^2),
+% = \mu^{-1}(\mu - \sigma^2),
+   = 1 - \frac{\sigma^2}{\mu},
 \end{equation}
-where $\mu = \E_m [W]$ and $\sigma^2 = \var(W)$.
+where $\mu := \E_m [W]$ and $\sigma^2 := \var_m [ W ]$.
  On the other hand, if $\{X_i\}$ are positively related, then
 \begin{align}\label{monotonecoupling2}
    \E_m [\lvert W + 1 - W^s\rvert ]
@@ -3402,12 +3429,11 @@ where $\mu = \E_m [W]$ and $\sigma^2 = \var(W)$.
    \nonumber\\
    &\le \E_m  \bigg[
      \sum_{j \ne B} (X_j^{(B)} - X_j) + X_B\bigg] \nonumber\\
-   &= \E_m  [ W^s - W - 1 ] + 2\mu^{-1} \sum_{i \in \ci} \bar{p}_i^2 \nonumber\\
-   &= \mu^{-1}(\sigma^2 - \mu) + 2\mu^{-1} \sum_{i \in \ci} \bar{p}_i^2.
+   &= \E_m  [ W^s - W - 1 ] + \frac{2}{\mu} \sum_{i \in \ci} \bar{p}_i^2 \nonumber\\
+   &= - 1 + \frac{\sigma^2}{\mu} + \frac{2}{\mu} \sum_{i \in \ci} \bar{p}_i^2.
 \end{align}
 % \subsubsection*{Stein-Chen method}
- In what follows, we consider 
- the family
+ In what follows, we consider the family
         $\{I_\beta \}_{\beta \in [m_1]\times\cdots\times[m_d]}$
  of Bernoulli random variables
  appearing  in \eqref{ustat} and defined as 
@@ -3434,7 +3460,7 @@ $\alpha\in[m_1]\times\cdots\times[m_d]$.
  $\{I_\alpha\}_{\alpha\in\ci}$
  defined as follows.
  For each $\alpha\in\ci$, let the Bernoulli random variables $\{I_\beta^{(\alpha)}\}_{\beta\in\ci,\beta\ne\alpha}$ be defined as follows.
-\begin{enumerate}
+\begin{enumerate}[i)]
 \item 
 For $\beta\in\ci$ such that $\beta(\ell)\ne\alpha(\ell)$ for all $\ell=1,\dots,d,$ we take
 $I_\beta^{(\alpha)}:=I_{\beta}$. 
@@ -3476,8 +3502,7 @@ and
 	\end{cases}
 \end{equation*}
 \end{enumerate}
-It is easy to verify that $\law(I_{\beta}^{(\alpha)})=\law\left(I_\beta\big|I_\alpha=1\right)$. In addition,
-it is straightforward by construction
+It is easy to verify that $\law(I_{\beta}^{(\alpha)})=\law\left(I_\beta\big|I_\alpha=1\right)$. In addition, it is straightforward by construction
 that $I_{\beta}^{(\alpha)}\ge I_\beta$, for all $\beta\ne\alpha$, and $\alpha\in\ci$.
 \end{Proof} 
  For $\alpha\in\ci$, we denote $\underline{\alpha}:=\{\alpha(1),\dots,\alpha(d)\}$, and for $\alpha\in\ci$ fixed we define 
@@ -3500,21 +3525,15 @@ that $I_{\beta}^{(\alpha)}\ge I_\beta$, for all $\beta\ne\alpha$, and $\alpha\in
 		1,\ \ \ &\mbox{when~}i=d.
 	\end{cases}
 \end{align}
-For integer-valued random variables $X$ and $Y$, the total variation distance between $\law(X)$ and $\law(Y)$ is given by 
-\begin{equation}
-  \label{dtv}
-  \dtv( X,Y):=\sup_{A\subseteq\Z}|\P_m (X\in A)-\P_m (Y\in A)|,
-\end{equation}
- with $\Z:=\{0,\pm1,\pm2,\dots\}$ standing for the set of signed integers.
 % \section{Poisson approximation}
 \begin{theorem}\label{poi-thm}
   Let $d\geq 2$ and $t\in [(k-1)r,kr]$,
   and let $\sigma_k (t)=\sum_{\alpha\in\ci}I_\alpha$ be the $k$-hop count defined in
   \eqref{ustat}, with $I_\alpha$ given in
-  \eqref{ibeta} and $\lambda (t):=\E_m  [ \sigma_k (t) ]>0$.
+  \eqref{ibeta} and $\lambda_k (m,t):=\E_m  [ \sigma_k (t) ]>0$.
   Then, we have
 \begin{align}
-  \dtv(\sigma_k (t),\Pn(\lambda (t)))&\le
+  \dtv(\sigma_k (t),\Pn(\lambda_k (m,t)))&\le
   \tilde{p}_m
   + 
   \sum_{i=1}^{d-1}\nu(i)p_m^{d+1-i},
@@ -3533,7 +3552,7 @@ where
 \begin{Proof}
   In what follows, we let
   $W:  =\sigma_k (t)=\sum_{\alpha\in\ci}$
-  and $\lambda: = \lambda (t)$.
+  and $\lambda: = \lambda_k (m,t)$.
   By the Stein-Chen method, we have 
 \begin{align}
 	\dtv( W ,\Pn(\lambda ))&= \sup_{A\subseteq \Z}|\P_m (W\in A)-\Pn(\lambda)\{A\}|\nonumber\\
@@ -3547,12 +3566,14 @@ where $f_A$ is the unique solution for $h(\cdot)=\bone(\cdot\in A)$ in \eqref{st
 where $\Delta f_A(j):=f_A(j+1)-f_A(j)$.
 	From Proposition~\ref{coupling-1}, together with estimates in \eqref{monotonecoupling2}, we have
 \begin{align}
-\left|\E[\lambda f_A(W+1)-Wf_A(W)]\right|&= \left|\lambda\E[f_A(W+1)-f_A(W^s)]\right|\nonumber\\
-				    &\le\lambda \|\Delta f_A\|\ \E|W+1-W^s|\nonumber\\
+\left|\E[\lambda f_A(W+1)-Wf_A(W)]\right|&= \lambda \left| \E[f_A(W+1)-f_A(W^s)]\right|\nonumber\\
+				    &\le\lambda \|\Delta f_A\| \ \! \E [ |W+1-W^s| ] \nonumber\\
 				    &\le\lambda^{-1}(\sigma^2 - \lambda) + 2\lambda^{-1} \sum_{\alpha \in \ci} (\P_m (I_\alpha=1))^2\nonumber\\
-				    &=\lambda^{-1}(\sigma^2 - \lambda)+2\tilde{p}_m,\label{err01}
+&=
+2\tilde{p}_m + \frac{\sigma^2}{\lambda} - 1,
+\label{err01}
 \end{align}
-where $\sigma:=\Var(W)$. 
+where $\sigma:=\Var [ W]$. 
 Moreover, we have 
 \begin{align}
   \nonumber
@@ -3585,19 +3606,31 @@ Collecting \eqref{count-parti},
 \begin{align}
   \nonumber
   \sum_{\alpha\in\ci}\sum_{\beta\ne\alpha}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}_m
-  &=\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\cov(I_\alpha,I_\beta)-\lambda\tilde{p}_m
+  &=
+  -\lambda\tilde{p}_m
+  +
+  \sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\cov(I_\alpha,I_\beta)
   \\
   \nonumber
-  &\le\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\left(\tilde{p}_mp_m^{d+1-i}-\tilde{p}_m^2\right)-\lambda\tilde{p}_m
+  &\le
+  -\lambda\tilde{p}_m
+  + \sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\left(\tilde{p}_mp_m^{d+1-i}-\tilde{p}_m^2\right)
   \\
   \nonumber
-  &\le\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\tilde{p}_mp_m^{d+1-i}-\lambda\tilde{p}_m
+  &\le
+  -\lambda\tilde{p}_m
+  + \sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\sum_{\substack{\beta\in\ci\\|\underline{\beta}\cap\underline{\alpha}|=i}}\tilde{p}_mp_m^{d+1-i}
   \\
   \nonumber
-  &=\sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\nu(i)\tilde{p}_mp_m^{d+1-i}-\lambda\tilde{p}_m
+  &=
+  -\lambda\tilde{p}_m
+  + \sum_{\alpha\in\ci}\sum_{i=1}^{d-1}\nu(i)\tilde{p}_mp_m^{d+1-i}
   \\
   \nonumber
-  &=\lambda\sum_{i=1}^{d-1}\nu(i)p_m^{d+1-i}-\lambda\tilde{p}_m.\label{err05}
+  &=
+  -\lambda\tilde{p}_m
+  +
+  \lambda\sum_{i=1}^{d-1}\nu(i)p_m^{d+1-i}.\label{err05}
 \end{align}
 Combining 
 \eqref{err01}, \eqref{err02} and \eqref{err05}, it shows that
@@ -3607,30 +3640,36 @@ Combining
 Combining with \eqref{steinest01}, the proof is complete. 
 \end{Proof}
  We note that in order to ensure Poisson approximation, there is no need to force $\E_m  [\sigma_k (t)]$ to converge to a constant $\mu$. 
-  Poisson approximation by Stein-Chen method does not require $\E_m  [\sigma_k (t)]$ be a constant. In fact, $\E_m  [\sigma_k (t)]$ can be large.
+ Poisson approximation by Stein-Chen method does not require $\E_m  [\sigma_k (t)]$
+  to be a constant. In fact, $\E_m  [\sigma_k (t)]$ can be large.
   \begin{corollary}
     \label{c2} 
+    (Poisson convergence, thermodynamic regime).
+
+    \noindent
     Let $d\geq 2$ and $t\in [(k-1)r,kr]$,
-     and assume that $m_1=m_2=\cdots=m_d=m$,
-  and assume that $m^dp_m^{d+1}\to c\in(0,\infty)$.
+     assume that $m_1=m_2=\cdots=m_d=m$,
+     and that $p_m \asymp m^{-1+1/d}$. 
+% $$ \lim_{m\to \infty} m^dp_m^{d+1} = c\in(0,\infty). $$ 
   Then, as $m$ tends to infinity we have
 \begin{align}
-  \dtv(\sigma_k (t),\Pn(\lambda))&
+  \dtv(\sigma_k (t),\Pn(\lambda_k (m,t)))&
   \asymp m^{-1/(d+1)}.
 \nonumber % \label{po-error1}
 \end{align}
 \end{corollary}
 \begin{Proof}
-  We have $\nu(i)\asymp m^{d-i}$,
+  By \eqref{count-parti} we have $\nu(i)\asymp m^{d-i}$,
    hence the error bound in \eqref{po-error1} is of order 
-	$$\sum_{i=1}^{d-1}m^{d-i}p_m^{d+1-i}+p_m^{d+1}\asymp \sum_{i=1}^{d-1}m^{d-i}(m^{-\frac{d}{d+1}})^{d+1-i}\asymp m^{-1/(d+1)}.$$
+   $$\sum_{i=1}^{d-1}m^{d-i}p_m^{d+1-i}+p_m^{d+1}\asymp \sum_{i=1}^{d-1}m^{d-i}
+   \big( m^{- d / ( d+1) } \big)^{d+1-i}\asymp m^{-1/(d+1)}.$$
 \end{Proof}
  In the case $d=1$, 
- Poisson convergence also holds $\sigma_2(t)$ when
- $mp_m^2\to c\in(0,\infty)$ from
- \eqref{d=1}.
-
- \appendix
+ Poisson convergence also holds from
+ \eqref{d=1} for $\sigma_2(t)$ when
+ $\lim_{m\to \infty} mp_m^2 = c\in(0,\infty)$.
+ 
+\appendix
 
 \section{Moments and cumulants} 
 In this section we gather some preliminary facts 
@@ -3810,7 +3849,7 @@ $\mathbf{X}_b$ is defined as
  $\mathbf{X}_b$
  is defined as 
  \begin{equation*}
-\kappa(\mathbf{X}_b)=(-i)^k\frac{\partial^k}{\partial t_1\cdots\partial t_k}\ln \varphi_{\mathbf{X}_b}(t_1,\dots,t_k)\vert_{t_1=\cdots=t_k=0}. 
+\kappa(\mathbf{X}_b)=(-i)^k\frac{\partial^k}{\partial t_1\cdots\partial t_k}\ln \varphi_{\mathbf{X}_b}(t_1,\dots,t_k)_{\big| t_1=\cdots=t_k=0}. 
 \end{equation*}
 For any random variable $\xi$, we let
 $\xi'_b:=(\xi,\dots,\xi)$ denote the random vector with $|b|$
@@ -3854,9 +3893,9 @@ and write $\kappa_n(\xi):=\kappa(\xi'_{[n]})$ for the $n$-$th$ order
  \cite[Corollary~2.1]{saulis} and \cite[Theorem~2.4]{doering})
   One has
 \begin{equation*}
-\sup_{x\in\real }|\P_m (X_n\leq x)-\Phi(x)|\leq \frac{C(\gamma )}{(\Delta_n)^{1/(1+2\gamma)}},
+\sup_{x\in\real }|\P_m (X_n\leq x)-\Phi(x)|\leq \frac{C_\gamma}{(\Delta_n)^{1/(1+2\gamma)}},
 \end{equation*}
-for some $C(\gamma ) >0$ depending only on $\gamma$.
+for some $C_\gamma >0$ depending only on $\gamma$.
 \item (Moderate deviation principle,
   \cite[Theorem~1.1]{doring} and \cite[Theorem~3.1]{doering}).
   Let $( a_n )_{n \geq 1}$ be a sequence of real numbers tending to infinity, and such that 
@@ -3897,6 +3936,11 @@ for some $C(\gamma ) >0$ depending only on $\gamma$.
   \def\polhk#1{\setbox0=\hbox{#1}{\ooalign{\hidewidth
   \lower1.5ex\hbox{`}\hidewidth\crcr\unhbox0}}} \def\cprime{$'$}
 \begin{thebibliography}{KGKP21}
+
+\bibitem[CCCB25]{bhattacharya25}
+S.~Chatterjee, A.~Chatterjee, A.~Chakraborty and B.~Bhattacharya
+\newblock Asymptotic Normality of Subgraph Counts in Sparse Inhomogeneous Random Graphs.
+\newblock {\em arXiv preprint arXiv:2512.12937.}
 
 \bibitem[BCJ23]{bhattacharya23}
 B.~Bhattacharya, A.~Chatterjee, and S.~Janson.
@@ -3976,12 +4020,6 @@ S.~Janson, T.~{\L}uczak, and A.~Ruci{\'n}ski.
 A.P. Kartun-Giles, K.~Koufos, and N.~Privault.
 \newblock Connectivity of 1d random geometric graphs.
 \newblock Preprint arXiv:2105.07731, 2021.
-
-\bibitem[Kho08]{khorunzhiy}
-O.~Khorunzhiy.
-\newblock On connected diagrams and cumulants of {E}rd{\Horig{o}}s-{R}\'enyi
-  matrix models.
-\newblock {\em Comm. Math. Phys.}, 282:209--238, 2008.
 
 \bibitem[LP24]{LiuPrivault}
 Q.~Liu and N.~Privault.
@@ -4754,22 +4792,22 @@ $d \geq 1$.
 % \label{fsklf34}
   Let $k\geq 2$ and $t\in [(k-1)r,kr)$.
   The normalized $k$-hop count 
-$\widebar{\sigma}_k^{(m)} (t)$ 
+$\widebar{\sigma}_k (t)$ 
 satisfies the Wasserstein and Kolmogorov bounds 
 \begin{equation}
 \label{fjkldsf-2} 
 % d_K( \widebar{\sigma}_k (t) , {\cal N} ) :=
-d_{K/W} \big( \widebar{\sigma}_k^{(m)} (t) , {\cal N} \big)
-\leq \frac{C(k,r)}{\sqrt{\lambda}}
+d_{K/W} \big( \widebar{\sigma}_k (t) , {\cal N} \big)
+\leq \frac{C_{k,r}}{\sqrt{\lambda}}
 \end{equation} 
- for some constant $C(k,r)>0$, as $\lambda$ tends to infinity. 
+ for some constant $C_{k,r}>0$, as $\lambda$ tends to infinity. 
 \end{prop}
 \begin{Proof}
- The kurtosis of $\sigma_k^{(m)}(t )$ satisfies 
+ The kurtosis of $\sigma_k (t )$ satisfies 
 \begin{eqnarray*} 
  \frac{\E_\lambda [ ( \sigma_k(t) -  \E_\lambda [ \sigma_k(t) ] )^4 ]}{( \Var_\lambda [ \sigma_k (t)] )^2} - 3
  & = & 
- \E_\lambda \big[ \big( \widebar{\sigma}_k^{(m)}(t) \big)^4 \big] - 3 
+ \E_\lambda \big[ \big( \widebar{\sigma}_k (t) \big)^4 \big] - 3 
  \\
  & = & 
  \frac{c_{k,4}^{(m)} (kr-t;kr-t;kr-t;kr-t)}{( \Var_\lambda [ \sigma_k (t)] )^2} 
@@ -4841,9 +4879,9 @@ $$
   \\
 % & \lesssim &
   & \leq & 
-  \frac{C(k)}{\sqrt{m r}} 
+  \frac{C_k}{\sqrt{m r}} 
   +
-  C(k,r) \sum_{2\leq i \leq j < k}
+  C_{k,r} \sum_{2\leq i \leq j < k}
   ( m r)^{1-i/2-j/2}. 
 \end{eqnarray*}
  The above conclusions can also be reached by 
@@ -4875,7 +4913,7 @@ By \cite{rudzkis},
    \begin{equation}
 \nonumber % \label{fjkf} 
  d_K \big( \widebar{\sigma}_k^{(m)} (t) , {\cal N} \big) 
-\leq \frac{C(k,r)}{\lambda^{1/(2 + 4(k-3))}}
+\leq \frac{C_{k,r}}{\lambda^{1/(2 + 4(k-3))}}
 \end{equation} 
    for $t\in [(k-1)r,kr)$, as $\lambda$ tends to infinity.
 \begin{corollary}
