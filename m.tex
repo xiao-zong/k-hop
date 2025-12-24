@@ -531,11 +531,11 @@ In Section~\ref{sec6}, we derive a general cumulant bound for $\sigma_k(t)$; see
 \begin{equation*}
     \kappa_n\big(\widebar{\sigma}_k (t)\big)\leq \begin{cases}
       \displaystyle
-      \frac{C n!^{d+1}}{(m p_m)^{n/2-1}} & \text{when } p_m \gg m^{-(d-1)/d},
+      \frac{C n!^{d+1}}{(m p_m)^{n/2-1}} & \text{when } p_m \gg m^{-1+1/d},
       \medskip
       \\
       \displaystyle
-      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}} & \text{when } p_m\ll m^{-1},
+      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}} & \text{when } \textcolor{blue}{p_m\ll m^{-1+1/d}},
     \end{cases}
 \end{equation*}
 $n\ge3$, where $C$ is a constant independent of $m \geq 1$. 
@@ -659,12 +659,12 @@ $$
  \medskip
 
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.94\linewidth]{kops_new-crop}
-\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
-\label{fklds} 
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=0.94\linewidth]{kops_new-crop}
+%\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
+%\label{fklds} 
+%\end{figure}
 
 
 \vskip-0.4cm
@@ -2639,8 +2639,8 @@ $$
 \textcolor{blue}{On the other hand,
   when $m^{-1+1/d}\gg p_m\gtrsim m^{-1}$, we have $mp_m^2\ll 1$ since
   $d\ge2$, and $mp_m\gtrsim1$,
-  hence for all $d+n\le q \le 1+(d-1)n$
-  we find that 
+ hence for all $d+n\le q \le 1+(d-1)n$, 
+ we find that 
 \begin{align*}
 	(mp_m)^{-(q-d)}p_m^{-(n-1)}&\gtrsim (mp_m)^{-(d-1)(n-1)}p_m^{-(n-1)}\\
   &
@@ -2654,7 +2654,7 @@ $$
 \textcolor{blue}{m^dp_m^{d+1}\gg m^qp_m^{\zeta(n,d,q)}.}
 $$
  Hence, given that $\zeta (n,d,d) = d+1$,
- \textcolor{blue}{when $p_m\ll m^{-1+1/d}$}
+ \textcolor{blue}{when $p_m\ll m^{-1+1/d}$} 
  we obtain from \eqref{fjkldf} that for $m$ large enough,
 \begin{align*}
  \vert\kappa_n(\sigma_k (t))\vert &\leq n^{n-1}
@@ -3274,8 +3274,11 @@ $$
 }where $C_d>0$ depends only on
     $d \geq 2$. 
 \end{corollary}
-In particular, if
- $p_m \sim m^{-\alpha}$ with $\alpha \in [0,1 - 1/d)$, we find 
+In particular, \textcolor{blue}{
+\begin{enumerate}
+	\item[i)]
+if
+ $p_m \sim m^{-\alpha}$ with $\alpha \in [0,1 - 1/d)$, we have 
     \begin{equation}
 \nonumber 
       \sup_{x\in\real}\left|
@@ -3283,8 +3286,20 @@ In particular, if
       \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{m^{(\textcolor{red}{1-\alpha} )/(2+4d)}},
     \end{equation}
     where $C_d>0$ depends only on
-    $d \geq 2$.
+    $d \geq 2$;
+\item[ii)]
+	if $p_m \sim m^{-\alpha}$ with $\alpha \in [1 - 1/d,\frac{d}{d+1})$, we have 
+    \begin{equation}
+\nonumber 
+      \sup_{x\in\real}\left|
+      \P_m \left(
+      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{m^{[d-\alpha(d+1)]/(2+4d)}},
+    \end{equation}
+    where $C_d>0$ depends only on
+    $d \geq 2$;
+\end{enumerate}}
 % \noindent 
+    
  In the case $d=1$, the central limit Berry-Esseen rate holds
  since $\sigma_2(t)$ has a binomial distribution
  with parameter in \eqref{d=1}.
@@ -3329,7 +3344,7 @@ In particular, if
    \lim_{m\to \infty} \frac{\kappa_1(\sigma_k (t) )^2}{\kappa_2(\sigma_k (t) )+\kappa_1(\sigma_k (t) )^2}
    = 1.
  \end{eqnarray}
- On the other hand, if $p_m\ll m^{-1}$, from
+ On the other hand, if $p_m\ll \textcolor{blue}{m^{-d/(d+1)}}$, from
   \eqref{fjkdls-0} we have 
  \begin{equation}
 \nonumber
