@@ -659,12 +659,12 @@ $$
  \medskip
 
 
-%\begin{figure}[H]
-%\centering
-%\includegraphics[width=0.94\linewidth]{kops_new-crop}
-%\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
-%\label{fklds} 
-%\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\linewidth]{kops_new-crop}
+\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
+\label{fklds} 
+\end{figure}
 
 
 \vskip-0.4cm
@@ -2528,7 +2528,7 @@ Let $d\geq 2$ and $t\in [(k-1)r,kr]$.
     |\kappa_n(\sigma_k (t))|\leq
    n^{n-1}n!^d m^{1+(d-1)n}p_m^{nd+1}. 
   \end{equation}
-\item {\bf Sparse regime}, $p_m\ll m^{-1}$.
+\item {\bf Sparse regime}, $\textcolor{blue}{p_m\ll m^{-1+1/d}}$.
    For $m$ large enough, we have 
     \begin{equation}
       \label{upp-2}
@@ -2608,7 +2608,7 @@ $i)$ For $q=d,\ldots , (d-1)n$, we have
 \smallskip
  
 \noindent
- $ii)$ When $p_m\ll m^{-1}$, for all $q=d+1,\ldots, 1+(d-1)n$ we have
+$ii)$ \textcolor{blue}{For} all $q=d+1,\ldots, 1+(d-1)n$, we have
 \begin{align}
   \label{fjkldfaa1-2}
   \frac{m^d p_m^{d+1}}{m^q p_m^{\zeta(n,d,q)}}&=m^{-(q-d)}p_m^{-(\zeta(n,d,q)-d-1)}
@@ -2622,23 +2622,33 @@ $i)$ For $q=d,\ldots , (d-1)n$, we have
   \nonumber
   &=\begin{cases}m^{-(q-d)}p_m^{-2(q-d)}\ \ \ \ &\mbox{for}~d+1\le q\le d+n-1;
   \\[0.6ex]
-		m^{-(q-d)}p_m^{-(q-d)-(n-1)},\ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n,
+m^{-(q-d)}p_m^{-(q-d)-(n-1)},\ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n,
   \end{cases}
-  \\  
-  \nonumber
+  \\  \label{cum-asy1}
   &=\begin{cases}\left(mp_m^2\right)^{-(q-d)}\ \ \ \ \ &\mbox{for}~d+1\le q\le d+n-1;
-  \\[0.6ex]
-  \nonumber
-		\left(mp_m\right)^{-(q-d)}p_m^{-(n-1)},\ \ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n, 
-						    \end{cases}
+  \\
+  \textcolor{red}{\left(mp_m\right)^{-(q-d)}p_m^{-(n-1)}},\ \ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n. 
+   \end{cases}
 \end{align}
- hence 
+\textcolor{blue}{Hence, when $p_m\ll m^{-1}$, we have} 
 $$
 m^dp_m^{d+1}\gg m^q p_m^{\zeta(n,d,q)}, \quad 
- q=d+1,\ldots , 1+(d-1)n, 
+ q=d+1,\ldots , 1+(d-1)n. 
 $$
- and given that $\zeta (n,d,d) = d+1$,
- from \eqref{fjkldf} we obtain, for $m$ large enough, 
+\textcolor{blue}{Moreover, when $m^{-1+1/d}\gg p_m\gtrsim m^{-1}$, we have $mp_m^2\ll 1$ as $d\ge2$, and also $mp_m\gtrsim1$. Hence,  if $m^{-1+1/d}\gg p_m\gtrsim m^{-1}$, 
+\begin{align*}
+	(mp_m)^{-(q-d)}p_m^{-(n-1)}&\gtrsim (mp_m)^{-(d-1)(n-1)}p_m^{-(n-1)}\\
+					       &=[(mp_m)^{d-1}p_m]^{-(n-1)}\gg1
+\end{align*}
+for $d+n\le q \le 1+(d-1)n$.
+In conlusion, from \eqref{cum-asy1}, we know that when $p_m\ll m^{-1+1/d}$, 
+$$
+m^dp_m^{d+1}\gg m^qp_m^{\zeta(n,d,q)},
+$$
+for $q=d+1,\dots,1+(d-1)n$. 
+}
+ And given that $\zeta (n,d,d) = d+1$,
+ from \eqref{fjkldf} we obtain, for $m$ large enough, \textcolor{blue}{when $p_m\ll m^{-1+1/d}$}
 \begin{align*}
   \vert\kappa_n(\sigma_k (t))\vert &\leq n^{n-1}
   \sum_{q=d}^{1+(d-1)n} |\mathcal{C}(n,d,q)|m^q p_m^{\zeta (n,d,q)}\\
@@ -2666,7 +2676,7 @@ $$
     n^{n-1}n!^d m^{1+(d-1)n}p_m^{nd+1},
      \quad m \geq 1. 
   \end{equation}
-\item If $p_m\leq m^{-1}$, $m\geq 1$, then we have 
+\item If $p_m\leq \textcolor{blue}{m^{-1+1/d}}$, $m\geq 1$, then we have 
     \begin{equation}
     \nonumber %   \label{upp-2}
       |\kappa_n(\sigma_k (t))|\leq
@@ -2695,7 +2705,7 @@ $$
 . 
   \end{equation}
 % where $C>0$ is a constant independent of $m \geq 2d-1$.
-\item {\bf Sparse regime}, $p_m\ll m^{-1}$. 
+\item {\bf Sparse regime}, \textcolor{blue}{$p_m\ll m^{-1+1/d}$}. 
    We have % the equivalence
   \begin{equation}
     \label{low-2}
@@ -3115,11 +3125,11 @@ $$
   \begin{eqnarray*}
     \kappa_n\left(\widebar{\sigma}_k (t)\right)\leq \begin{cases}
       \displaystyle
-      \frac{C n!^{d+1}}{(m p_m)^{n/2-1}}~~~~~~~{when}~~~p_m \gg m^{-(d-1)/d},
+      \frac{C n!^{d+1}}{(m p_m)^{n/2-1}},~~~~~~~&\mathrm{when}~~~p_m \gg m^{\textcolor{red}{-1+1/d}},
       \medskip
       \\
       \displaystyle
-      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}}~~~~{when}~~~p_m\ll m^{-1},
+      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}},~~~~&\mathrm{when}~~~p_m\ll m^{\textcolor{blue}{-1+1/d}},
     \end{cases}
 \end{eqnarray*}
  $n\ge3$, where $C>0$ is a constant independent of $m \geq 1$.
@@ -3127,7 +3137,7 @@ $$
 \begin{Proof}
 % From the inequality $\sqrt{2\pi j}({j}/{e})^j<j!$, we have
 % \begin{equation} j^{j-1}<\frac{(j-1)!}{\sqrt{2\pi j}}e^j. \end{equation}
-  $i)$ When $p_m \gg m^{-(d-1)/d}$, from the inequalities  
+  $i)$ When $p_m \gg m^{-1+1/d}$, from the inequalities  
   \eqref{low-1} and \eqref{upp-1} we have 
   \begin{align*}
     \nonumber
@@ -3150,7 +3160,7 @@ $$
 \frac{(2 (kr-t) /r)^{2d-1}}{2(2d-1)!}
       \right)^{-n/2}. 
 \end{align*}
-  $ii)$ When $p_m\ll m^{-1}$, from   
+$ii)$ When \textcolor{blue}{$p_m\ll m^{-1+1/d}$}, from   
   % , from the inequality $$  \frac{m!}{(m-d)!}\ge (m-d+1)^d=\left(1-\frac{d-1}m\right)^dm^d \ge \left( \frac{3m}{4} \right)^d $$ and
  \eqref{low-2} and \eqref{upp-2} we similarly have 
   \begin{align*}
@@ -3193,11 +3203,11 @@ $
   \begin{eqnarray*}
     \kappa_3\left(\widebar{\sigma}_k (t)\right)\leq \begin{cases}
       \displaystyle
-      \frac{C}{(m p_m)^{1/2}}~~~~~~~{when}~~~\textcolor{red}{p_m} \gg m^{-1+1/d},
+      \frac{C}{(m p_m)^{1/2}}~~~~~~~&\mathrm{when}~~~\textcolor{red}{p_m} \gg m^{-1+1/d},
       \medskip
       \\
       \displaystyle
-      \frac{C}{(m^d p_m^{d+1})^{1/2}}~~~~{when}~~~p_m\ll m^{-1},
+      \frac{C}{(m^d p_m^{d+1})^{1/2}}~~~~&\mathrm{when}~~~\textcolor{blue}{p_m\ll m^{-1+1/d}},
     \end{cases}
 \end{eqnarray*}
   for $m$ large enough, where $C>0$ is a constant independent of $m \geq 1$.
@@ -3208,19 +3218,26 @@ $
  converges in distribution
  to the standard normal distribution ${\cal N}(0,1)$ as $m$
  tends to infinity, 
- provided that $p_m \gg m^{-1+1/d}$ as $m$ tends to
+ provided that $p_m \gg m^{\textcolor{blue}{-d/(d+1)}}$ as $m$ tends to
  infinity.
 
  \medskip
  
- From Corollary~\ref{cjkfl}, we check that if
- $p_m \gg m^{-1+1/d}$, the cumulants of the normalized
+ More precisely, from Corollary~\ref{cjkfl}, we check that if
+ $p_m \gg \textcolor{blue}{m^{-d/(1+d)}}$, the cumulants of the normalized
  $U$-statistics 
  $\widebar{\sigma}_k (t)$ satisfy the Statulevi\v{c}ius growth condition 
  \eqref{Statuleviciuscond2} with $\gamma := d$ and 
  $$
- \Delta_m := 
- C (m p_m)^{1/2}, 
+ \Delta_m :=\textcolor{blue}{
+\begin{cases}
+	C(mp_m)^{1/2},~~~~~~~&\mathrm{when}~~~p_m\gg m^{-1+1/d},
+	\medskip
+	\\
+	\displaystyle
+	C(m^dp_m^{d+1})^{1/2},~~~~~~~&\mathrm{when}~~~m^{-1+1/d}\gtrsim p_m\gg m^{-d/(d+1)},
+\end{cases}
+ } 
 $$ 
       where $C>0$ depends only on
       $d \geq 2$.
@@ -3228,26 +3245,32 @@ $$
  we have the following results.
 \begin{corollary}
 \label{thm4.2-1}
- (Kolmogorov bound, dense regime). 
+\textcolor{blue}{(Kolmogorov bound)}. 
 % Let $f:[0,r]^d \to\real$ be a measurable function satisfying Assumption~\ref{assu1}, with $d\geq 2$.
     % Denote $W:=\frac{S_{n,k}(f)-\kappa_1(S_{n,k}(f))}{\sqrt{\kappa_2(S_{n,k}(f))}}$,
 
 \noindent
-Let $d\geq 2$, $t\in [(k-1)r,kr]$, and assume that $p_m \gg m^{-1+1/d}$. 
-  Then, for $m$ large enough, we have 
-    \begin{equation}
-    \label{fjkf}
+\textcolor{blue}{Let $d\geq 2$, $t\in [(k-1)r,kr]$. Then, for $m$ large enough, we have 
+    \begin{equation*}
       \sup_{x\in\real}\left|
       \P_m \left(
-      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{(m p_m)^{1/(2+4d)}},
-    \end{equation}
-    where $C_d>0$ depends only on
+      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq
+\begin{cases}
+	\displaystyle
+	\frac{C_d}{(mp_m)^{1/(2+4d)}},~~~~&\mathrm{when}~~~p_m\gg m^{-1+1/d},
+	\medskip
+	\\
+		\displaystyle
+	\frac{C_d}{(m^dp_m^{d+1})^{1/(2+4d)}},~~~~&\mathrm{when}~~~m^{-1+1/d}\gtrsim p_m\gg m^{-d/(d+1)},
+\end{cases}
+    \end{equation*}
+}where $C_d>0$ depends only on
     $d \geq 2$. 
 \end{corollary}
 In particular, if
  $p_m \sim m^{-\alpha}$ with $\alpha \in [0,1 - 1/d)$, we find 
     \begin{equation}
-\nonumber % \label{fjkf}
+\nonumber 
       \sup_{x\in\real}\left|
       \P_m \left(
       \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{m^{(\textcolor{red}{1-\alpha} )/(2+4d)}},
