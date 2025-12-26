@@ -62,7 +62,8 @@
 \definecolor{mauve}{rgb}{0.7,0,0.43}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{darkgreen}{rgb}{0,0.6,0}
-\definecolor{darkorange}{rgb}{1.0, 0.55, 0.0}
+%\definecolor{darkorange}{rgb}{1.0, 0.55, 0.0}
+\definecolor{darkorange}{rgb}{1,0.549,0}
 \definecolor{lightblue}{rgb}{0,0.2,0.5}
 \definecolor{blue1}{rgb}{0,0.1,0.9}
 
@@ -325,7 +326,7 @@
 
 \newcommand{\re}{\mathrm{e}}            % Roman e for exponential
 
-\title{\huge Phase transition for $k$-hop connectivity in one-dimensional binomial random\textcolor{red}{-connection models}} % -connection models}}
+\title{\huge Phase transition for $k$-hop connectivity in one-dimensional binomial random-connection models} % -connection models}}
  
 \date{\normalsize \today} 
 %\today 
@@ -443,9 +444,23 @@ with a location-dependent probability.
 
  In this paper, we study a one-dimensional 
  unit disk binomial RCM with connection radius $r>0$
- on a finite interval, see \cite{drory1997},
- as illustrated Figure~\ref{fjkld23}.  
- Our focus is on multi-hop connecticity, specifically the number of paths of length $k$ (referred to as $k$-hop paths) connecting two fixed endpoints. Multi-hop connectivity plays a central role in applications including wireless networks, device-to-device and/or station-to-device communications in cellular networks, and spread of infection. 
+ on a finite interval, as illustrated Figure~\ref{fjkld23},
+ see also \cite{drory1997,wilsher,han2007}
+ for the case of one-dimensional random geometric graphs (RGGs),
+ for which the connection probability is either $0$ or $1$, 
+ and \cite{liebreview}
+ for the corresponding one-dimensional statistical physics.
+ One-dimensional RCMs and RGGs have been used to model
+ Vehicular Ad-Hoc Networks (VANETs)
+ \cite{ng2011,zhang2012,zzhang2014}
+ or Mobile Ad-Hoc Networks (MANETs) \cite{foh2005},
+ see \cite{shang2009} for access point connectivity.
+ 
+\medskip
+ 
+ Our focus is on multi-hop connectivity, specifically the number of paths of length $k$ (referred to as $k$-hop paths) connecting two fixed endpoints.
+ Multi-hop connectivity plays a central role in applications including wireless networks, device-to-device and/or station-to-device communications in cellular networks, and spread of infection.
+
 %   \vspace{-11cm}
  \begin{figure}[H]
    \begin{center}
@@ -495,20 +510,18 @@ table {
 
    \noindent
 % \noindent
-   \textcolor{red}{Specifically, we examine a system where nodes are distributed over the interval 
+Specifically, we examine a system where nodes are distributed over the interval 
    $[0, kr]$, with $k \geq 2$, according to a binomial point process $\eta$. This process is constrained such that $m_i$ points are located within each sub-interval (or ``cell'') $[(i-1)r, ir]$, $i=1, \ldots, k-1$. Two nodes located at positions $s$ and $t$ are connected by an edge independently with probability $p\in[0,1]$ if and only if $|t-s| \leq r$.
-}   
+   
 \medskip
 
-\textcolor{red}{
 Within this framework, a $k$-hop path is defined as a sequence of edges connecting two fixed endpoints through exactly $d:=k-1$ intermediate nodes.
 We investigate the random variable $\sigma_k(t)$, which counts the number of $k$-hop paths connecting the fixed endpoints located at $0$ and $t \in [(k-1)r, kr]$. An exact expression for the distribution of $\sigma_k(t)$
  was previously obtained via a combinatorial approach in \cite{giles-privault}.
-The present work focuses on the asymptotic behaviour of $\sigma_k(t)$ as the number of points in the underlying binomial point process tends to infinity.}
+The present work focuses on the asymptotic behaviour of $\sigma_k(t)$ as the number of points in the underlying binomial point process tends to infinity.
 \medskip
 
-\textcolor{red}{
-To this end, we employ the method of cumulants, see, for example, \cite{rudzkis, saulis, doring, thale18, doering}. This technique has recently proven successful in studying moderate deviations in random geometric graphs and weighted random-connection models \cite{schulte-thaele, heerten}, as well as normal approximations for subgraph counts in multidimensional random-connection models \cite{LiuPrivault}. Related results in settings with fixed endpoints can be found in \cite{LiuPrivault24}.}
+To this end, we employ the method of cumulants, see, for example, \cite{rudzkis, saulis, doring, thale18, doering}. This technique has recently proven successful in studying moderate deviations in random geometric graphs and weighted random-connection models \cite{schulte-thaele, heerten}, as well as normal approximations for subgraph counts in multidimensional random-connection models \cite{LiuPrivault}. Related results in settings with fixed endpoints can be found in \cite{LiuPrivault24}.
 
  \medskip
 We first derive a combinatorial expression for the joint moments for $k$-hop counts for varying endpoints locations within $[(k-1)d,rk]$, see Proposition~\ref{p1}.
@@ -535,7 +548,7 @@ In Section~\ref{sec6}, we derive a general cumulant bound for $\sigma_k(t)$; see
       \medskip
       \\
       \displaystyle
-      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}} & \text{when } \textcolor{blue}{p_m\ll m^{-1+1/d}},
+      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}} & \text{when } p_m\ll m^{-1+1/d},
     \end{cases}
 \end{equation*}
 $n\ge3$, where $C$ is a constant independent of $m \geq 1$. 
@@ -566,30 +579,51 @@ Throughout, we denote by $\Phi$ the cumulative distribution function of the stan
 For $d\geq 2$ and a fixed endpoint $t\in [(k-1)r,kr]$, we identify the following
  regimes as $m$ tends to infinity. 
 \begin{enumerate}[i)] 
-	\item {\bf Dense regime}, $p_m \gg m^{-1+1/d}$.
+\item {\bf Dense regime},
+  $p_m \gg m^{-1+1/d}$.
            
-  We have $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$,
+  We have $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$, 
   see Corollary~\ref{graphcontain}-$i)$,
-   and the normalized count satisfies the Kolmogorov bound 
-    \begin{equation}
-   \nonumber % \label{fjkf}
-   \sup_{x\in\real }|\P_m (\widebar{\sigma}_k (t)\leq x)-\Phi(x)|
- \leq \frac{C_d}{(m p_m)^{1/(2+4d)}},
-    \end{equation}
+  and by Corollary~\ref{thm4.2-1}, 
+  the normalized count satisfies the Kolmogorov bound 
+\begin{equation*}
+      \sup_{x\in\real}\left|
+      \P_m \left(
+      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq
+	\displaystyle
+	\frac{C_d}{(mp_m)^{1/(2+4d)}}
+    \end{equation*}
     for $m$ large enough, 
     where $C_d>0$ depends only on
-    $d \geq 2$, see 
-    Corollary~\ref{thm4.2-1}.
-\item {\bf Thermodynamic regime},
- $p_m \asymp m^{-1+1/d}$.
+    $d \geq 2$.
+\item {\bf Mesoscopic regime},
+  $m^{-1+1/d}\gtrsim p_m\gg m^{-d/(d+1)}$.
 
- As $m$ tends to infinity we have
+  We have $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$, 
+  see Corollary~\ref{graphcontain}-$i)$,
+  and by Corollary~\ref{thm4.2-1}, 
+  the normalized count satisfies the Kolmogorov bound 
+\begin{equation*}
+      \sup_{x\in\real}\left|
+      \P_m \left(
+      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq
+		\displaystyle
+	\frac{C_d}{(m^dp_m^{d+1})^{1/(2+4d)}}
+    \end{equation*}
+    for $m$ large enough, 
+    where $C_d>0$ depends only on
+    $d \geq 2$.
+\item {\bf Thermodynamic regime},
+ $p_m \asymp m^{-d/(d+1)}$.
+
+ As $m$ tends to infinity,
+ by Corollary~\ref{c2} and \eqref{dtv}
+ we have
 \begin{align}
 	\dtv(\sigma_k (t),\Pn(\lambda_k (m,t)))&
   \asymp \frac{1}{m^{1/(d+1)}},
 \nonumber % \label{po-error1}
 \end{align}
-see Corollary~\ref{c2} and \eqref{dtv},
 where $\Pn(\lambda_k (m,t))$ denotes
   the Poisson distribution with parameter
   $\lambda_k (m,t):=\E_m[\sigma_k(t)]$,
@@ -601,7 +635,7 @@ where $\Pn(\lambda_k (m,t))$ denotes
 \end{equation}
 for integer-valued random variables $X$ and $Y$ % , the total variation distance between $\law(X)$ and $\law(Y)$ is given by
 with $\Z:=\{0,\pm1,\pm2,\dots\}$ standing for the set of signed integers.
-\item {\bf Sparse regime}, $p_m\ll m^{-1}$ .
+\item {\bf Sparse regime}, $p_m\ll m^{-d/(d+1)}$.
 
    We have the convergence in probability 
   $$
@@ -658,14 +692,12 @@ $$
 
  \medskip
 
-
 %\begin{figure}[H]
 %\centering
 %\includegraphics[width=0.94\linewidth]{kops_new-crop}
 %\caption{Graph of seven $5$-hop paths linking $x=0$ to $t=4.5$ with $r=1$ and $d=4$.} 
 %\label{fklds} 
 %\end{figure}
-
 
 \vskip-0.4cm
 
@@ -853,7 +885,7 @@ denote the single-block coarsest partition of $b$,
 \label{fig:diagram0-1}
 \end{figure}
  
- \vspace{-.4cm}
+\vspace{-.4cm}
   
 \noindent 
  We let $\Pi_{\widehat{1}}([n]\times[d])$ denote the collection of all
@@ -2338,7 +2370,7 @@ $$
 \end{equation}
   where $\mathcal{C}(n,d,q)$ represents the collection of
   all partitions $\rho$ on $[n]\times[d]$ connected, non-crossing
-  and having precisely $\textcolor{red}{q}$ blocks, and 
+  and having precisely $q$ blocks, and 
 \begin{equation}
 \nonumber % \label{min-edge}
  \zeta (n,d,q) :=\min
@@ -2469,14 +2501,14 @@ n^{n-1}p_m^{e(\rho_G )},
         1 \leq i \leq n, \ \sqcap (\alpha )=\rho
       }
       }
-      \kappa(u_{\textcolor{red}{t}} (\mathbf{U}_{\alpha_1})
+      \kappa(u_{t} (\mathbf{U}_{\alpha_1})
   ,
   \ldots
   ,
-  u_{\textcolor{red}{t}} (\mathbf{U}_{\alpha_n})
+  u_{t} (\mathbf{U}_{\alpha_n})
   )
 \\ 
-   &\textcolor{red}{\le}
+   &\le
 n^{n-1}
 \sum_{\rho\in{\rm CNC}([n]\times [d])}
     \sum_{\alpha_i\in [m]\times \cdots \times [m]
@@ -2495,7 +2527,7 @@ n^{n-1}
     m^q p_m^{\zeta (n,d,q)}
     \sum_{\substack{\rho\in{\rm CNC}([n]\times [d])\\|\rho|=q}} 1 
     \\ 
-    & \textcolor{red}{=} 
+    & = 
     n^{n-1}
     \sum_{q=d}^{1+(d-1)n}
     |\mathcal{C}(n,d,q)|
@@ -2517,8 +2549,6 @@ which yields \eqref{fjkldf} from Lemma~\ref{fkla12}-$i)$. % below.
  As a consequence of Theorem~\ref{jkldd12}, we have the following result. 
 \begin{theorem}
 \label{th7.5-1}
-% Assume that $\limsup_{m\to \infty} p_m < 1$.\footnote{\textcolor{red}{Should we remove this condition, here and in the SPA paper?}}
-% with $v(G)=k$ vertices,
 Let $d\geq 2$ and $t\in [(k-1)r,kr]$.
 \begin{enumerate}[i)]
 \item {\bf Dense regime}, $p_m\gg m^{-1+1/d}$.
@@ -2528,11 +2558,13 @@ Let $d\geq 2$ and $t\in [(k-1)r,kr]$.
     |\kappa_n(\sigma_k (t))|\leq
    n^{n-1}n!^d m^{1+(d-1)n}p_m^{nd+1}. 
   \end{equation}
-\item {\bf Sparse regime}, $\textcolor{blue}{p_m\ll m^{-1+1/d}}$.
-   For $m$ large enough, we have 
+\item {\bf Mesoscopic and sparse regimes},
+ $p_m \lesssim m^{-1+1/d}$.
+ For $m$ large enough, we have 
     \begin{equation}
       \label{upp-2}
-      |\kappa_n(\sigma_k (t))|\leq
+      |\kappa_n(\sigma_k (t))|
+      \lesssim
       n^{n-1}n!^d 
       m^dp_m^{d+1}. 
   \end{equation}
@@ -2608,7 +2640,7 @@ $i)$ For $q=d,\ldots , (d-1)n$, we have
 \smallskip
  
 \noindent
-$ii)$ \textcolor{blue}{For} all $q=d+1,\ldots, 1+(d-1)n$, we have
+$ii)$ For all $q=d+1,\ldots, 1+(d-1)n$, we have
 \begin{align}
   \label{fjkldfaa1-2}
   \frac{m^d p_m^{d+1}}{m^q p_m^{\zeta(n,d,q)}}&=m^{-(q-d)}p_m^{-(\zeta(n,d,q)-d-1)}
@@ -2627,17 +2659,17 @@ m^{-(q-d)}p_m^{-(q-d)-(n-1)},\ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n,
   \\  \label{cum-asy1}
   &=\begin{cases}\left(mp_m^2\right)^{-(q-d)}\ \ \ \ \ &\mbox{for}~d+1\le q\le d+n-1;
   \\
-  \textcolor{red}{\left(mp_m\right)^{-(q-d)}p_m^{-(n-1)}},\ \ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n. 
+  \left(mp_m\right)^{-(q-d)}p_m^{-(n-1)},\ \ \ \ \ &\mbox{for}~d+n\le q\le 1+(d-1)n. 
    \end{cases}
 \end{align}
-\textcolor{blue}{Hence, when $p_m\ll m^{-1}$,
+Hence, when $p_m\ll m^{-1}$,
   for all
- $q=d+1,\ldots , 1+(d-1)n$, we have} 
+ $q=d+1,\ldots , 1+(d-1)n$, we have
 $$
 m^dp_m^{d+1}\gg m^q p_m^{\zeta(n,d,q)}. 
 $$
-\textcolor{blue}{On the other hand,
-  when $m^{-1+1/d}\gg p_m\gtrsim m^{-1}$, we have $mp_m^2\ll 1$ since
+On the other hand,
+  when $m^{-1+1/d}\gtrsim p_m\gtrsim m^{-1}$, we have $mp_m^2\ll 1$ since
   $d\ge2$, and $mp_m\gtrsim1$,
  hence for all $d+n\le q \le 1+(d-1)n$, 
  we find that 
@@ -2646,20 +2678,24 @@ $$
   &
   = ( m^{ -1 + 1/d }p_m^{-1} )^{(n-1)d}
   \\
-   & \gg1. 
+   & \gtrsim 1, 
 \end{align*}
-We conclude from \eqref{cum-asy1} that when $p_m\ll m^{-1+1/d}$,
- for $q=d+1,\dots,1+(d-1)n$ we have} 
+uniformly in
+  $q = d+n, \ldots , \le 1+(d-1)n$. 
+  We conclude from \eqref{cum-asy1} that when $p_m\ll m^{-1+1/d}$,
+ for $q=d+1,\dots,1+(d-1)n$ we have 
 $$
-\textcolor{blue}{m^dp_m^{d+1}\gg m^qp_m^{\zeta(n,d,q)}.}
+m^dp_m^{d+1}\gtrsim m^qp_m^{\zeta(n,d,q)},
 $$
+uniformly in
+  $q = d+n, \ldots , \le 1+(d-1)n$. 
  Hence, given that $\zeta (n,d,d) = d+1$,
- \textcolor{blue}{when $p_m\ll m^{-1+1/d}$} 
+ when $p_m\ll m^{-1+1/d}$ 
  we obtain from \eqref{fjkldf} that for $m$ large enough,
 \begin{align*}
  \vert\kappa_n(\sigma_k (t))\vert &\leq n^{n-1}
   \sum_{q=d}^{1+(d-1)n} |\mathcal{C}(n,d,q)|m^q p_m^{\zeta (n,d,q)}\\
-  &\leq n^{n-1} m^dp_m^{d+1} 
+  &\lesssim n^{n-1} m^dp_m^{d+1} 
   \sum_{q=d}^{1+(d-1)n} |\mathcal{C}(n,d,q)|\\
   &= n^{n-1} m^dp_m^{d+1}|{\rm CNC}(n,d)|\\
   &\leq n!^d n^{n-1} m^dp_m^{d+1}.
@@ -2683,7 +2719,7 @@ $$
     n^{n-1}n!^d m^{1+(d-1)n}p_m^{nd+1},
      \quad m \geq 1. 
   \end{equation}
-\item If $p_m\leq \textcolor{blue}{m^{-1+1/d}}$, $m\geq 1$, then we have 
+\item If $p_m\leq m^{-1+1/d}$, $m\geq 1$, then we have 
     \begin{equation}
     \nonumber %   \label{upp-2}
       |\kappa_n(\sigma_k (t))|\leq
@@ -2712,7 +2748,8 @@ $$
 . 
   \end{equation}
 % where $C>0$ is a constant independent of $m \geq 2d-1$.
-\item {\bf Sparse regime}, \textcolor{blue}{$p_m\ll m^{-1+1/d}$}. 
+\item {\bf Mesoscopic and sparse regimes},
+  $p_m\lesssim m^{-1+1/d}$. 
    We have % the equivalence
   \begin{equation}
     \label{low-2}
@@ -2733,7 +2770,7 @@ We have
 & \E_m  [ ( \sigma_k(t) )^2 ] 
 \\
 \nonumber
-& = \sum_{\textcolor{red}{\rho\in {\rm NC} ([2]\times[d])}}
+& = \sum_{\rho\in {\rm NC} ([2]\times[d])}
 p_m^{|\rho|}
 \left(
  \prod_{i=1}^d \frac{m!}{(m - |\rho_i| )!}
@@ -2997,7 +3034,7 @@ $$
 .
 $$
 \smallskip
-$ii)$ If $p_m \ll m^{-1}$, the term 
+$ii)$ If $p_m \lesssim m^{-1+1/d}$, the term 
 $$ 
  ( \E_m [ \sigma_k (t) ] )^2 = 
 p_m^{2d+2} m^{2d} \frac{((kr-t) / r)^{2d}}{(d!)^2}, 
@@ -3132,11 +3169,11 @@ $$
   \begin{eqnarray*}
     \kappa_n\left(\widebar{\sigma}_k (t)\right)\leq \begin{cases}
       \displaystyle
-      \frac{C n!^{d+1}}{(m p_m)^{n/2-1}},~~~~~~~&\mathrm{when}~~~p_m \gg m^{\textcolor{red}{-1+1/d}},
+      \frac{C n!^{d+1}}{(m p_m)^{n/2-1}},~~~~~~~&\mathrm{when}~~~p_m \gg m^{-1+1/d},
       \medskip
       \\
       \displaystyle
-      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}},~~~~&\mathrm{when}~~~p_m\ll m^{\textcolor{blue}{-1+1/d}},
+                                                      \frac{C n!^{d+1}}{\big(m^d p_m^{d+1}\big)^{n/2-1}},~~~~&\mathrm{when}~~~p_m\lesssim m^{-1+1/d},
     \end{cases}
 \end{eqnarray*}
  $n\ge3$, where $C>0$ is a constant independent of $m \geq 1$.
@@ -3145,7 +3182,7 @@ $$
 % From the inequality $\sqrt{2\pi j}({j}/{e})^j<j!$, we have
 % \begin{equation} j^{j-1}<\frac{(j-1)!}{\sqrt{2\pi j}}e^j. \end{equation}
   $i)$ When $p_m \gg m^{-1+1/d}$, from the inequalities  
-  \eqref{low-1} and \eqref{upp-1} we have 
+  \eqref{upp-1} and \eqref{low-1} we have 
   \begin{align*}
     \nonumber
     \kappa_n\left(\widebar{\sigma}_k (t)\right)&= \frac{\kappa_n(\sigma_k (t))}{\Var_m [ \sigma_k (t) ]^{n/2}}    \\
@@ -3167,9 +3204,9 @@ $$
 \frac{(2 (kr-t) /r)^{2d-1}}{2(2d-1)!}
       \right)^{-n/2}. 
 \end{align*}
-$ii)$ When \textcolor{blue}{$p_m\ll m^{-1+1/d}$}, from   
+$ii)$ When $p_m\lesssim m^{-1+1/d}$, from   
   % , from the inequality $$  \frac{m!}{(m-d)!}\ge (m-d+1)^d=\left(1-\frac{d-1}m\right)^dm^d \ge \left( \frac{3m}{4} \right)^d $$ and
- \eqref{low-2} and \eqref{upp-2} we similarly have 
+ \eqref{upp-2} and \eqref{low-2} we similarly have 
   \begin{align*}
     \kappa_n\left(\widebar{\sigma}_k (t)\right)&= \frac{\kappa_n(\sigma_k (t))}{\Var_m [\sigma_k (t)]^{n/2}}\nonumber\\
     &\leq n!^d n^{n-1} m^d p_m^{2n+d-1}
@@ -3210,11 +3247,11 @@ $
   \begin{eqnarray*}
     \kappa_3\left(\widebar{\sigma}_k (t)\right)\leq \begin{cases}
       \displaystyle
-      \frac{C}{(m p_m)^{1/2}}~~~~~~~&\mathrm{when}~~~\textcolor{red}{p_m} \gg m^{-1+1/d},
+      \frac{C}{(m p_m)^{1/2}}~~~~~~~&\mathrm{when}~~~p_m \gg m^{-1+1/d},
       \medskip
       \\
       \displaystyle
-      \frac{C}{(m^d p_m^{d+1})^{1/2}}~~~~&\mathrm{when}~~~\textcolor{blue}{p_m\ll m^{-1+1/d}},
+      \frac{C}{(m^d p_m^{d+1})^{1/2}}~~~~&\mathrm{when}~~~p_m\lesssim m^{-1+1/d},
     \end{cases}
 \end{eqnarray*}
   for $m$ large enough, where $C>0$ is a constant independent of $m \geq 1$.
@@ -3225,18 +3262,18 @@ $
  converges in distribution
  to the standard normal distribution ${\cal N}(0,1)$ as $m$
  tends to infinity, 
- provided that $p_m \gg m^{\textcolor{blue}{-d/(d+1)}}$ as $m$ tends to
+ provided that $p_m \gg m^{-d/(d+1)}$ as $m$ tends to
  infinity.
 
  \medskip
  
  More precisely, from Corollary~\ref{cjkfl}, we check that if
- $p_m \gg \textcolor{blue}{m^{-d/(1+d)}}$, the cumulants of the normalized
+ $p_m \gg m^{-d/(1+d)}$, the cumulants of the normalized
  $U$-statistics 
  $\widebar{\sigma}_k (t)$ satisfy the Statulevi\v{c}ius growth condition 
  \eqref{Statuleviciuscond2} with $\gamma := d$ and 
  $$
- \Delta_m :=\textcolor{blue}{
+ \Delta_m :=
 \begin{cases}
 	C(mp_m)^{1/2},~~~~~~~&\mathrm{when}~~~p_m\gg m^{-1+1/d},
 	\medskip
@@ -3244,7 +3281,6 @@ $
 	\displaystyle
 	C(m^dp_m^{d+1})^{1/2},~~~~~~~&\mathrm{when}~~~m^{-1+1/d}\gtrsim p_m\gg m^{-d/(d+1)},
 \end{cases}
- } 
 $$ 
       where $C>0$ depends only on
       $d \geq 2$.
@@ -3252,43 +3288,47 @@ $$
  we have the following results.
 \begin{corollary}
 \label{thm4.2-1}
-\textcolor{blue}{(Kolmogorov bound)}. 
+(Kolmogorov bound). 
 % Let $f:[0,r]^d \to\real$ be a measurable function satisfying Assumption~\ref{assu1}, with $d\geq 2$.
     % Denote $W:=\frac{S_{n,k}(f)-\kappa_1(S_{n,k}(f))}{\sqrt{\kappa_2(S_{n,k}(f))}}$,
 
 \noindent
-\textcolor{blue}{Let $d\geq 2$, $t\in [(k-1)r,kr]$. Then, for $m$ large enough, we have 
+Let $d\geq 2$, $t\in [(k-1)r,kr]$. Then, for $m$ large enough, we have 
     \begin{equation*}
       \sup_{x\in\real}\left|
       \P_m \left(
       \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq
 \begin{cases}
 	\displaystyle
-	\frac{C_d}{(mp_m)^{1/(2+4d)}},~~~~&\mathrm{when}~~~p_m\gg m^{-1+1/d},
+	\frac{C_d}{(mp_m)^{1/(2+4d)}},~~~&\mathrm{when}~~p_m\gg m^{-1+1/d},
 	\medskip
 	\\
 		\displaystyle
-	\frac{C_d}{(m^dp_m^{d+1})^{1/(2+4d)}},~~~~&\mathrm{when}~~~m^{-1+1/d}\gtrsim p_m\gg m^{-d/(d+1)},
+	\frac{C_d}{(m^dp_m^{d+1})^{1/(2+4d)}},~~~&\mathrm{when}~~m^{-1+1/d}\gtrsim p_m\gg m^{-d/(d+1)},
 \end{cases}
     \end{equation*}
-}where $C_d>0$ depends only on
+where $C_d>0$ depends only on
     $d \geq 2$. 
 \end{corollary}
-In particular, \textcolor{blue}{
+In particular, 
 \begin{enumerate}
 	\item[i)]
 if
- $p_m \sim m^{-\alpha}$ with $\alpha \in [0,1 - 1/d)$, we have 
+$p_m \sim m^{-\alpha}$ with $\alpha \in
+\displaystyle \left[0,1 - \frac{1}{d}\right)$, we have 
     \begin{equation}
 \nonumber 
       \sup_{x\in\real}\left|
       \P_m \left(
-      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{m^{(\textcolor{red}{1-\alpha} )/(2+4d)}},
+      \widebar{\sigma}_k (t) \leq x\right)-\Phi(x)\right|\leq \frac{C_d}{m^{(1-\alpha )/(2+4d)}},
     \end{equation}
     where $C_d>0$ depends only on
     $d \geq 2$;
 \item[ii)]
-	if $p_m \sim m^{-\alpha}$ with $\alpha \in [1 - 1/d,\frac{d}{d+1})$, we have 
+  if $p_m \sim m^{-\alpha}$
+  with $\alpha \in
+  \displaystyle
+  \left[1 - \frac{1}{d},\frac{d}{d+1}\right)$, we have 
     \begin{equation}
 \nonumber 
       \sup_{x\in\real}\left|
@@ -3297,7 +3337,7 @@ if
     \end{equation}
     where $C_d>0$ depends only on
     $d \geq 2$;
-\end{enumerate}}
+\end{enumerate}
 % \noindent 
     
  In the case $d=1$, the central limit Berry-Esseen rate holds
@@ -3313,9 +3353,9 @@ if
     Let $d\geq 2$ and $t\in [(k-1)r,kr]$. 
     We have 
     \begin{enumerate}[i)]
-    \item {\bf Dense regime}, $p_m \gg m^{-1+1/d}$.
- We have $\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1$. 
-\item {\bf Sparse regime}, $p_m\ll m^{-1}$. 
+	    \item {\bf Dense and Mesoscopic regimes}, $p_m \gg m^{-d/(d+1)}$.
+ We have $$\lim_{m\to\infty}\P_m (\sigma_k (t) \geq 1)=1.$$ 
+\item {\bf Sparse regime}, $p_m\ll m^{-d/(d+1)}$. 
  We have $\lim_{m\to\infty}\P_m (\sigma_k (t) =0)=1$. 
     \end{enumerate}
   \end{corollary}
@@ -3333,7 +3373,7 @@ if
       \lim_{m\to \infty}
    \frac{\kappa_2(\sigma_k (t) )}{\kappa_1(\sigma_k (t) )^2} \lesssim 
 \lim_{m\to \infty}
-   \frac{m^{2d-1}p_m^{2d+1}}{p_m^{2d+2}m^{2d}}
+   \frac{m^{2d-1}p_m^{2d+1}}{m^{2d}p_m^{2d+2}}
    = 0, % \to0,
  \end{equation}
  and
@@ -3344,7 +3384,19 @@ if
    \lim_{m\to \infty} \frac{\kappa_1(\sigma_k (t) )^2}{\kappa_2(\sigma_k (t) )+\kappa_1(\sigma_k (t) )^2}
    = 1.
  \end{eqnarray}
- On the other hand, if $p_m\ll \textcolor{blue}{m^{-d/(d+1)}}$, from
+Moreover, when $m^{-1+1/d}\gtrsim p_m\gg m^{-d/(d+1)}$, by \eqref{upp-2}, 
+	 $$
+	 |\kappa_2(\sigma_k(t))|\lesssim 2^{d+1}m^dp_m^{d+1},
+	 $$
+	 and 
+\begin{equation}
+      \lim_{m\to \infty}
+   \frac{\kappa_2(\sigma_k (t) )}{\kappa_1(\sigma_k (t) )^2} \lesssim 
+\lim_{m\to \infty}
+   \frac{m^{d}p_m^{d+1}}{m^{2d}p_m^{2d+2}}
+   = 0.
+\end{equation}
+ On the other hand, if $p_m\ll m^{-d/(d+1)}$, from
   \eqref{fjkdls-0} we have 
  \begin{equation}
 \nonumber
@@ -3690,11 +3742,11 @@ Combining with \eqref{steinest01}, the proof is complete.
   \begin{corollary}
     \label{c2} 
     (Poisson convergence, thermodynamic regime).
-
+ 
     \noindent
     Let $d\geq 2$ and $t\in [(k-1)r,kr]$,
      assume that $m_1=m_2=\cdots=m_d=m$,
-     and that $p_m \asymp m^{-1+1/d}$. 
+     and that $p_m \asymp m^{-d/(d+1)}$. 
 % $$ \lim_{m\to \infty} m^dp_m^{d+1} = c\in(0,\infty). $$ 
   Then, as $m$ tends to infinity we have
 \begin{align}
@@ -3872,7 +3924,8 @@ and
 \end{eqnarray} 
  see
  \cite{leonov},
- \cite{malyshev1980},
+ \cite{malyshev1980}, 
+ % \cite{khorunzhiy}, 
  and Proposition~3.2.1 in \cite{peccatitaqqu}. 
 
 \section{Cumulant method} 
@@ -3976,16 +4029,12 @@ for some $C_\gamma >0$ depending only on $\gamma$.
 
 % \setcitestyle{numbers}
 
+\newcommand{\etalchar}[1]{$^{#1}$}
 \def\cprime{$'$} \def\polhk#1{\setbox0=\hbox{#1}{\ooalign{\hidewidth
   \lower1.5ex\hbox{`}\hidewidth\crcr\unhbox0}}}
   \def\polhk#1{\setbox0=\hbox{#1}{\ooalign{\hidewidth
   \lower1.5ex\hbox{`}\hidewidth\crcr\unhbox0}}} \def\cprime{$'$}
 \begin{thebibliography}{KGKP21}
-
-\bibitem[CCCB25]{bhattacharya25}
-S.~Chatterjee, A.~Chatterjee, A.~Chakraborty and B.~Bhattacharya
-\newblock Asymptotic Normality of Subgraph Counts in Sparse Inhomogeneous Random Graphs.
-\newblock {\em arXiv preprint arXiv:2512.12937.}
 
 \bibitem[BCJ23]{bhattacharya23}
 B.~Bhattacharya, A.~Chatterjee, and S.~Janson.
@@ -3997,6 +4046,12 @@ A.D. Barbour, L.~Holst, and S.~Janson.
 \newblock {\em Poisson approximation}, volume~2 of {\em Oxford Studies in
   Probability}.
 \newblock The Clarendon Press, Oxford University Press, New York, 1992.
+
+\bibitem[CCCB25]{bhattacharya25}
+S.~Chatterjee, A.~Chatterjee, A.~Chakraborty, and B.~Bhattacharya.
+\newblock Asymptotic normality of subgraph counts in sparse inhomogeneous
+  random graphs, 2025.
+\newblock Preprint arXiv:2512.12937.
 
 \bibitem[CGR16]{coulson16}
 M.~Coulson, R.~E. Gaunt, and G.~Reinert.
@@ -4029,6 +4084,12 @@ A.~Drory.
 \newblock Exact solution of a one-dimensional continuum percolation model.
 \newblock {\em Phys. Rev. E (3)}, 55(4):3878--3885, 1997.
 
+\bibitem[FLL{\etalchar{+}}05]{foh2005}
+C.H. Foh, G.~Liu, B.S. Lee, B.-C. Seet, K.-J. Wong, and C.P. Fu.
+\newblock Network connectivity of one-dimensional {MANETs} with random waypoint
+  movement.
+\newblock {\em {IEEE} Communications Letters}, 9(1):31--33, 2005.
+
 \bibitem[GK19]{AGK19}
 R.~Arratia~L. Goldstein and F.~Kochman.
 \newblock Size bias for one and all.
@@ -4043,6 +4104,12 @@ J.~Grote and C.~Th{\"a}le.
 N.~Heerten, C.~Hirsch, and M.~Otto.
 \newblock Moderate deviations for weight-dependent random connection models.
 \newblock {\em J. Appl. Probab.}, pages 1--23, 2025.
+
+\bibitem[HM07]{han2007}
+G.~Han and A.~Makowski.
+\newblock A very strong zero-one law for connectivity in one-dimensional
+  geometric random graphs.
+\newblock {\em {IEEE} Communications Letters}, 11(1):55--57, 2007.
 
 \bibitem[HP{\v{C}}21]{hladky21}
 J.~Hladk{\'y}, C.~Pelekis, and M.~{\v{C}}ileikis.
@@ -4065,6 +4132,12 @@ S.~Janson, T.~{\L}uczak, and A.~Ruci{\'n}ski.
 A.P. Kartun-Giles, K.~Koufos, and N.~Privault.
 \newblock Connectivity of 1d random geometric graphs.
 \newblock Preprint arXiv:2105.07731, 2021.
+
+\bibitem[LMD67]{liebreview}
+E.H. Lieb, D.C. Mattis, and F.J. Dyson.
+\newblock Mathematical physics in one dimension: Exactly soluble models of
+  interacting particles.
+\newblock {\em Physics Today}, 20(9):81--82, 1967.
 
 \bibitem[LP24]{LiuPrivault}
 Q.~Liu and N.~Privault.
@@ -4125,6 +4198,12 @@ V.A. Malyshev and R.A. Minlos.
   Applications (Soviet Series)}.
 \newblock Kluwer Academic Publishers Group, Dordrecht, 1991.
 
+\bibitem[NZZ{\etalchar{+}}11]{ng2011}
+S.C. Ng, W.~Zhang, Y.~Zhang, Y.~Yang, and G.~Mao.
+\newblock Analysis of access and connectivity probabilities in vehicular relay
+  networks.
+\newblock {\em IEEE J. Sel. Areas Commun.}, 29(1):140--150, 2011.
+
 \bibitem[Pen18]{penrose18}
 M.~Penrose.
 \newblock Inhomogeneous random graphs, isolated vertices, and {P}oisson
@@ -4166,6 +4245,11 @@ R.~Rudzkis, L.~Saulis, and V.A. Statulevi\v{c}ius.
 \newblock A general lemma on probabilities of large deviations.
 \newblock {\em Litovsk. Mat. Sb.}, 18(2):99--116, 217, 1978.
 
+\bibitem[Sha09]{shang2009}
+Y.~Shang.
+\newblock Connectivity in a random interval graph with access points.
+\newblock {\em Information Processing Letters}, 109(9):446--449, 2009.
+
 \bibitem[SS91]{saulis}
 L.~Saulis and V.A. Statulevi\v{c}ius.
 \newblock {\em Limit Theorems for Large Deviations}, volume~73 of {\em
@@ -4183,10 +4267,28 @@ R.P. Stanley.
   Cambridge Studies in Advanced Mathematics}.
 \newblock Cambridge University Press, Cambridge, 1999.
 
+\bibitem[WDG20]{wilsher}
+M.~Wilsher, C.P. Dettmann, and A.~Ganesh.
+\newblock Connectivity in one-dimensional soft random geometric graphs.
+\newblock {\em Phys. Rev. E}, 102:062312, 2020.
+
+\bibitem[ZCY{\etalchar{+}}12]{zhang2012}
+W.~Zhang, Y.~Chen, Y.~Yang, X.~Wang, Y.~Zhang, X.~Hong, and G.~Mao.
+\newblock Multi-hop connectivity probability in infrastructure-based vehicular
+  networks.
+\newblock {\em IEEE J. Sel. Areas Commun.}, 30(4):740--747, 2012.
+
 \bibitem[Zha22]{zhangzs}
 Z.S. Zhang.
 \newblock Berry-{E}sseen bounds for generalized {$U$}-statistics.
 \newblock {\em Electron. J. Probab.}, 27:1--36, 2022.
+
+\bibitem[ZMA14]{zzhang2014}
+Z.~Zhang, G.~Mao, and B.D.O. Anderson.
+\newblock Stochastic characterization of information propagation process in
+  vehicular ad hoc networks.
+\newblock {\em {IEEE} Transactions on Intelligent Transportation Systems},
+  15(1):122--135, 2014.
 
 \end{thebibliography}
 
